@@ -1,0 +1,53 @@
+@import 'normalize.css';
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --text-color: #030303;
+    --white: white;
+    --fontFamily: 'Roboto', sans-serif;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.5rem;
+}
+button,
+input,
+[tabindex] {
+    outline: none;
+    border: none;
+    background: transparent;
+}
+a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+body {
+    .tippy-box {
+        background-color: #616161;
+        color: var(--white);
+        padding: 8px;
+        border-radius: 2px;
+        font-size: 1.2rem;
+        line-height: 1.8rem;
+        font-weight: 400;
+    }
+    .tippy-content {
+        padding: 0;
+    }
+    .tippy-box[data-placement^='bottom'] > .tippy-arrow:before {
+        display: none;
+    }
+}

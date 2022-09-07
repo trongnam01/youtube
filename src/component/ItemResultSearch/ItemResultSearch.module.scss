@@ -1,0 +1,30 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px 0 10px;
+    line-height: 32px;
+
+    &:hover {
+        background-color: #eee;
+    }
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    padding-right: 8px;
+}
+.icon {
+    margin-right: 10px;
+}
+.title {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--text-color);
+}
+.clear {
+    font-size: 13px;
+    color: #36c;
+    cursor: pointer;
+}
