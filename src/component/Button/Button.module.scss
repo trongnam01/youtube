@@ -1,0 +1,27 @@
+.wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: start;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    font-weight: 400;
+    font-family: 'Roboto', 'Arial', sans-serif;
+    min-width: 100px;
+    min-height: 40px;
+    padding: 0 16px;
+    color: #030303;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #0000000d;
+    }
+}
+
+.icon + .title {
+    text-align: start;
+    margin-left: 16px;
+    flex: 1;
+}
+.title + .icon {
+    float: right;
+}

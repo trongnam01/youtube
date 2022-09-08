@@ -3,9 +3,9 @@ import styles from './Wrapper.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Wrapper({ children, onClick }) {
+function Wrapper({ children, onClick, className }) {
     return (
-        <div className={cx('wrapper')} onClick={onClick}>
+        <div className={cx('wrapper', className)} onClick={onClick}>
             {children}
         </div>
     );

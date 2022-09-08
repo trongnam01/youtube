@@ -21,6 +21,7 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size: 1.6rem;
     line-height: 1.5rem;
+    overflow-y: overlay;
 }
 button,
 input,
@@ -32,6 +33,23 @@ input,
 a {
     color: var(--text-color);
     text-decoration: none;
+}
+
+html *::-webkit-scrollbar {
+    width: 16px;
+}
+
+html *::-webkit-scrollbar-thumb {
+    height: 36px;
+    border-radius: 8px;
+    border: 4px solid transparent;
+    background-clip: content-box;
+    background-color: hsl(0, 0%, 67%);
+}
+
+html *::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 body {
