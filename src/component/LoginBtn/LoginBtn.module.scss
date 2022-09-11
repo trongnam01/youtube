@@ -1,0 +1,31 @@
+.wrapper .login-btn {
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #065fd4;
+    padding: 5px 11px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+
+    .title-btn {
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 1.4rem;
+        color: #065fd4;
+        font-weight: 500;
+        font-family: 'Roboto', sans-serif;
+        z-index: 1;
+        white-space: nowrap;
+    }
+}
+
+.wrapper .classBtn {
+    margin-left: 0;
+    padding: 5px 15px;
+}
+.user-login {
+    color: #065fd4;
+    z-index: 1;
+}

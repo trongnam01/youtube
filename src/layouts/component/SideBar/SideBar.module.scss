@@ -1,3 +1,19 @@
-.wrapper {
-    background-color: aqua;
+.hideSideBar {
+    position: fixed;
+    top: var(--height-header);
+    left: 0;
+    bottom: 0;
+    width: var(--width-sideBar-hide);
+    display: flex;
+    flex-direction: column;
+    margin-top: 4px;
+}
+.showSideBar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: var(--width-sideBar-show);
+    display: flex;
+    flex-direction: column;
 }

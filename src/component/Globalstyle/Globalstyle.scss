@@ -8,6 +8,9 @@
     box-sizing: border-box;
 }
 :root {
+    --height-header: 56px;
+    --width-sideBar-hide: 72px;
+    --width-sideBar-show: 240px;
     --text-color: #030303;
     --white: white;
     --fontFamily: 'Roboto', sans-serif;
@@ -39,7 +42,7 @@ html *::-webkit-scrollbar {
     width: 16px;
 }
 
-html *::-webkit-scrollbar-thumb {
+html ::-webkit-scrollbar-thumb {
     height: 36px;
     border-radius: 8px;
     border: 4px solid transparent;
@@ -67,5 +70,14 @@ body {
     }
     .tippy-box[data-placement^='bottom'] > .tippy-arrow:before {
         display: none;
+    }
+}
+// btn-login
+.LoginBtn_wrapper__0Z3yT .LoginBtn_login-btn__\+wqLm {
+    .css-y4cjyz-MuiTouchRipple-ripple .MuiTouchRipple-child {
+        background-color: #a19494;
+    }
+    .css-1d6wzja-MuiButton-startIcon {
+        margin-left: 0;
     }
 }

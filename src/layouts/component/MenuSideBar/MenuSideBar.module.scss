@@ -1,0 +1,89 @@
+.header-left {
+    display: flex;
+    align-items: center;
+    height: var(--height-header);
+}
+.logo-contai {
+    position: relative;
+    padding-left: 16px;
+    display: flex;
+    align-items: center;
+
+    span {
+        position: absolute;
+        top: -7px;
+        right: -17px;
+        font-size: 1rem;
+        color: #606060;
+    }
+}
+.menu-btn {
+    margin-left: 16px;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    background-color: white;
+
+    &:active {
+        border-radius: 50%;
+        background: #e5e5e5;
+    }
+}
+.login-sideBar {
+    p {
+        display: block;
+        font-size: 1.4rem;
+        line-height: 2rem;
+        font-weight: 400;
+        margin-bottom: 12px;
+        color: #030303;
+        font-family: 'Roboto', 'Arial', sans-serif;
+    }
+}
+.login-sideBar {
+    padding: 16px 32px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.wrapper-sideBar {
+    overflow: hidden;
+    overflow-y: auto;
+    flex: 1;
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+
+    &:hover {
+        &::-webkit-scrollbar-thumb {
+            background-color: hsl(0, 0%, 67%);
+        }
+    }
+    .wrapper-sideBar-children {
+        width: 240px;
+    }
+}
+
+.footer-sidebar {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    .content {
+        padding: 16px 24px 0;
+    }
+}
+.text-content:not(:last-child) {
+    margin-right: 8px;
+}
+.text-content {
+    color: #606060;
+    font-weight: 500;
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+    display: inline-block;
+}
+
+.copyright {
+    padding: 16px 24px;
+    color: #606060;
+    font-family: 'Roboto', 'Arial', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    font-weight: 400;
+}

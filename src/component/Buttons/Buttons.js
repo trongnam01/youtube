@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
-import styles from './Button.module.scss';
+import styles from './Buttons.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Button({ to, href, children, className, LeftIcon, RightIcon, onClick, ...passProps }) {
+function Button({ to, href, title, children, className, LeftIcon, RightIcon, onClick, ...passProps }) {
     let Comp = 'button';
 
     const props = {

@@ -1,0 +1,37 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    font-family: 'Roboto', 'Arial', sans-serif;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    font-weight: 400;
+    height: 40px;
+    padding: 0 24px;
+    color: var(--text-color);
+
+    &.active {
+        background-color: #e5e5e5;
+        font-weight: 500;
+        .icon-active {
+            display: block;
+            margin-bottom: -4px;
+        }
+        .icon {
+            display: none;
+        }
+    }
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+.icon {
+    margin-bottom: -4px;
+}
+.icon-active {
+    display: none;
+    margin-bottom: -4px;
+}
+.title {
+    margin-left: 24px;
+}

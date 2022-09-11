@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Home from './pages/Home';
 import DefaultLauout from './layouts/DefaultLayout';
+import Home from './pages';
 
 function App() {
     return (
@@ -13,6 +13,7 @@ function App() {
                         element={
                             <DefaultLauout>
                                 <Home />
+                                aaaa
                             </DefaultLauout>
                         }
                     />

@@ -1,0 +1,50 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    min-height: 40px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    img {
+        width: 24px;
+        height: 24px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+}
+.color-icon {
+    color: #f00;
+}
+.title {
+    margin-left: 24px;
+    flex: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: 'Roboto', 'Arial', sans-serif;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    font-weight: 400;
+    overflow: hidden;
+}
+
+.onLive {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &::after {
+        position: absolute;
+        content: '';
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: #065fd4;
+    }
+}

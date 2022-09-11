@@ -84,3 +84,13 @@
         padding-left: 47px;
     }
 }
+.isWrapper {
+    padding-bottom: 0;
+
+    > div:first-child {
+        // display: none;
+    }
+}
+.Wrapper-menu:last-child {
+    border-bottom: none;
+}

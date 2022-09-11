@@ -1,0 +1,47 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 12px;
+}
+.contai-items {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+.icon {
+    font-size: 15px;
+    font-weight: 300;
+    margin-right: 24px;
+    width: 24px;
+    color: var(--text-color);
+}
+.tongle-btn {
+    display: flex;
+    height: 40px;
+    padding: 0 24px;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+.contai-items + .contai-items {
+    border-bottom: 1px solid transparent;
+    padding-bottom: 0;
+}
+
+.title-btn {
+    font-family: 'Roboto', 'Arial', sans-serif;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    font-weight: 400;
+    color: var(--text-color);
+}
+.isCurren {
+    padding-bottom: 7px;
+
+    .contai-items + .contai-items {
+        padding-top: 8px;
+    }
+}

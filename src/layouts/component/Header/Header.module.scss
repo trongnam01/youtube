@@ -1,11 +1,14 @@
 .wrapper {
     background-color: white;
     width: 100%;
-    height: 56px;
+    height: var(--height-header);
     padding: 0 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    z-index: 9;
+    position: fixed;
+    top: 0;
 }
 .header-left {
     display: flex;
@@ -110,25 +113,25 @@
         background: #e5e5e5;
     }
 }
-.login-btn {
-    margin-left: 8px;
-    display: flex;
-    align-items: center;
-    border: 1px solid #065fd4;
-    padding: 5px 11px;
-    cursor: pointer;
 
-    span {
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        font-size: 1.4rem;
-        color: #065fd4;
-        font-weight: 500;
-        margin-left: 8px;
-        font-family: 'Roboto', sans-serif;
+.span-btn {
+    position: absolute;
+    right: -40px;
+    bottom: -40px;
+    background-color: #e5e5e5;
+    // border-radius: 50%;
+    pointer-events: none;
+    animation: scaleSpan 1s linear;
+    width: 700px;
+    height: 700px;
+}
+@keyframes scaleSpan {
+    0% {
+        width: 0;
+        height: 0;
+    }
+    100% {
+        width: 700px;
+        height: 700px;
     }
 }
-.user-login {
-    color: #065fd4;
-}
-// user
