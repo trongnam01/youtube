@@ -22,7 +22,7 @@ import styles from './DefaultLayout.module.scss';
 
 import Header from '../component/Header';
 import SideBar from '../component/SideBar';
-import Home from '~/pages';
+import Home from '~/pages/Home';
 export const ThemDefau = React.createContext();
 
 const cx = classNames.bind(styles);
@@ -182,6 +182,7 @@ function DefaultLauout({ children }) {
     const data = {
         items: MENU_ITEM,
         currentUser: iscurrentUser,
+        tongleSideBar: tongleSideBar,
         handleTongleSideBar: handleTongleSideBar,
         handleCurrentUser: handleCurrentUser,
     };

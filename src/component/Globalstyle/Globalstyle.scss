@@ -24,7 +24,7 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size: 1.6rem;
     line-height: 1.5rem;
-    overflow-y: overlay;
+    overflow-y: auto;
 }
 button,
 input,
@@ -80,4 +80,22 @@ body {
     .css-1d6wzja-MuiButton-startIcon {
         margin-left: 0;
     }
+}
+//btn header Home
+.Home_wrapper__WRCXR {
+    .css-1aquho2-MuiTabs-indicator {
+        display: none;
+    }
+    .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+        background-color: #030303;
+        color: #fff;
+    }
+    .css-8je8zh-MuiTouchRipple-root {
+        display: none;
+    }
+    .css-heg063-MuiTabs-flexContainer {
+        justify-content: center;
+    }
+}
+.Home_contai-content__fE8NV {
 }
