@@ -85,7 +85,7 @@ function Home() {
             <Box sx={{ maxWidth: { xs: 320, sm: '100%' }, bgcolor: 'background.paper' }}>
                 <Box
                     sx={{ borderBottom: 1, borderColor: 'divider' }}
-                    className={cx('Header-sidebar')}
+                    className={cx('Header-content')}
                     style={{
                         marginLeft: !ThemTongleSideBar.tongleSideBar
                             ? 'var(--width-sideBar-show)'
