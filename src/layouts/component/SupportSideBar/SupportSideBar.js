@@ -16,7 +16,7 @@ const itemSupport = [
     {
         icon: <ReportIcon />,
         iconActive: <ReportIcon />,
-        title: 'Cài đặt',
+        title: 'Nhật ký báo cáo',
         to: '/setting',
     },
     {
@@ -28,7 +28,7 @@ const itemSupport = [
     {
         icon: <FeedbackIcon />,
         iconActive: <FeedbackIcon />,
-        title: 'Cài đặt',
+        title: 'Gửi phản hồi',
         to: '/setting',
     },
 ];

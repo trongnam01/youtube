@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { Box, Typography, Grid } from '@mui/material';
@@ -9,6 +9,8 @@ import CardVideo from '~/component/CardVideo';
 import { Col, Row } from 'antd';
 import 'antd/dist/antd.css';
 import ReactPlayer from 'react-player/youtube';
+import YouTube from 'react-youtube';
+// import Duration from './Duration';
 const cx = classNames.bind(styles);
 
 const ItemHeaderSideBar = [
@@ -75,11 +77,22 @@ function a11yProps(index: number) {
 
 function Home() {
     const ThemTongleSideBar = useContext(ThemDefau);
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState(0);
+
+    const Ref = useRef();
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
+    // const opts = {
+    //     height: '390',
+    //     width: '640',
+    //     playerVars: {
+    //         // https://developers.google.com/youtube/player_parameters
+    //         autoplay: 1,
+    //     },
+    // };
+
     return (
         <div className={cx('wrapper')}>
             <Box sx={{ maxWidth: { xs: 320, sm: '100%' }, bgcolor: 'background.paper' }}>
@@ -111,9 +124,9 @@ function Home() {
                     return (
                         <TabPanel key={index} value={value} index={index} className={cx('contai-content')}>
                             <Row gutter={[16, 40]}>
-                                {Array.from(Array(20)).map((_, index) => (
+                                {Array.from(Array(8)).map((_, index) => (
                                     <Col key={index} span={6}>
-                                        <CardVideo />
+                                        <CardVideo index={index} />
                                     </Col>
                                 ))}
                             </Row>
@@ -121,8 +134,21 @@ function Home() {
                     );
                 })}
 
-                <TabPanel value={value} index={2}>
-                    <ReactPlayer url="https://www.youtube.com/watch?v=ysz5S6PUM-U" />
+                <TabPanel value={value} index={0}>
+                    {/* <ReactPlayer
+                        onDuration={handleDuration}
+                        volume={0}
+                        url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
+                    /> */}
+                    {/* <YouTube
+                        ref={Ref}
+                        videoId="ysz5S6PUM-U"
+                        title={'aaaa'}
+                        onStateChange={() => {
+                            console.log(Ref.current);
+                        }}
+                    /> */}
+                    ;
                 </TabPanel>
             </Box>
         </div>
