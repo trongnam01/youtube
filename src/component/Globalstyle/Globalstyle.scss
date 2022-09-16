@@ -25,6 +25,7 @@ body {
     font-size: 1.6rem;
     line-height: 1.5rem;
     overflow-y: auto;
+    background-color: #f9f9f9 !important;
 }
 button,
 input,
@@ -98,4 +99,7 @@ body {
     }
 }
 .Home_contai-content__fE8NV {
+}
+#player {
+    display: none;
 }

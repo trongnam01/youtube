@@ -3,11 +3,12 @@ import styles from './Home.module.scss';
 import React, { useContext, useRef, useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { Box, Typography, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import { ThemDefau } from '~/layouts/DefaultLayout';
 import CardVideo from '~/component/CardVideo';
 import { Col, Row } from 'antd';
 import 'antd/dist/antd.css';
+
 import ReactPlayer from 'react-player/youtube';
 import YouTube from 'react-youtube';
 // import Duration from './Duration';

@@ -73,11 +73,13 @@ function Header() {
                 ) : (
                     <>
                         <Tippy content="cài đặt">
-                            <ManagerUser>
-                                <button className={cx('setting')}>
-                                    <EllipsisIcon />
-                                </button>
-                            </ManagerUser>
+                            <div>
+                                <ManagerUser>
+                                    <button className={cx('setting')}>
+                                        <EllipsisIcon />
+                                    </button>
+                                </ManagerUser>
+                            </div>
                         </Tippy>
 
                         <LoginBtn onClick={handleLogin} />

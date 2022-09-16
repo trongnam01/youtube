@@ -74,9 +74,9 @@ function MenuSideBar({ data }) {
     const ThemCurren = useContext(ThemDefau);
     const isCurren = ThemCurren.currentUser;
     return (
-        <>
+        <div className={cx('wrapper-sideBar')}>
             <div className={cx('header-left')}>
-                <button className={cx('menu-btn')}>
+                <button className={cx('menu-btn')} onClick={ThemCurren.handleTongleSideBar}>
                     <MenuIcon />
                 </button>
                 <Link to="/">
@@ -86,7 +86,7 @@ function MenuSideBar({ data }) {
                     </div>
                 </Link>
             </div>
-            <div className={cx('wrapper-sideBar')}>
+            <div className={cx('wrapper-sideBar-2')}>
                 <div className={cx('wrapper-sideBar-children')}>
                     <PagesSideBar data={data} isCurren={isCurren} />
                     {isCurren && <ChannelSubscribe />}
@@ -120,7 +120,7 @@ function MenuSideBar({ data }) {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

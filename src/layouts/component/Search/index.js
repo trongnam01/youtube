@@ -47,7 +47,7 @@ function Search() {
                 placement="bottom-start"
                 render={(attrs) => (
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                        <PopperWrapper onClick={handleClickWrapper}>
+                        <PopperWrapper className={'wrapper-search'} onClick={handleClickWrapper}>
                             {resultSearch.map((item) => (
                                 <ItemResultSearch key={item.id} data={item} />
                             ))}

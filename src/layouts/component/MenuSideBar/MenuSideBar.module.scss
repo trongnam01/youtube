@@ -45,6 +45,12 @@
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 .wrapper-sideBar {
+    display: flex;
+    flex-direction: column;
+    width: var(--width-sideBar-show);
+    height: 100%;
+}
+.wrapper-sideBar-2 {
     overflow: hidden;
     overflow-y: auto;
     flex: 1;

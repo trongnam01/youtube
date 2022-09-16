@@ -114,24 +114,24 @@
     }
 }
 
-.span-btn {
-    position: absolute;
-    right: -40px;
-    bottom: -40px;
-    background-color: #e5e5e5;
-    // border-radius: 50%;
-    pointer-events: none;
-    animation: scaleSpan 1s linear;
-    width: 700px;
-    height: 700px;
-}
-@keyframes scaleSpan {
-    0% {
-        width: 0;
-        height: 0;
-    }
-    100% {
-        width: 700px;
-        height: 700px;
-    }
-}
+// .span-btn {
+//     position: absolute;
+//     right: -40px;
+//     bottom: -40px;
+//     background-color: #e5e5e5;
+//     // border-radius: 50%;
+//     pointer-events: none;
+//     animation: scaleSpan 1s linear;
+//     width: 700px;
+//     height: 700px;
+// }
+// @keyframes scaleSpan {
+//     0% {
+//         width: 0;
+//         height: 0;
+//     }
+//     100% {
+//         width: 700px;
+//         height: 700px;
+//     }
+// }

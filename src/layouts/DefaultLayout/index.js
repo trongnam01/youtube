@@ -22,7 +22,7 @@ import styles from './DefaultLayout.module.scss';
 
 import Header from '../component/Header';
 import SideBar from '../component/SideBar';
-import Home from '~/pages/Home';
+import { useLocation } from 'react-router-dom';
 export const ThemDefau = React.createContext();
 
 const cx = classNames.bind(styles);
@@ -168,6 +168,8 @@ const MENU_ITEM = [
 ];
 
 function DefaultLauout({ children }) {
+    const locotion = useLocation();
+
     const [tongleSideBar, setTongleSideBar] = useState(false);
     const [iscurrentUser, setIsCurrentUser] = useState(false);
 
@@ -181,10 +183,11 @@ function DefaultLauout({ children }) {
 
     const data = {
         items: MENU_ITEM,
+        locotion,
         currentUser: iscurrentUser,
-        tongleSideBar: tongleSideBar,
-        handleTongleSideBar: handleTongleSideBar,
-        handleCurrentUser: handleCurrentUser,
+        tongleSideBar,
+        handleTongleSideBar,
+        handleCurrentUser,
     };
 
     return (
@@ -197,10 +200,15 @@ function DefaultLauout({ children }) {
                         className={cx('content')}
                         style={{
                             marginTop: 'var(--height-header)',
-                            marginLeft: !tongleSideBar ? 'var(--width-sideBar-show)' : 'var(--width-sideBar-hide)',
+                            marginLeft:
+                                locotion.pathname === '/new'
+                                    ? '0'
+                                    : !tongleSideBar
+                                    ? 'var(--width-sideBar-show)'
+                                    : 'var(--width-sideBar-hide)',
                         }}
                     >
-                        <Home />
+                        {children}
                     </div>
                 </div>
             </div>

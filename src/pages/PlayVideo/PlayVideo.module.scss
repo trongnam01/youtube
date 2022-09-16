@@ -1,0 +1,24 @@
+.wrapper {
+    height: 300px;
+    margin: 0 auto;
+    max-width: 1320px;
+    min-width: 1380px;
+    margin-top: 24px;
+
+    // min-width: 100%;
+}
+.wrapper-right,
+.wrapper-left {
+    background-color: rgba(0, 255, 76, 0.76);
+}
+
+.wrapper-left {
+    margin-left: 24px;
+}
+.wrapper-right {
+    margin-right: 24px;
+    height: 300px;
+}
+.wrapper-video {
+    width: 100%;
+}
