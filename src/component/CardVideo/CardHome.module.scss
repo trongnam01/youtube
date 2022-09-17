@@ -35,6 +35,16 @@
         align-items: center;
         justify-content: center;
         color: #fff;
+        border-radius: 2px;
+    }
+    .content-notification {
+        z-index: 1;
+    }
+    .content-time {
+        font-size: 1.1rem;
+        font-weight: 500;
+        display: flex;
+        padding: 3px 4px;
     }
 }
 
@@ -225,6 +235,7 @@
     transform: scale(1);
 }
 .wrapper-MenuCard {
+    padding: 10px 0;
     background: white;
     box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%), 0 3px 1px -2px rgb(0 0 0 / 20%);
 }
@@ -233,6 +244,7 @@
 }
 .menu-card-btn {
     width: 100%;
+    min-height: 36px;
     &:hover {
         background-color: rgba(0, 0, 0, 0.1);
     }

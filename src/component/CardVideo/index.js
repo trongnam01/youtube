@@ -1,1 +1,1 @@
-export { default } from './CardVideo';
+export { default } from './CardHome';

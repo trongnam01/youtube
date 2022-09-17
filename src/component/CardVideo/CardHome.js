@@ -14,7 +14,7 @@ import {
 import Image from '../Image';
 import MenuCard from './MenuCard';
 import { ThemDefau } from '~/layouts/DefaultLayout';
-import styles from './CardVideo.module.scss';
+import styles from './CardHome.module.scss';
 
 // import YouTube from 'react-youtube';
 const cx = classNames.bind(styles);
@@ -50,7 +50,7 @@ const MENUiTEM = [
     },
 ];
 
-function CardVideo({ dataTongleMEnu }) {
+function CardHome({ dataTongleMEnu }) {
     const Them = useContext(ThemDefau);
 
     // console.log(isMou);
@@ -69,6 +69,7 @@ function CardVideo({ dataTongleMEnu }) {
                     alt="a"
                 />
                 <span className={cx('content-notification')}>Tiếp tục di chuột để phát</span>
+                <span className={cx('content-time')}>40:50:00</span>
                 <div className={cx('wrapper-scale')}>
                     <div className={cx('wrapper-content-video')}>
                         <img
@@ -145,4 +146,4 @@ function CardVideo({ dataTongleMEnu }) {
     );
 }
 
-export default CardVideo;
+export default CardHome;

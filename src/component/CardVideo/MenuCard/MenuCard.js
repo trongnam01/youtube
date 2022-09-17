@@ -3,7 +3,7 @@ import MenuCardTippy from '@tippyjs/react/headless';
 import Buttons from '~/component/Buttons';
 import { Wrapper as PopperWrapper } from '~/component/Popper';
 import { EllipsisIcon } from '~/Icons';
-import styles from '../CardVideo.module.scss';
+import styles from '../CardHome.module.scss';
 
 const cx = classNames.bind(styles);
 
