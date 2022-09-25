@@ -1,0 +1,119 @@
+.wrapper {
+    .submit-btn,
+    .cancel-btn,
+    .bars-btn {
+        margin-left: 32px;
+        background-color: transparent;
+        border: none;
+        height: 36px;
+
+        &:hover {
+            border: none;
+            background-color: transparent;
+        }
+    }
+}
+.comment-qty {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--text-color);
+}
+.title-btn {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--text-color);
+    text-transform: uppercase;
+}
+.selector-menu {
+    width: 154px;
+}
+.popperWrapper {
+    width: 100%;
+    padding: 8px 0;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+.contai-comment {
+    display: flex;
+    margin-top: 24px;
+    margin-bottom: 32px;
+    overflow: hidden;
+}
+.user-comment {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 16px;
+}
+.contai-submit {
+    flex: 1;
+}
+
+.comment-active {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+.menu-icons {
+    margin-left: -8px;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    &:active {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+.cancel-title,
+.submit-title {
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #606060;
+}
+.frame-input {
+    border-bottom: 1px solid #8b838363;
+    padding-bottom: 3px;
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        left: 0;
+        bottom: -2px;
+        border-bottom: 1.5px solid #000;
+        transform: scale3d(0, 1, 1);
+    }
+
+    input {
+        width: 100%;
+        font-size: 1.4rem;
+        line-height: 2rem;
+        font-weight: 400;
+    }
+    &:focus-within::after {
+        transform: scale3d(1, 1, 1);
+        transition: transform 0.25s;
+    }
+}
+.wrapper {
+    .submit-btn {
+        margin-left: 8px;
+        pointer-events: none;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    .classSubmit {
+        pointer-events: unset;
+        background-color: #065fd4;
+        color: white;
+        .submit-title {
+            color: white;
+        }
+        &:hover {
+            border: none;
+            background-color: #065fd4;
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import {
@@ -167,11 +167,28 @@ const MENU_ITEM = [
     ],
 ];
 
+// let list = [{a:1},{a:3},{a:8},{a:7}]
+// list = list.sort(() => Math.random() - 0.5)
+
 function DefaultLauout({ children }) {
     const locotion = useLocation();
 
+    const [DataApi, setDataApi] = useState([]);
+
     const [tongleSideBar, setTongleSideBar] = useState(false);
     const [iscurrentUser, setIsCurrentUser] = useState(false);
+    const [itemVideoPlay, setItemVideoPlay] = useState([]);
+
+    useEffect(() => {
+        fetch(`https://6290441a27f4ba1c65b64525.mockapi.io/api/video`)
+            .then((res) => res.json())
+            .then((datas) => {
+                setDataApi(datas);
+            })
+            .catch(() => {
+                console.log('lỗi');
+            });
+    }, []);
 
     function handleTongleSideBar() {
         setTongleSideBar(!tongleSideBar);
@@ -180,14 +197,20 @@ function DefaultLauout({ children }) {
     function handleCurrentUser() {
         setIsCurrentUser(!iscurrentUser);
     }
-
+    function handleSetItemPlayVideo(data) {
+        setItemVideoPlay(data);
+    }
+    // console.log(itemVideoPlay);
     const data = {
         items: MENU_ITEM,
         locotion,
-        currentUser: iscurrentUser,
+        DataApi,
         tongleSideBar,
+        itemVideoPlay,
+        currentUser: iscurrentUser,
         handleTongleSideBar,
         handleCurrentUser,
+        handleSetItemPlayVideo,
     };
 
     return (
@@ -200,12 +223,11 @@ function DefaultLauout({ children }) {
                         className={cx('content')}
                         style={{
                             marginTop: 'var(--height-header)',
-                            marginLeft:
-                                locotion.pathname === '/new'
-                                    ? '0'
-                                    : !tongleSideBar
-                                    ? 'var(--width-sideBar-show)'
-                                    : 'var(--width-sideBar-hide)',
+                            marginLeft: locotion.pathname.startsWith('/watch/@')
+                                ? '0'
+                                : !tongleSideBar
+                                ? 'var(--width-sideBar-show)'
+                                : 'var(--width-sideBar-hide)',
                         }}
                     >
                         {children}

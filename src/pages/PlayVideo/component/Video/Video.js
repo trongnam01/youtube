@@ -1,36 +1,65 @@
+import { forwardRef, useContext, useLayoutEffect, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
-import { useLayoutEffect, useEffect } from 'react';
 import YouTube from 'react-youtube';
 import styles from './Video.module.scss';
+import { ThemDefau } from '~/layouts/DefaultLayout';
 
 const cx = classNames.bind(styles);
-// window.onload = function () {
-//     let a = document.querySelectorAll('iframe');
-//     console.log(a);
-// };
 
-function Video() {
-    // useEffect(() => {
-    //     let a = document.querySelector('iframe');
-    //     console.log(a);
-    // });
+function Video({ className, item }, ref) {
+    const Them = useContext(ThemDefau);
 
-    // const opts = {
-    //     height: '447',
-    //     width: '100%',
-    //     left: '0',
-    //     right: '0',
-    //     playerVars: {
-    //         // https://developers.google.com/youtube/player_parameters
-    //         autoplay: 1,
-    //     },
-    // };
-    const classes = cx('Video');
+    const refvideo = useRef();
+    const [dataVideo, setDataVideo] = useState(item);
+
+    useEffect(() => {
+        setDataVideo(item);
+    }, [item, dataVideo]);
+
+    useImperativeHandle(ref, () => ({
+        play() {
+            refvideo.current.internalPlayer.playVideo();
+        },
+        pause() {
+            refvideo.current.internalPlayer.pauseVideo();
+        },
+        setVolume(number) {
+            refvideo.current.internalPlayer.setVolume(number);
+        },
+        refvideo,
+    }));
+
+    function handleStateChange(e) {
+        console.log(e);
+    }
+    function handleOnRead(event) {
+        console.log(event.target.playVideo());
+    }
+
+    const opts = {
+        playerVars: {
+            // https://developers.google.com/youtube/player_parameters
+            playsinline: 1,
+        },
+        events: {
+            onReady: handleOnRead,
+            onStateChange: handleStateChange,
+        },
+    };
+
+    const classes = cx('Video', className);
     return (
         <div className={cx('wraper')}>
-            <YouTube videoId="y576-ONm5II" iframeClassName={classes} />
+            <YouTube
+                ref={refvideo}
+                videoId={dataVideo.video}
+                {...opts}
+                iframeClassName={classes}
+                onStateChange={handleStateChange}
+                onRead={handleOnRead}
+            />
         </div>
     );
 }
 
-export default Video;
+export default forwardRef(Video);

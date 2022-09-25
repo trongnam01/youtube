@@ -10,7 +10,7 @@ import SupportSideBar from '../SupportSideBar/SupportSideBar';
 
 import styles from './MenuSideBar.module.scss';
 import { ThemDefau } from '~/layouts/DefaultLayout';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import LoginBtn from '~/component/LoginBtn';
 
 const cx = classNames.bind(styles);
@@ -73,8 +73,12 @@ const itemsfooterSideBar = [
 function MenuSideBar({ data }) {
     const ThemCurren = useContext(ThemDefau);
     const isCurren = ThemCurren.currentUser;
+    const handleHideSideBar = (e) => {
+        e.stopPropagation();
+    };
+
     return (
-        <div className={cx('wrapper-sideBar')}>
+        <div className={cx('wrapper-sideBar')} onClick={handleHideSideBar}>
             <div className={cx('header-left')}>
                 <button className={cx('menu-btn')} onClick={ThemCurren.handleTongleSideBar}>
                     <MenuIcon />

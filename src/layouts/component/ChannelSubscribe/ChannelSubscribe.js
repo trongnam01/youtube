@@ -20,7 +20,7 @@ const channel = [
         live: 'true',
     },
     {
-        images: 'https://scontent.fhan2-2.fna.fbcdn.net/v/t39.30808-6/292750071_579913830419750_8906718175990460161_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=mhCJuiBPPRQAX9csnQd&_nc_ht=scontent.fhan2-2.fna&oh=00_AT_GEJzLOqZ7Bi-mlsWPzIcsaDHROCILoNTZz2zzP9U12g&oe=63224613',
+        images: 'https://scontent.fhan2-5.fna.fbcdn.net/v/t39.30808-6/306260628_1160608941160091_9182506454094661875_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=RWu2SjmpGSAAX8Nsmbl&_nc_ht=scontent.fhan2-5.fna&oh=00_AT8OvaMWEoREl_KVUuu21JD9l175msT92J5VKV2y57nmaA&oe=633598D3',
         title: 'Dân Thể Hình',
         onLive: 'true',
     },

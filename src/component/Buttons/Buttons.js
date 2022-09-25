@@ -5,7 +5,7 @@ import styles from './Buttons.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Button({ to, href, title, children, className, LeftIcon, RightIcon, onClick, ...passProps }) {
+function Button({ to, href, title, children, className, classIconsLeft, LeftIcon, RightIcon, onClick, ...passProps }) {
     let Comp = 'button';
 
     const props = {
@@ -21,9 +21,10 @@ function Button({ to, href, title, children, className, LeftIcon, RightIcon, onC
         props.href = href;
         Comp = 'a';
     }
+
     return (
         <Comp className={cx('wrapper', className)} {...props}>
-            {LeftIcon && <span className={cx('icon')}>{LeftIcon}</span>}
+            {LeftIcon && <span className={cx('icon', classIconsLeft)}>{LeftIcon}</span>}
             <span className={cx('title')}>{children}</span>
             {RightIcon && <span className={cx('icon')}>{RightIcon}</span>}
         </Comp>

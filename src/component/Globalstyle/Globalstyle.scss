@@ -95,11 +95,24 @@ body {
         display: none;
     }
     .css-heg063-MuiTabs-flexContainer {
-        justify-content: center;
+        // justify-content: center;
+    }
+    .css-afwrde {
+        background-color: transparent;
     }
 }
 .Home_contai-content__fE8NV {
 }
 #player {
     display: none;
+}
+.Home_wrapper__WRCXR {
+    .css-145v6pe-MuiButtonBase-root-MuiTabScrollButton-root.Mui-disabled {
+        display: none;
+    }
+
+    .css-ptiqhd-MuiSvgIcon-root {
+        width: 2.4rem;
+        height: 2.4rem;
+    }
 }

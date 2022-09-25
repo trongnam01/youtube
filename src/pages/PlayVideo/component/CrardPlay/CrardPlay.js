@@ -11,6 +11,9 @@ import {
     ReportIcon,
     ShareIcon,
 } from '~/Icons';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { ThemDefau } from '~/layouts/DefaultLayout';
 const cx = classNames.bind(styles);
 const MENUiTEM = [
     {
@@ -44,34 +47,34 @@ const MENUiTEM = [
     },
 ];
 
-function CrardPlay() {
+function CrardPlay({ item }) {
+    const Them = useContext(ThemDefau);
     return (
-        <div
+        <Link
             className={cx('wrapper')}
+            to={`/watch/@${item.video}`}
+            onClick={() => {
+                window.scrollTo(0, 0);
+                Them.handleSetItemPlayVideo(item);
+            }}
             //  onMouseMove={handleMouContent}
             //  onMouseOut={handleOutContent}
         >
             <div className={cx('wrapper-content-video')}>
-                <img
-                    className={cx('content-video')}
-                    src="https://i.ytimg.com/vi/GXAgdG0JSzA/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLB08-PvXnLmGkpSCELsikBsglfkKQ"
-                    alt="a"
-                />
-                <span className={cx('content-time')}>40:50:00</span>
+                <img className={cx('content-video')} src={item.image} alt={item.title} />
+
+                <span className={cx('content-time')}>{item.videoTime}</span>
             </div>
             <div className={cx('wrapper-content-text')}>
                 <div className={cx('content-title')}>
                     <div className={cx('first')}>
-                        <p className={cx('first-title')}>
-                            Rồi Một Ngày Ngày Anh Quên Đi Chính Em Remix TikTok - Em Là Cố Chấp Duy Nhất Của Đời Tôi
-                            Remix
-                        </p>
+                        <p className={cx('first-title')}>{item.title}</p>
 
-                        <span className={cx('first-name')}>Nhạc Sàn Pro</span>
+                        <span className={cx('first-name')}>{item.userChannel}</span>
                         <p className={cx(cx('first-Information'))}>
-                            <span>152 N lượt xem</span>
+                            <span>{item.view}</span>
 
-                            <span>13 ngày trước</span>
+                            <span>{item.videoPostingData}</span>
                         </p>
 
                         <div className={cx('menu-hide')}>
@@ -80,7 +83,7 @@ function CrardPlay() {
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }
 

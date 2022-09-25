@@ -8,14 +8,13 @@ let Image = forwardRef(({ src, alt, className, fallback: customfallback = images
     const [fallback, setFallback] = useState();
     // customfallback nhận từ prop chuyền vào có fallback thì nhận src ko thì lấy noimg
     const handleOnErr = () => {
-        console.log(customfallback);
         setFallback(customfallback);
     };
     return (
         <img
             className={classNames(style.wrapper, className)}
             ref={ref}
-            src={fallback || src}
+            src={src || fallback}
             alt={alt}
             {...prop}
             onError={handleOnErr}

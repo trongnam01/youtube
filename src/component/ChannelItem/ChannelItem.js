@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import { LiveIcon } from '~/Icons';
+import Image from '../Image';
 
 import styles from './ChannelItem.module.scss';
 
@@ -9,7 +10,7 @@ function ChannelItem({ item, className }) {
     const isOnLive = item.live || item.onLive;
     return (
         <div className={cx('wrapper', className)}>
-            <img src={item.images} alt={item.title} />
+            <Image src={item.images} alt={item.title} />
             <span className={cx('title')}>{item.title}</span>
             {!!isOnLive ? (
                 !!item.live ? (

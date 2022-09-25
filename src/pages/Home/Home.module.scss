@@ -1,7 +1,29 @@
 .wrapper {
-    background-color: #fff;
+    background-color: transparent;
 }
-
+.loading {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .loading-icon {
+        font-size: 3rem;
+        z-index: 9999999999999;
+        animation: spiner linear 1s infinite;
+    }
+}
+@keyframes spiner {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
 .Header-content {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     position: fixed;

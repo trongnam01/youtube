@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { Box } from '@mui/material';
@@ -8,9 +8,9 @@ import { ThemDefau } from '~/layouts/DefaultLayout';
 import CardVideo from '~/component/CardVideo';
 import { Col, Row } from 'antd';
 import 'antd/dist/antd.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-import ReactPlayer from 'react-player/youtube';
-import YouTube from 'react-youtube';
 // import Duration from './Duration';
 const cx = classNames.bind(styles);
 
@@ -50,7 +50,7 @@ interface TabPanelProps {
     value: number;
 }
 
-function TabPanel(props: TabPanelProps) {
+export function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
 
     return (
@@ -69,7 +69,7 @@ function TabPanel(props: TabPanelProps) {
         </div>
     );
 }
-function a11yProps(index: number) {
+export function a11yProps(index: number) {
     return {
         id: `simple-tab-${index}`,
         'aria-controls': `simple-tabpanel-${index}`,
@@ -77,13 +77,29 @@ function a11yProps(index: number) {
 }
 
 function Home() {
-    const ThemTongleSideBar = useContext(ThemDefau);
+    const Them = useContext(ThemDefau);
+    const { DataApi } = Them;
     const [value, setValue] = useState(0);
+    const [isLoading, setIsLoading] = useState();
+    const [data, setData] = useState([]);
 
-    const Ref = useRef();
+    useEffect(() => {
+        if (data.length === 0) {
+            setIsLoading(true);
+        }
+        setData(DataApi);
+        if (data.length > 0) {
+            setIsLoading(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [DataApi, data]);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
+    };
+    const handleIsLoading = (value) => {
+        console.log(value);
+        setIsLoading(value);
     };
     // const opts = {
     //     height: '390',
@@ -96,14 +112,17 @@ function Home() {
 
     return (
         <div className={cx('wrapper')}>
+            {isLoading && (
+                <span className={cx('loading')}>
+                    <FontAwesomeIcon className={cx('loading-icon')} icon={faSpinner} />{' '}
+                </span>
+            )}
             <Box sx={{ maxWidth: { xs: 320, sm: '100%' }, bgcolor: 'background.paper' }}>
                 <Box
                     sx={{ borderBottom: 1, borderColor: 'divider' }}
                     className={cx('Header-content')}
                     style={{
-                        marginLeft: !ThemTongleSideBar.tongleSideBar
-                            ? 'var(--width-sideBar-show)'
-                            : 'var(--width-sideBar-hide)',
+                        marginLeft: !Them.tongleSideBar ? 'var(--width-sideBar-show)' : 'var(--width-sideBar-hide)',
                     }}
                 >
                     <Tabs
@@ -124,36 +143,33 @@ function Home() {
                 {ItemHeaderSideBar.map((item, index) => {
                     return (
                         <TabPanel key={index} value={value} index={index} className={cx('contai-content')}>
-                            <Row gutter={[16, 40]}>
-                                {Array.from(Array(8)).map((_, index) => (
-                                    <Col key={index} span={6}>
-                                        <CardVideo index={index} />
-                                    </Col>
-                                ))}
-                            </Row>
+                            <TabsHome index={index} isLoading={isLoading} datas={data} loading={handleIsLoading} />
                         </TabPanel>
                     );
                 })}
-
-                <TabPanel value={value} index={0}>
-                    {/* <ReactPlayer
-                        onDuration={handleDuration}
-                        volume={0}
-                        url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
-                    /> */}
-                    {/* <YouTube
-                        ref={Ref}
-                        videoId="ysz5S6PUM-U"
-                        title={'aaaa'}
-                        onStateChange={() => {
-                            console.log(Ref.current);
-                        }}
-                    /> */}
-                    ;
-                </TabPanel>
             </Box>
         </div>
     );
+}
+function TabsHome({ index, loading, isLoading, datas }) {
+    const Tabs = ({ items }) => {
+        return (
+            <Row gutter={[16, 40]}>
+                {items.map((item, index) => (
+                    <Col key={index} span={6}>
+                        <CardVideo index={index} item={item} />
+                    </Col>
+                ))}
+            </Row>
+        );
+    };
+
+    switch (index) {
+        case 0:
+            return <Tabs items={datas} />;
+        case 2:
+            break;
+    }
 }
 
 export default Home;

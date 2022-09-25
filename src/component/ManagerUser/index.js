@@ -8,6 +8,7 @@ import { Wrapper as PopperWrapper } from '~/component/Popper';
 import ManagerItem from './ManagerItem';
 import { RightLineIcon } from '~/Icons';
 import { ThemDefau } from '~/layouts/DefaultLayout';
+import Image from '../Image';
 
 const cx = classNames.bind(styles);
 
@@ -72,9 +73,9 @@ function ManagerUser(props, ref) {
                                 currentUser && (
                                     <div className={cx('header-menu')}>
                                         <button className={cx('user-avatar')} style={{ width: '40px', height: '40px' }}>
-                                            <img
-                                                style={{ width: '100%', height: '100%' }}
-                                                src="https://scontent.fhan2-3.fna.fbcdn.net/v/t39.30808-6/305800251_862001731456061_3664926450741618381_n.jpg?stp=cp1_dst-jpg_p720x720&_nc_cat=108&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=aSsk2qrPUKMAX-vGIrT&_nc_ht=scontent.fhan2-3.fna&oh=00_AT9BEzVtvNLtljx6OM1ceZfVyXORRlrktAUyL1DlIeBRzg&oe=631C2AD1"
+                                            <Image
+                                                className={cx('avatar')}
+                                                src="https://scontent.fhan2-2.fna.fbcdn.net/v/t39.30808-6/306545225_480300720778873_5681159161992728100_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8631f5&_nc_ohc=fwcYkXKOZyoAX-qexbB&_nc_oc=AQmyw846t8jPGs1hYRvKbtrzoY7WQwMaagZH0RElEclKPge18KTHaOCzBsXL8Ghlpz5rLkGwSPpeW7AJ3vzQC22L&tn=k_Zw9YE9eTW8oaKE&_nc_ht=scontent.fhan2-2.fna&oh=00_AT8Zj6tu9z-lvocFuDSeFNhCbuD5x5gP2yxXnooZHQpv8Q&oe=6335179B"
                                                 alt="avatar"
                                             />
                                         </button>

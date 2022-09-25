@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import {
     HomeActiveIcon,
@@ -100,7 +100,21 @@ const MENU_ITEM_SIDEBAR = [
 ];
 
 function SideBar({ tongleSideBar }) {
-    const them = useContext(ThemDefau);
+    const ThemCurren = useContext(ThemDefau);
+    const [isModeSideBar, setIsModeSideBar] = useState(false);
+
+    useEffect(() => {
+        if (ThemCurren.locotion.pathname.startsWith('/watch/@')) {
+            setIsModeSideBar(true);
+        } else {
+            setIsModeSideBar(false);
+        }
+        if (tongleSideBar && isModeSideBar) {
+            document.querySelector('body').style.overflow = 'hidden';
+        } else {
+            document.querySelector('body').style.overflow = 'auto';
+        }
+    }, [tongleSideBar, ThemCurren.locotion.pathname, isModeSideBar]);
 
     const classes = cx({
         hideSideBar: tongleSideBar,
@@ -109,11 +123,16 @@ function SideBar({ tongleSideBar }) {
     const classSideBarPlay = cx('wrappe-sidebar-play', {
         ShowSidebarPlay: tongleSideBar,
     });
+
     return (
         <>
-            {them.locotion.pathname === '/new' ? (
+            {ThemCurren.locotion.pathname.startsWith('/watch/@') ? (
                 <>
-                    <div className={cx('wrappe-playCrad')} style={{ visibility: tongleSideBar ? 'visible' : 'hidden' }}>
+                    <div
+                        className={cx('wrappe-playCrad')}
+                        style={{ visibility: tongleSideBar ? 'visible' : 'hidden' }}
+                        onClick={ThemCurren.handleTongleSideBar}
+                    >
                         <div className={classSideBarPlay}>
                             <MenuSideBar data={MENU_ITEM_SIDEBAR} />
                         </div>

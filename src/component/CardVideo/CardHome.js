@@ -1,6 +1,5 @@
+import { useContext, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
-
-import { useCallback, useContext, useRef, useState } from 'react';
 
 import {
     CrardMenuIcon,
@@ -15,6 +14,8 @@ import Image from '../Image';
 import MenuCard from './MenuCard';
 import { ThemDefau } from '~/layouts/DefaultLayout';
 import styles from './CardHome.module.scss';
+import Video from '~/pages/PlayVideo/component/Video';
+import { Link } from 'react-router-dom';
 
 // import YouTube from 'react-youtube';
 const cx = classNames.bind(styles);
@@ -49,61 +50,68 @@ const MENUiTEM = [
         title: 'Báo vi phạm',
     },
 ];
-
-function CardHome({ dataTongleMEnu }) {
+function CardHome({ item }) {
     const Them = useContext(ThemDefau);
+    const [isImage, setIsImage] = useState(true);
+    const videoRef = useRef();
+    const idTimemou = useRef();
+    const custumTextView = Number.parseInt(item.view);
+
+    const handleMOu = () => {
+        console.log(videoRef.current);
+        setIsImage(false);
+        videoRef.current.play();
+        videoRef.current.setVolume(0);
+        clearTimeout(idTimemou.current);
+    };
+    const handleMouseOut = () => {
+        idTimemou.current = setTimeout(() => {
+            setIsImage(true);
+            videoRef.current.pause();
+        }, 500);
+    };
+    const handleClickMenu = (e) => {
+        e.preventDefault();
+    };
 
     // console.log(isMou);
     const classes = cx('content-btn', { isTongleSideBar: Them.tongleSideBar });
-
     return (
-        <div
+        <Link
+            to={`/watch/@${item.video}`}
             className={cx('wrapper')}
+            onClick={() => Them.handleSetItemPlayVideo(item)}
             //  onMouseMove={handleMouContent}
             //  onMouseOut={handleOutContent}
         >
             <div className={cx('wrapper-content-video')}>
-                <img
-                    className={cx('content-video')}
-                    src="https://i.ytimg.com/vi/GXAgdG0JSzA/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLB08-PvXnLmGkpSCELsikBsglfkKQ"
-                    alt="a"
-                />
+                <img className={cx('content-video')} src={item.image} alt={item.title} />
+
                 <span className={cx('content-notification')}>Tiếp tục di chuột để phát</span>
-                <span className={cx('content-time')}>40:50:00</span>
-                <div className={cx('wrapper-scale')}>
+                <span className={cx('content-time')}>{item.videoTime}</span>
+                <div className={cx('wrapper-scale')} onMouseOver={handleMOu} onMouseOut={handleMouseOut}>
                     <div className={cx('wrapper-content-video')}>
-                        <img
-                            className={cx('content-video')}
-                            src="https://i.ytimg.com/vi/GXAgdG0JSzA/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLB08-PvXnLmGkpSCELsikBsglfkKQ"
-                            alt="a"
-                        />
+                        {isImage && <img className={cx('image-video')} src={item.image} alt={item.title} />}
+                        <Video className={cx('custum-video')} ref={videoRef} item={item} />
                     </div>
                     <div className={cx('wrapper-content-text')}>
                         <div className={cx('content-title')}>
-                            <Image
-                                src={
-                                    'https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/306579689_3330808677201859_6073119947135375035_n.jpg?stp=cp6_dst-jpg_p843x403&_nc_cat=110&ccb=1-7&_nc_sid=5cd70e&_nc_ohc=fYtpdtw2kjwAX8yIUAO&_nc_ht=scontent.fhan2-4.fna&oh=00_AT-V1aUYuJwoKL8sxIgOvZU-0CSysAHeUSM27DPOmwfYYg&oe=63242DF5'
-                                }
-                                alt={'alt'}
-                                className={cx('img-user')}
-                            />
+                            <Image src={item.channeImage} alt={'avata'} className={cx('img-user')} />
                             <div className={cx('first')}>
-                                <p className={cx('first-title')}>
-                                    Rồi Một Ngày Ngày Anh Quên Đi Chính Em Remix TikTok - Em Là Cố Chấp Duy Nhất Của Đời
-                                    Tôi Remix
-                                </p>
+                                <p className={cx('first-title')}>{item.title}</p>
 
-                                <span className={cx('first-name')}>Nhạc Sàn Pro</span>
+                                <span className={cx('first-name')}> {item.userChannel}</span>
                                 <p className={cx(cx('first-Information'))}>
-                                    <span>152 N lượt xem</span>
+                                    <span>{custumTextView} N</span>
 
-                                    <span>13 ngày trước</span>
+                                    <span>{item.videoPostingData}</span>
                                 </p>
-
-                                <MenuCard zIndex={10} MENUiTEM={MENUiTEM} />
+                                <div onClick={handleClickMenu}>
+                                    <MenuCard zIndex={10} MENUiTEM={MENUiTEM} />
+                                </div>
                             </div>
                         </div>
-                        <div className={classes}>
+                        <div className={classes} onClick={handleClickMenu}>
                             <button>
                                 <LaterIcon className={cx('icon')} /> Xem sau
                             </button>
@@ -116,33 +124,24 @@ function CardHome({ dataTongleMEnu }) {
             </div>
             <div className={cx('wrapper-content-text')}>
                 <div className={cx('content-title')}>
-                    <Image
-                        src={
-                            'https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/306579689_3330808677201859_6073119947135375035_n.jpg?stp=cp6_dst-jpg_p843x403&_nc_cat=110&ccb=1-7&_nc_sid=5cd70e&_nc_ohc=fYtpdtw2kjwAX8yIUAO&_nc_ht=scontent.fhan2-4.fna&oh=00_AT-V1aUYuJwoKL8sxIgOvZU-0CSysAHeUSM27DPOmwfYYg&oe=63242DF5'
-                        }
-                        alt={'alt'}
-                        className={cx('img-user')}
-                    />
+                    <Image src={item.channeImage} alt={'avata'} className={cx('img-user')} />
                     <div className={cx('first')}>
-                        <p className={cx('first-title')}>
-                            Rồi Một Ngày Ngày Anh Quên Đi Chính Em Remix TikTok - Em Là Cố Chấp Duy Nhất Của Đời Tôi
-                            Remix
-                        </p>
+                        <p className={cx('first-title')}>{item.title}</p>
 
-                        <span className={cx('first-name')}>Nhạc Sàn Pro</span>
+                        <span className={cx('first-name')}>{item.userChannel}</span>
                         <p className={cx(cx('first-Information'))}>
-                            <span>152 N lượt xem</span>
+                            <span>{custumTextView} N lượt xem</span>
 
-                            <span>13 ngày trước</span>
+                            <span>{item.videoPostingData}</span>
                         </p>
 
-                        <div className={cx('menu-hide')}>
+                        <div className={cx('menu-hide')} onClick={handleClickMenu}>
                             <MenuCard zIndex={4} MENUiTEM={MENUiTEM} />
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }
 
