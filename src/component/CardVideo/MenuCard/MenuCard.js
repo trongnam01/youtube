@@ -7,7 +7,7 @@ import styles from '../CardHome.module.scss';
 
 const cx = classNames.bind(styles);
 
-function MenuCard({ MENUiTEM, zIndex }) {
+function MenuCard({ MENUiTEM, zIndex, onClick }) {
     return (
         <div>
             <MenuCardTippy
@@ -32,7 +32,7 @@ function MenuCard({ MENUiTEM, zIndex }) {
                     </div>
                 )}
             >
-                <button className={cx('setting')}>
+                <button className={cx('setting')} onClick={onClick}>
                     <EllipsisIcon />
                 </button>
             </MenuCardTippy>

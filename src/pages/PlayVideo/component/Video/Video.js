@@ -6,7 +6,7 @@ import { ThemDefau } from '~/layouts/DefaultLayout';
 
 const cx = classNames.bind(styles);
 
-function Video({ className, item }, ref) {
+function Video({ className, item, opts }, ref) {
     const Them = useContext(ThemDefau);
 
     const refvideo = useRef();
@@ -14,7 +14,7 @@ function Video({ className, item }, ref) {
 
     useEffect(() => {
         setDataVideo(item);
-    }, [item, dataVideo]);
+    }, [item]);
 
     useImperativeHandle(ref, () => ({
         play() {
@@ -33,19 +33,9 @@ function Video({ className, item }, ref) {
         console.log(e);
     }
     function handleOnRead(event) {
-        console.log(event.target.playVideo());
+        // event.target.setVolume(90);
+        // console.log(event.target.playVideo());
     }
-
-    const opts = {
-        playerVars: {
-            // https://developers.google.com/youtube/player_parameters
-            playsinline: 1,
-        },
-        events: {
-            onReady: handleOnRead,
-            onStateChange: handleStateChange,
-        },
-    };
 
     const classes = cx('Video', className);
     return (
@@ -53,7 +43,7 @@ function Video({ className, item }, ref) {
             <YouTube
                 ref={refvideo}
                 videoId={dataVideo.video}
-                {...opts}
+                opts={opts}
                 iframeClassName={classes}
                 onStateChange={handleStateChange}
                 onRead={handleOnRead}

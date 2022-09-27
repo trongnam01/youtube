@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { Box } from '@mui/material';
-import { ThemDefau } from '~/layouts/DefaultLayout';
+import { getListApi, ThemDefau } from '~/layouts/DefaultLayout';
 import CardVideo from '~/component/CardVideo';
 import { Col, Row } from 'antd';
 import 'antd/dist/antd.css';
@@ -80,19 +80,27 @@ function Home() {
     const Them = useContext(ThemDefau);
     const { DataApi } = Them;
     const [value, setValue] = useState(0);
-    const [isLoading, setIsLoading] = useState();
+    const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        if (data.length === 0) {
-            setIsLoading(true);
-        }
-        setData(DataApi);
+        // if (data.length === 0) {
+        //     setIsLoading(true);
+        // }
+        getListApi().then((datas) => {
+            setData(datas);
+        });
         if (data.length > 0) {
             setIsLoading(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [DataApi, data]);
+    }, []);
+
+    useEffect(() => {
+        if (data.length > 0) {
+            setIsLoading(false);
+        }
+    }, [data]);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);

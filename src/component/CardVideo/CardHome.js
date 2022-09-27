@@ -61,7 +61,7 @@ function CardHome({ item }) {
         console.log(videoRef.current);
         setIsImage(false);
         videoRef.current.play();
-        videoRef.current.setVolume(0);
+        videoRef.current.setVolume(50);
         clearTimeout(idTimemou.current);
     };
     const handleMouseOut = () => {
@@ -71,7 +71,9 @@ function CardHome({ item }) {
         }, 500);
     };
     const handleClickMenu = (e) => {
+        console.log(12);
         e.preventDefault();
+        e.stopPropagation();
     };
 
     // console.log(isMou);
@@ -106,8 +108,8 @@ function CardHome({ item }) {
 
                                     <span>{item.videoPostingData}</span>
                                 </p>
-                                <div onClick={handleClickMenu}>
-                                    <MenuCard zIndex={10} MENUiTEM={MENUiTEM} />
+                                <div onMouseDown={handleClickMenu}>
+                                    <MenuCard zIndex={10} MENUiTEM={MENUiTEM} onClick={handleClickMenu} />
                                 </div>
                             </div>
                         </div>
@@ -135,8 +137,8 @@ function CardHome({ item }) {
                             <span>{item.videoPostingData}</span>
                         </p>
 
-                        <div className={cx('menu-hide')} onClick={handleClickMenu}>
-                            <MenuCard zIndex={4} MENUiTEM={MENUiTEM} />
+                        <div className={cx('menu-hide')}>
+                            <MenuCard zIndex={4} MENUiTEM={MENUiTEM} onClick={handleClickMenu} />
                         </div>
                     </div>
                 </div>

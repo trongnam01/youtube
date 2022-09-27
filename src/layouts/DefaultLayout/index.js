@@ -167,9 +167,9 @@ const MENU_ITEM = [
     ],
 ];
 
-// let list = [{a:1},{a:3},{a:8},{a:7}]
-// list = list.sort(() => Math.random() - 0.5)
-
+export function getListApi() {
+    return fetch(`https://6290441a27f4ba1c65b64525.mockapi.io/api/video`).then((Response) => Response.json());
+}
 function DefaultLauout({ children }) {
     const locotion = useLocation();
 
@@ -180,14 +180,11 @@ function DefaultLauout({ children }) {
     const [itemVideoPlay, setItemVideoPlay] = useState([]);
 
     useEffect(() => {
-        fetch(`https://6290441a27f4ba1c65b64525.mockapi.io/api/video`)
-            .then((res) => res.json())
-            .then((datas) => {
-                setDataApi(datas);
-            })
-            .catch(() => {
-                console.log('lỗi');
-            });
+        getListApi().then((datas) => {
+            setDataApi(datas);
+        });
+
+        console.log(DataApi);
     }, []);
 
     function handleTongleSideBar() {
@@ -200,7 +197,7 @@ function DefaultLauout({ children }) {
     function handleSetItemPlayVideo(data) {
         setItemVideoPlay(data);
     }
-    // console.log(itemVideoPlay);
+    console.log(DataApi);
     const data = {
         items: MENU_ITEM,
         locotion,

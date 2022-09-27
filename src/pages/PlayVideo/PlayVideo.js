@@ -15,7 +15,7 @@ import styles from './PlayVideo.module.scss';
 import Video from './component/Video';
 import CrardPlay from './component/CrardPlay';
 import { Wrapper as PopperWrapper } from '~/component/Popper';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import {
     CoppyIcon,
     CutVideoIcon,
@@ -85,10 +85,18 @@ const itemTabsCrad = [
 //         },
 //     ],
 // };
+const opts = {
+    playerVars: {
+        autoplay: 1,
+        loop: 1,
+    },
+};
 
 function PlayVideo() {
     const Them = useContext(ThemDefau);
-    const { itemVideoPlay, DataApi } = Them;
+    const { itemVideoPlay, DataApi, locotion } = Them;
+
+    const videoRef = useRef();
 
     const [value, setValue] = useState(0);
     const [isLike, setIsLike] = useState(false);
@@ -102,8 +110,17 @@ function PlayVideo() {
             const result = [...DataApi].sort(() => Math.random() - 0.5);
             return result;
         });
-        setVideoPlay(itemVideoPlay);
-    }, [DataApi, itemVideoPlay, videoPlay]);
+        setVideoPlay(() => {
+            const idVideo = locotion.pathname.slice(8);
+            const result =
+                datas.find((item) => {
+                    return item.video === idVideo;
+                }) || [];
+            return itemVideoPlay.length === 0 ? result : itemVideoPlay;
+        });
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [DataApi, itemVideoPlay]);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -128,7 +145,11 @@ function PlayVideo() {
                 <Col span={16}>
                     <div className={cx('wrapper-left')}>
                         <div className={cx('wrapper-video')}>
-                            <Video item={itemVideoPlay} />
+                            <Video
+                                item={itemVideoPlay.length === 0 ? videoPlay : itemVideoPlay}
+                                ref={videoRef}
+                                opts={opts}
+                            />
                             <div className={cx('wrapper-content')}>
                                 <p className={cx('super-title')}>
                                     <a href="#">#nonstop2022</a>
