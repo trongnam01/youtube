@@ -50,51 +50,61 @@ const MENUiTEM = [
         title: 'Báo vi phạm',
     },
 ];
+const opts = {
+    playerVars: {
+        autoplay: 1,
+        // mute: 1,
+    },
+};
 function CardHome({ item }) {
     const Them = useContext(ThemDefau);
-    const [isImage, setIsImage] = useState(true);
-    const videoRef = useRef();
-    const idTimemou = useRef();
+    const [showCard, setShowCard] = useState(false);
     const custumTextView = Number.parseInt(item.view);
 
-    const handleMOu = () => {
-        console.log(videoRef.current);
-        setIsImage(false);
-        videoRef.current.play();
-        videoRef.current.setVolume(50);
-        clearTimeout(idTimemou.current);
-    };
-    const handleMouseOut = () => {
-        idTimemou.current = setTimeout(() => {
-            setIsImage(true);
-            videoRef.current.pause();
-        }, 500);
-    };
+    // const handleMOu = (e) => {
+    //     // console.log(videoRef.current);
+    //     // setIsImage(false);
+    //     // videoRef.current.play();
+    //     // videoRef.current.setVolume(50);
+    //     // clearTimeout(idTimemou.current);
+    // };
+    // const handleMouseOut = () => {
+    //     idTimemou.current = setTimeout(() => {
+    //         setIsImage(true);
+    //         // videoRef.current.pause();
+    //     }, 500);
+    // };
     const handleClickMenu = (e) => {
         console.log(12);
         e.preventDefault();
         e.stopPropagation();
     };
 
+    function handleMOuWraperCrard(e) {
+        setShowCard(true);
+    }
+    function handleOutWraperCrard() {
+        setShowCard(false);
+    }
     // console.log(isMou);
     const classes = cx('content-btn', { isTongleSideBar: Them.tongleSideBar });
     return (
-        <Link
-            to={`/watch/@${item.video}`}
-            className={cx('wrapper')}
-            onClick={() => Them.handleSetItemPlayVideo(item)}
-            //  onMouseMove={handleMouContent}
-            //  onMouseOut={handleOutContent}
-        >
-            <div className={cx('wrapper-content-video')}>
+        <Link to={`/watch/@${item.video}`} className={cx('wrapper')} onClick={() => Them.handleSetItemPlayVideo(item)}>
+            <div
+                className={cx('wrapper-content-video')}
+                onMouseEnter={handleMOuWraperCrard}
+                onMouseLeave={handleOutWraperCrard}
+            >
                 <img className={cx('content-video')} src={item.image} alt={item.title} />
 
                 <span className={cx('content-notification')}>Tiếp tục di chuột để phát</span>
                 <span className={cx('content-time')}>{item.videoTime}</span>
-                <div className={cx('wrapper-scale')} onMouseOver={handleMOu} onMouseOut={handleMouseOut}>
+                <div
+                    className={cx('wrapper-scale')}
+                    //  onMouseOver={handleMOu} onMouseOut={handleMouseOut}
+                >
                     <div className={cx('wrapper-content-video')}>
-                        {isImage && <img className={cx('image-video')} src={item.image} alt={item.title} />}
-                        <Video className={cx('custum-video')} ref={videoRef} item={item} />
+                        {showCard && <Video className={cx('custum-video')} item={item} opts={opts} />}
                     </div>
                     <div className={cx('wrapper-content-text')}>
                         <div className={cx('content-title')}>

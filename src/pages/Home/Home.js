@@ -83,17 +83,22 @@ function Home() {
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
 
+    const ref = useRef(0);
+    console.log(ref.current);
+
     useEffect(() => {
+        ref.current = ref.current + 1;
         // if (data.length === 0) {
         //     setIsLoading(true);
         // }
-        getListApi().then((datas) => {
-            setData(datas);
-        });
-        if (data.length > 0) {
-            setIsLoading(false);
+        if (ref.current === 1) {
+            console.log('loop');
+            getListApi().then((datas) => {
+                console.log(22);
+                const ressult = [...datas].sort(() => Math.random() - 0.5);
+                setData(ressult);
+            });
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {

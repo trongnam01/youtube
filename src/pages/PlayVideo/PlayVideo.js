@@ -43,60 +43,17 @@ const itemTabsCrad = [
     { title: 'Đã xem' },
 ];
 
-// let api = {
-//     "video": "y576-ONm5II",
-//     "title": "YÊU 5 - Rhymastic",
-//     "videoTime": "4:10",
-//     "image": "https://yt3.ggpht.com/tdEC3Y8JEPcpHoTiNfe3Zy6OoIg3EAPRJUB8dcVAdhCC0QRo02HKQmPzQfXW17hj5b4n2xuQeHg=s88-c-k-c0x00ffffff-no-rj",
-//     "userChannel": "Jen Hoang",
-//     "IduserChannel": "1",
-//     "view": "110.732.811",
-//     "videoPostingData": "14 ngày",
-//     "like": "323",
-//     "comments": [
-//         {
-//             "image": "https://yt3.ggpht.com/ytc/AMLnZu_xfD3WfFj5RVscCRZ8RB977fiBzyLDC47LTSf0Zg=s88-c-k-c0x00ffffff-no-rj",
-//             "commentData": "14 ngày",
-//             "content":
-//                 "Bài hát như đã đi trước thời đại,lần nào nghe cũng như mới vậy, sự kết hợp âm thanh tuyệt vời : ))",
-//             "like": "8.2",
-//             "name": "Vũ phạm",
-//         },
-//         {
-//             "image": "https://yt3.ggpht.com/HUzjwdFn_T4_wv-MX9lYxArP82K3kdh2OqEeKQB-uIeBarGVXj36i7OckJ2tP30FJ66a2R3AoQ=s88-c-k-c0x00ffffff-no-rj",
-//             "commentData": "6 ngày",
-//             "content": "❤️❤️❤️",
-//             "like": "1",
-//             "name": "Mai vàng Quốc",
-//         },
-//         {
-//             "image": "https://yt3.ggpht.com/juKoabK0VHwNLsjmSRq3RFQiYiwW7K9nwkhofJv5srtaaZQBlDVEmvNF7VZu5T0iv4yIIgxw7Sw=s88-c-k-c0x00ffffff-no-rj",
-//             "commentData": "2 ngày",
-//             "content": "Bài này sẽ không bao giờ bị lãng quên !",
-//             "like": "0",
-//             "name": "Thanh Văn",
-//         },
-//         {
-//             "image": "https://yt3.ggpht.com/Rm0WwDlLgcHcsynkj-59oDnSjUqSQr2-H7BBX5tTiqXOgU0wM4lWo57-a9cBWqGCCkGo1MghqRo=s88-c-k-c0x00ffffff-no-rj",
-//             "commentData": "1 giây trước",
-//             "content": "🥰🥰🥰",
-//             "like": "0",
-//             "name": "Su Su",
-//         },
-//     ],
-// };
 const opts = {
     playerVars: {
         autoplay: 1,
         loop: 1,
+        // playlist: ['UCXao7aTDQM,Y8JFxS1HlDo,Jh4QFaPmdss,eN5mG_yMDiM,horFR5HoxZ0'],
     },
 };
 
 function PlayVideo() {
     const Them = useContext(ThemDefau);
     const { itemVideoPlay, DataApi, locotion } = Them;
-
-    const videoRef = useRef();
 
     const [value, setValue] = useState(0);
     const [isLike, setIsLike] = useState(false);
@@ -145,11 +102,7 @@ function PlayVideo() {
                 <Col span={16}>
                     <div className={cx('wrapper-left')}>
                         <div className={cx('wrapper-video')}>
-                            <Video
-                                item={itemVideoPlay.length === 0 ? videoPlay : itemVideoPlay}
-                                ref={videoRef}
-                                opts={opts}
-                            />
+                            <Video item={itemVideoPlay.length === 0 ? videoPlay : itemVideoPlay} opts={opts} />
                             <div className={cx('wrapper-content')}>
                                 <p className={cx('super-title')}>
                                     <a href="#">#nonstop2022</a>
