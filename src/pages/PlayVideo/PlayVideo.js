@@ -12,10 +12,10 @@ import { a11yProps } from '../Home/Home';
 import { ThemDefau } from '~/layouts/DefaultLayout';
 
 import styles from './PlayVideo.module.scss';
-import Video from './component/Video';
-import CrardPlay from './component/CrardPlay';
+import Video from '../../component/Video';
+import CrardPlay from '../../component/CardImage';
 import { Wrapper as PopperWrapper } from '~/component/Popper';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
     CoppyIcon,
     CutVideoIcon,
@@ -47,7 +47,6 @@ const opts = {
     playerVars: {
         autoplay: 1,
         loop: 1,
-        // playlist: ['UCXao7aTDQM,Y8JFxS1HlDo,Jh4QFaPmdss,eN5mG_yMDiM,horFR5HoxZ0'],
     },
 };
 

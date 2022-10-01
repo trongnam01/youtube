@@ -172,6 +172,7 @@ export function getListApi() {
 }
 function DefaultLauout({ children }) {
     const locotion = useLocation();
+    console.log(locotion);
 
     const [DataApi, setDataApi] = useState([]);
 

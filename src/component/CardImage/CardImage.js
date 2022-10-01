@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 import MenuCard from '~/component/CardVideo/MenuCard';
-import Image from '~/component/Image';
-import styles from './CrardPlay.module.scss';
+import styles from './CardImage.module.scss';
 import {
     CrardMenuIcon,
     LaterIcon,
@@ -47,11 +46,16 @@ const MENUiTEM = [
     },
 ];
 
-function CrardPlay({ item }) {
+function CrardPlay({ item, className }) {
     const Them = useContext(ThemDefau);
+
+    const handleClickSettting = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    };
     return (
         <Link
-            className={cx('wrapper')}
+            className={cx('wrapper', className)}
             to={`/watch/@${item.video}`}
             onClick={() => {
                 window.scrollTo(0, 0);
@@ -77,7 +81,7 @@ function CrardPlay({ item }) {
                             <span>{item.videoPostingData}</span>
                         </p>
 
-                        <div className={cx('menu-hide')}>
+                        <div className={cx('menu-hide')} onClick={handleClickSettting}>
                             <MenuCard zIndex={4} MENUiTEM={MENUiTEM} />
                         </div>
                     </div>

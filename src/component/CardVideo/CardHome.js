@@ -1,5 +1,6 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useState } from 'react';
 import classNames from 'classnames/bind';
+import Nav from 'react-bootstrap/Nav';
 
 import {
     CrardMenuIcon,
@@ -14,8 +15,8 @@ import Image from '../Image';
 import MenuCard from './MenuCard';
 import { ThemDefau } from '~/layouts/DefaultLayout';
 import styles from './CardHome.module.scss';
-import Video from '~/pages/PlayVideo/component/Video';
-import { Link } from 'react-router-dom';
+import Video from '~/component/Video';
+import { Link, useNavigate } from 'react-router-dom';
 
 // import YouTube from 'react-youtube';
 const cx = classNames.bind(styles);
@@ -59,6 +60,7 @@ const opts = {
 function CardHome({ item }) {
     const Them = useContext(ThemDefau);
     const [showCard, setShowCard] = useState(false);
+    const navigate = useNavigate();
     const custumTextView = Number.parseInt(item.view);
 
     // const handleMOu = (e) => {
@@ -86,17 +88,28 @@ function CardHome({ item }) {
     function handleOutWraperCrard() {
         setShowCard(false);
     }
+
+    const handleChangeUserChannel = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const custumName = item.userChannel.replace(/ /g, '');
+        navigate(`/channel/@${custumName}`);
+    };
     // console.log(isMou);
     const classes = cx('content-btn', { isTongleSideBar: Them.tongleSideBar });
     return (
-        <Link to={`/watch/@${item.video}`} className={cx('wrapper')} onClick={() => Them.handleSetItemPlayVideo(item)}>
+        <Link
+            as={'span'}
+            to={`/watch/@${item.video}`}
+            className={cx('wrapper')}
+            onClick={() => Them.handleSetItemPlayVideo(item)}
+        >
             <div
                 className={cx('wrapper-content-video')}
                 onMouseEnter={handleMOuWraperCrard}
                 onMouseLeave={handleOutWraperCrard}
             >
                 <img className={cx('content-video')} src={item.image} alt={item.title} />
-
                 <span className={cx('content-notification')}>Tiếp tục di chuột để phát</span>
                 <span className={cx('content-time')}>{item.videoTime}</span>
                 <div
@@ -108,12 +121,14 @@ function CardHome({ item }) {
                     </div>
                     <div className={cx('wrapper-content-text')}>
                         <div className={cx('content-title')}>
-                            <Image src={item.channeImage} alt={'avata'} className={cx('img-user')} />
+                            <div onClick={handleChangeUserChannel}>
+                                <Image src={item.channeImage} alt={'avata'} className={cx('img-user')} />
+                            </div>
                             <div className={cx('first')}>
                                 <p className={cx('first-title')}>{item.title}</p>
 
                                 <span className={cx('first-name')}> {item.userChannel}</span>
-                                <p className={cx(cx('first-Information'))}>
+                                <p className={cx('first-Information')}>
                                     <span>{custumTextView} N</span>
 
                                     <span>{item.videoPostingData}</span>
@@ -136,7 +151,10 @@ function CardHome({ item }) {
             </div>
             <div className={cx('wrapper-content-text')}>
                 <div className={cx('content-title')}>
-                    <Image src={item.channeImage} alt={'avata'} className={cx('img-user')} />
+                    <div onClick={handleChangeUserChannel}>
+                        <Image src={item.channeImage} alt={'avata'} className={cx('img-user')} />
+                    </div>
+
                     <div className={cx('first')}>
                         <p className={cx('first-title')}>{item.title}</p>
 
