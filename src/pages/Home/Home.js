@@ -78,7 +78,6 @@ export function a11yProps(index: number) {
 
 function Home() {
     const Them = useContext(ThemDefau);
-    const { DataApi } = Them;
     const [value, setValue] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
@@ -88,9 +87,7 @@ function Home() {
 
     useEffect(() => {
         ref.current = ref.current + 1;
-        // if (data.length === 0) {
-        //     setIsLoading(true);
-        // }
+
         if (ref.current === 1) {
             console.log('loop');
             getListApi().then((datas) => {
@@ -114,14 +111,6 @@ function Home() {
         console.log(value);
         setIsLoading(value);
     };
-    // const opts = {
-    //     height: '390',
-    //     width: '640',
-    //     playerVars: {
-    //         // https://developers.google.com/youtube/player_parameters
-    //         autoplay: 1,
-    //     },
-    // };
 
     return (
         <div className={cx('wrapper')}>
@@ -135,7 +124,12 @@ function Home() {
                     sx={{ borderBottom: 1, borderColor: 'divider' }}
                     className={cx('Header-content')}
                     style={{
-                        marginLeft: !Them.tongleSideBar ? 'var(--width-sideBar-show)' : 'var(--width-sideBar-hide)',
+                        marginLeft:
+                            Them.width >= 1440
+                                ? !Them.tongleSideBar
+                                    ? 'var(--width-sideBar-show)'
+                                    : 'var(--width-sideBar-hide)'
+                                : 'var(--width-sideBar-hide)',
                     }}
                 >
                     <Tabs
@@ -165,11 +159,29 @@ function Home() {
     );
 }
 function TabsHome({ index, loading, isLoading, datas }) {
+    const Them = useContext(ThemDefau);
+    const colum = useRef();
+    useEffect(() => {
+        const number = Them.width;
+        if (number >= 1128) {
+            colum.current = 6;
+        }
+        if (number < 1128) {
+            colum.current = 8;
+        }
+        if (number < 876) {
+            colum.current = 12;
+        }
+        if (number < 576) {
+            colum.current = 24;
+        }
+    }, [Them.width, colum]);
+
     const Tabs = ({ items }) => {
         return (
             <Row gutter={[16, 40]}>
                 {items.map((item, index) => (
-                    <Col key={index} span={6}>
+                    <Col key={index} span={colum.current}>
                         <CardVideo index={index} item={item} />
                     </Col>
                 ))}

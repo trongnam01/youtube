@@ -52,6 +52,7 @@
 }
 
 // header-right
+.header-right-dellTop,
 .header-right {
     display: flex;
     align-items: center;
@@ -111,6 +112,47 @@
         border-color: #bdb4b4;
         border-radius: 50%;
         background: #e5e5e5;
+    }
+}
+.btn-search-mobile {
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:active {
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+    }
+}
+.avatar-mobile {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    padding: 12px;
+}
+.header-right-mobile {
+    align-items: center;
+    display: none;
+}
+.icon-user-mobile {
+    margin-left: 12px;
+}
+@media (max-width: 876px) {
+    .wrapper {
+        height: 48px;
+    }
+    .menu-btn {
+        display: none;
+    }
+    .header-center {
+        display: none;
+    }
+    .header-right-dellTop {
+        display: none;
+    }
+    .header-right-mobile {
+        display: flex;
     }
 }
 

@@ -7,16 +7,19 @@ import { SearchIcon } from '~/Icons';
 
 const cx = classNames.bind(styles);
 
-function ItemResultSearch({ data }) {
+function ItemResultSearch({ data, className, show = true }) {
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper', className)}>
             <div className={cx('content')}>
-                <span className={cx('icon')}>
-                    {data.isSuccess ? <FontAwesomeIcon icon={faClockRotateLeft} /> : <SearchIcon />}
-                </span>
+                {show && (
+                    <span className={cx('icon')}>
+                        {data.isSuccess ? <FontAwesomeIcon icon={faClockRotateLeft} /> : <SearchIcon />}
+                    </span>
+                )}
+
                 <span className={cx('title')}>{data.title}</span>
             </div>
-            <span className={cx('clear')}>Xóa</span>
+            {show && <span className={cx('clear')}>Xóa</span>}
         </div>
     );
 }

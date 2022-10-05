@@ -10,10 +10,12 @@ import {
     ReportIcon,
     ShareIcon,
 } from '~/Icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { ThemDefau } from '~/layouts/DefaultLayout';
+import Image from '../Image';
 const cx = classNames.bind(styles);
+
 const MENUiTEM = [
     {
         icon: <CrardMenuIcon />,
@@ -47,12 +49,20 @@ const MENUiTEM = [
 ];
 
 function CrardPlay({ item, className }) {
+    const navigate = useNavigate();
     const Them = useContext(ThemDefau);
+    const custumTextView = Number.parseInt(item.view);
 
     const handleClickSettting = (e) => {
         e.preventDefault();
         e.stopPropagation();
     };
+    // const handleChangeUserChannel = (e) => {
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //     const custumName = item.idName;
+    //     navigate(`/channel/@${custumName}`);
+    // };
     return (
         <Link
             className={cx('wrapper', className)}
@@ -71,12 +81,17 @@ function CrardPlay({ item, className }) {
             </div>
             <div className={cx('wrapper-content-text')}>
                 <div className={cx('content-title')}>
+                    <div
+                    // onClick={handleChangeUserChannel}
+                    >
+                        <Image className={cx('avatar-user-mobi')} src={item.channeImage} alt={item.title} />
+                    </div>
                     <div className={cx('first')}>
                         <p className={cx('first-title')}>{item.title}</p>
 
                         <span className={cx('first-name')}>{item.userChannel}</span>
                         <p className={cx(cx('first-Information'))}>
-                            <span>{item.view}</span>
+                            <span>{custumTextView} N</span>
 
                             <span>{item.videoPostingData}</span>
                         </p>

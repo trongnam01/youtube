@@ -14,7 +14,7 @@ let Image = forwardRef(({ src, alt, className, fallback: customfallback = images
         <img
             className={classNames(style.wrapper, className)}
             ref={ref}
-            src={src || fallback}
+            src={fallback || src}
             alt={alt}
             {...prop}
             onError={handleOnErr}

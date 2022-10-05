@@ -74,3 +74,8 @@
 .contai-content {
     padding-top: 58px;
 }
+@media (max-width: 876px) {
+    .Header-content {
+        margin-left: 0 !important;
+    }
+}

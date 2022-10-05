@@ -41,3 +41,21 @@
     line-height: 1.4rem;
     margin-top: 6px;
 }
+.isActive {
+    background-color: #e5e5e5;
+}
+@media (max-width: 876px) {
+    .container {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
+    .wrapper {
+        padding: 2px 0;
+        width: calc(100% / 5);
+    }
+    .isActive {
+        background-color: white;
+    }
+}

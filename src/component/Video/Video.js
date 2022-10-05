@@ -5,7 +5,7 @@ import styles from './Video.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Video({ className, item, opts, IdVideo }) {
+function Video({ className, item, opts }) {
     const [dataVideo, setDataVideo] = useState(item);
 
     useEffect(() => {
@@ -25,7 +25,7 @@ function Video({ className, item, opts, IdVideo }) {
     return (
         <div className={cx('wraper')}>
             <YouTube
-                videoId={IdVideo || dataVideo.video}
+                videoId={dataVideo.video}
                 opts={opts}
                 iframeClassName={classes}
                 onStateChange={handleStateChange}

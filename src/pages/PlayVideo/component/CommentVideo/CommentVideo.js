@@ -25,7 +25,7 @@ function CommentVideo() {
     });
     return (
         <div className={cx('wrapper')} style={{ marginBottom: 30 }}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div className={cx('hide-mobile')} style={{ display: 'flex', alignItems: 'center' }}>
                 <span className={cx('comment-qty')}>18 bình luận</span>
 
                 <Tippy content={'Sắp xếp bình luận'}>

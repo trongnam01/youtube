@@ -45,3 +45,17 @@
 .CommentVideo_wrapper__G1BDd .css-y4cjyz-MuiTouchRipple-ripple .MuiTouchRipple-child {
     background-color: rgba(0, 0, 0, 0.5);
 }
+.css-afwrde {
+    max-width: unset !important;
+}
+@media (max-width: 576px) {
+    .PlayVideo_wrapper-right__IqITP .css-1gsv261 {
+        padding: 0 12px;
+        .CardImage_wrapper__YrspD {
+            flex-direction: column;
+            height: auto;
+        }
+    }
+    .CardImage_wrapper__YrspD {
+    }
+}

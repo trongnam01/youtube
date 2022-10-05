@@ -97,6 +97,7 @@ body {
 
     .css-afwrde {
         background-color: transparent;
+        max-width: unset;
     }
 }
 .Home_contai-content__fE8NV {
@@ -118,6 +119,10 @@ body {
     .css-qh29qi {
         margin-left: -40px;
         padding: 0 107px;
+        position: sticky;
+        top: 56px;
+        background: white;
+        z-index: 99;
     }
     .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
         color: #030303;
@@ -128,7 +133,6 @@ body {
         padding-right: 0;
         padding-left: 0;
         z-index: 9;
-        background-color: #f9f9f9;
     }
     .css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
         font-size: 1.4rem;

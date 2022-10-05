@@ -21,6 +21,7 @@
 
     img {
         height: 100%;
+        object-fit: cover;
     }
 
     > span {
@@ -240,4 +241,12 @@
     &:hover {
         background-color: rgba(0, 0, 0, 0.1);
     }
+}
+.avatar-user-mobi {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 12px;
+    display: none;
 }

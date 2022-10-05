@@ -6,10 +6,12 @@ import Box from '@mui/material/Box';
 
 import { ThemDefau } from '~/layouts/DefaultLayout';
 import styles from './UserChannel.module.scss';
-import { SearchIcon } from '~/Icons';
+import { PlayICon, SearchIcon } from '~/Icons';
 import Video from '~/component/Video';
 import { Col, Row } from 'antd';
 import CrardImage from '~/component/CardImage';
+import Buttons from '~/component/Buttons';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -50,93 +52,57 @@ const opts = {
         // mute: 1,
     },
 };
-let item = {
-    id: '1',
-    coverImage:
-        'https://yt3.ggpht.com/-LY_VP4Ivld3Qjpk5AV-gAbhkh0FO7zZ3Ey_yjRXL_sU6X1kvPWqOL1kGUipwdGKXtMBYQC5mw=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj',
-    channeImage:
-        'https://yt3.ggpht.com/tdEC3Y8JEPcpHoTiNfe3Zy6OoIg3EAPRJUB8dcVAdhCC0QRo02HKQmPzQfXW17hj5b4n2xuQeHg=s68-c-k-c0x00ffffff-no-rj',
-    video: 'y576-ONm5II',
-    title: 'YÊU 5 - Rhymastic',
-    videoTime: '4:10',
-    image: 'https://i.ytimg.com/vi/qDZFevQpVFk/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCjAgmGEUepOLAteDCR3kL59aAqHg',
-    userChannel: 'Jen Hoang',
-    registerChannel: '5,66 N',
-    IduserChannel: '1',
-    view: '110.732.811 N',
-    videoPostingData: '14 ngày',
-    like: '323',
-    comments: [
-        {
-            image: 'https://yt3.ggpht.com/ytc/AMLnZu_xfD3WfFj5RVscCRZ8RB977fiBzyLDC47LTSf0Zg=s88-c-k-c0x00ffffff-no-rj',
-            commentData: '14 ngày',
-            content:
-                'Bài hát như đã đi trước thời đại,lần nào nghe cũng như mới vậy, sự kết hợp âm thanh tuyệt vời : ))',
-            like: '8.2',
-            name: 'Vũ phạm',
-        },
-        {
-            image: 'https://yt3.ggpht.com/HUzjwdFn_T4_wv-MX9lYxArP82K3kdh2OqEeKQB-uIeBarGVXj36i7OckJ2tP30FJ66a2R3AoQ=s88-c-k-c0x00ffffff-no-rj',
-            commentData: '6 ngày',
-            content: '❤️❤️❤️',
-            like: '1',
-            name: 'Mai vàng Quốc',
-        },
-        {
-            image: 'https://yt3.ggpht.com/juKoabK0VHwNLsjmSRq3RFQiYiwW7K9nwkhofJv5srtaaZQBlDVEmvNF7VZu5T0iv4yIIgxw7Sw=s88-c-k-c0x00ffffff-no-rj',
-            commentData: '2 ngày',
-            content: 'Bài này sẽ không bao giờ bị lãng quên !',
-            like: '0',
-            name: 'Thanh Văn',
-        },
-        {
-            image: 'https://yt3.ggpht.com/Rm0WwDlLgcHcsynkj-59oDnSjUqSQr2-H7BBX5tTiqXOgU0wM4lWo57-a9cBWqGCCkGo1MghqRo=s88-c-k-c0x00ffffff-no-rj',
-            commentData: '1 giây trước',
-            content: '🥰🥰🥰',
-            like: '0',
-            name: 'Su Su',
-        },
-    ],
-};
 
 function UserChannel() {
     const Them = useContext(ThemDefau);
+    const colum = useRef(6);
 
     const [value, setValue] = useState(0);
     const inputRef = useRef();
-    const [datas, setDatas] = useState([]);
+    const [datas, setDatas] = useState([{}]);
 
-    console.log(Them.DataApi);
     useEffect(() => {
         const pat = Them.locotion.pathname.slice(10);
-        console.log(pat);
         const result = Them.DataApi.filter((item) => {
-            console.log(pat);
-            console.log(item.userChannel.replace(/ /g, ''));
-            return pat === item.userChannel.replace(/ /g, '');
+            return pat === item.idName;
         });
 
-        setDatas(result);
-    }, []);
+        console.log(result);
+        console.log(Them.DataApi);
+        setDatas(() => {
+            return result.length < 1 ? [{}] : result;
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [Them.DataApi]);
+    useEffect(() => {
+        const number = Them.width;
+        if (number >= 1128) {
+            colum.current = 6;
+        }
+        if (number < 1128) {
+            colum.current = 8;
+        }
+        if (number < 876) {
+            colum.current = 12;
+        }
+        if (number < 576) {
+            colum.current = 24;
+        }
+    }, [Them.width, colum]);
+    console.log(colum);
+
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
     return (
         <div className={cx('wrapper')}>
-            <img
-                className={cx('cover-image')}
-                src="https://yt3.ggpht.com/RarTPnHxDqurL5TYmYh3BpmLGoZivMLW-pbjGyZ6rqeWViN4Dv-L_sZTd0D-j9lvNwEOqPa5=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj"
-                alt="img"
-            />
+            <img className={cx('cover-image')} src={datas[0].coverImage} alt={datas[0].title} />
             <div className={cx('header')}>
                 <div className={cx('header-user-channel')}>
-                    <img
-                        src="https://yt3.ggpht.com/ytc/AMLnZu8uhDPkPzLBr6-cSGkzyTgr4qmUYdPO_yd2MB1m-w=s176-c-k-c0x00ffffff-no-rj"
-                        alt="avatar"
-                    />
+                    <img src={datas[0].channeImage} alt={datas[0].userChannel} />
                     <div className={cx('header-information')}>
-                        <span className={cx('user-name')}>Hà Anh Tuấn </span>
-                        <span className={cx('subscribers')}>946 N người đăng ký</span>
+                        <span className={cx('user-name')}>{datas[0].userChannel}</span>
+                        <span className={cx('subscribers')}>{datas[0].registerChannel} người đăng ký</span>
                     </div>
                 </div>
                 <div className={cx('btn-subscribers')}>
@@ -174,25 +140,38 @@ function UserChannel() {
                         <div className={cx('wrapper-content')}>
                             <div className={cx('wrapper-video-top')}>
                                 <div className={cx('video-top')}>
-                                    <Video IdVideo={'m7Yd-K821cc'} opts={opts} className={cx('iframe-video')} />
+                                    <Video item={datas[0]} opts={opts} className={cx('iframe-video')} />
+                                </div>
+                                <div className={cx('title-mobile')}>
+                                    <Link
+                                        to={`/watch/@${datas[0].video}`}
+                                        onClick={() => {
+                                            Them.handleSetItemPlayVideo(datas[0]);
+                                        }}
+                                    >
+                                        {datas[0].title}
+                                    </Link>
                                 </div>
                                 <div className={cx('wrapper-content-video')}>
                                     <div className={cx('video-title')}>
                                         <p className={cx('title')}>
-                                            Lạ Lùng, Bước Qua Nhau - Những Bài Hát Hay Nhất Của Vũ. | Dòng Người Vội
-                                            Vàng Bước Qua...
+                                            <Link
+                                                to={`/watch/@${datas[0].video}`}
+                                                onClick={() => {
+                                                    Them.handleSetItemPlayVideo(datas[0]);
+                                                }}
+                                            >
+                                                {datas[0].title}
+                                            </Link>
                                         </p>
                                         <p className={cx(cx('first-Information'))}>
-                                            <span> 243.499 lượt xem</span>
+                                            <span> {datas[0].view} lượt xem</span>
 
-                                            <span>7 tháng trước</span>
+                                            <span>{datas[0].videoPostingData}</span>
                                         </p>
                                     </div>
                                     <div className={cx('text-video')}>
-                                        <p>
-                                            Lạ Lùng, Bước Qua Nhau - Những Bài Hát Hay Nhất Của Vũ. | Dòng Người Vội
-                                            Vàng Bước Qua...
-                                        </p>
+                                        <p>{datas[0].title}</p>
                                         <p>
                                             ------------------------- <br />
                                             Nhớ SUBSCRIBE và nhấn 🔔 để nhận thông báo đầu tiên và cập nhật những sản
@@ -200,14 +179,31 @@ function UserChannel() {
                                             Nghe audio "Cause I Love You" tại: Spotify​:{' '}
                                         </p>
                                     </div>
-                                    <b>Đọc Thêm</b>
+                                    <Link
+                                        to={`/watch/@${datas[0].video}`}
+                                        onClick={() => {
+                                            Them.handleSetItemPlayVideo(datas[0]);
+                                        }}
+                                    >
+                                        Đọc Thêm
+                                    </Link>
                                 </div>
                             </div>
                             <div className={cx('contents')}>
+                                <div className={cx('contents-title')}>
+                                    <span>Video tải lên</span>
+
+                                    <Buttons
+                                        className={cx('btnPlay')}
+                                        LeftIcon={<PlayICon className={cx('icon-play')} />}
+                                    >
+                                        Phát tất cả
+                                    </Buttons>
+                                </div>
                                 <Row gutter={[8, 24]}>
                                     {datas.map((item, index) => {
                                         return (
-                                            <Col key={index} span={6}>
+                                            <Col key={index} span={colum.current}>
                                                 <CrardImage item={item} className={cx('card-image')} />
                                             </Col>
                                         );

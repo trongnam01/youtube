@@ -179,14 +179,25 @@ function DefaultLauout({ children }) {
     const [tongleSideBar, setTongleSideBar] = useState(false);
     const [iscurrentUser, setIsCurrentUser] = useState(false);
     const [itemVideoPlay, setItemVideoPlay] = useState([]);
+    const [width, setWidth] = useState(window.innerWidth);
 
     useEffect(() => {
         getListApi().then((datas) => {
             setDataApi(datas);
         });
-
-        console.log(DataApi);
     }, []);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWidth(window.innerWidth);
+        };
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+    console.log(width);
 
     function handleTongleSideBar() {
         setTongleSideBar(!tongleSideBar);
@@ -198,9 +209,9 @@ function DefaultLauout({ children }) {
     function handleSetItemPlayVideo(data) {
         setItemVideoPlay(data);
     }
-    console.log(DataApi);
     const data = {
         items: MENU_ITEM,
+        width,
         locotion,
         DataApi,
         tongleSideBar,
@@ -223,8 +234,10 @@ function DefaultLauout({ children }) {
                             marginTop: 'var(--height-header)',
                             marginLeft: locotion.pathname.startsWith('/watch/@')
                                 ? '0'
-                                : !tongleSideBar
-                                ? 'var(--width-sideBar-show)'
+                                : width >= 1440
+                                ? !tongleSideBar
+                                    ? 'var(--width-sideBar-show)'
+                                    : 'var(--width-sideBar-hide)'
                                 : 'var(--width-sideBar-hide)',
                         }}
                     >

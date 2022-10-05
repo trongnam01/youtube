@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { Col, Row } from 'antd';
 import 'antd/dist/antd.css';
-import './PlayVideo.css';
+import './PlayVideo.scss';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -25,12 +25,17 @@ import {
     MenuSaveToListIcon,
     NotLikeActiveIcon,
     NotLikeIcon,
+    OpenCommentsIcon,
     ReportIcon,
     ShareIcon,
 } from '~/Icons';
 import Buttons from '~/component/Buttons';
 import Image from '~/component/Image';
 import CommentVideo from './component/CommentVideo';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { Hidden } from '@mui/material';
 
 const cx = classNames.bind(styles);
 
@@ -53,13 +58,16 @@ const opts = {
 function PlayVideo() {
     const Them = useContext(ThemDefau);
     const { itemVideoPlay, DataApi, locotion } = Them;
+    const navigate = useNavigate();
 
     const [value, setValue] = useState(0);
+    const [colum, setColum] = useState(false);
     const [isLike, setIsLike] = useState(false);
     const [isNotLike, setIsNotLike] = useState(false);
     const [isshowContent, setIsshowContent] = useState(false);
     const [videoPlay, setVideoPlay] = useState({});
     const [datas, setDatas] = useState([DataApi]);
+    const [IsCommentsMobi, setIsCommentsMobi] = useState(false);
 
     useEffect(() => {
         setDatas(() => {
@@ -77,6 +85,22 @@ function PlayVideo() {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [DataApi, itemVideoPlay]);
+    useEffect(() => {
+        const number = Them.width;
+
+        if (number <= 1050) {
+            setColum(true);
+        } else {
+            setColum(false);
+        }
+    }, [Them.width]);
+    console.log(colum);
+    const handleChangeUserChannel = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const custumName = videoPlay.idName;
+        navigate(`/channel/@${custumName}`);
+    };
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -95,10 +119,22 @@ function PlayVideo() {
             setIsNotLike(!isNotLike);
         }
     };
+    const handleIsItemsmobi = (value) => () => {
+        switch (value) {
+            case 'show':
+                setIsCommentsMobi(true);
+                document.body.style.overflow = 'hidden';
+                break;
+            case 'hide':
+                setIsCommentsMobi(false);
+                document.body.style.overflow = 'auto';
+                break;
+        }
+    };
     return (
         <div className={cx('wrapper')}>
             <Row gutter={[24, 16]}>
-                <Col span={16}>
+                <Col span={colum ? 24 : 16} className={cx('colum-mobile')}>
                     <div className={cx('wrapper-left')}>
                         <div className={cx('wrapper-video')}>
                             <Video item={itemVideoPlay.length === 0 ? videoPlay : itemVideoPlay} opts={opts} />
@@ -111,7 +147,7 @@ function PlayVideo() {
                                 <h1 className={cx('wraper-content-title')}>{videoPlay.title}</h1>
                                 <div className={cx('contai-interaction')}>
                                     <p className={cx(cx('first-Information'))}>
-                                        <span>{videoPlay.view}</span>
+                                        <span>{videoPlay.view} lượt xem</span>
 
                                         <span>{videoPlay.videoPostingData}</span>
                                     </p>
@@ -184,15 +220,27 @@ function PlayVideo() {
                             </div>
                             <div className={cx('wrapper-information')}>
                                 <div className={cx('contai-channel')}>
-                                    <Image className={cx('avatar-user')} src={videoPlay.channeImage} alt="avatar" />
+                                    <div onClick={handleChangeUserChannel}>
+                                        <Image className={cx('avatar-user')} src={videoPlay.channeImage} alt="avatar" />
+                                    </div>
                                     <div className={cx('user-channel')}>
-                                        <span className={cx('user-name')}>{videoPlay.userChannel}</span>
+                                        <span className={cx('user-name')} onClick={handleChangeUserChannel}>
+                                            {videoPlay.userChannel}
+                                        </span>
                                         <span className={cx('user-subscriber')}>
                                             {videoPlay.registerChannel} người đăng ký
                                         </span>
                                     </div>
 
                                     <button className={cx('register-btn')}>Đăng ký</button>
+                                </div>
+                                <div className={cx('commnets-length-mobi')}>
+                                    <span>
+                                        <strong>Bình luận</strong> • 3{' '}
+                                    </span>
+                                    <button onClick={handleIsItemsmobi('show')}>
+                                        <OpenCommentsIcon />
+                                    </button>
                                 </div>
                                 <div
                                     className={cx('information-content')}
@@ -263,11 +311,31 @@ function PlayVideo() {
                                 </button>
                             </div>
 
-                            <CommentVideo />
+                            <div className={cx('comment-dellTop')}>
+                                <CommentVideo />
+                            </div>
+                            {IsCommentsMobi && (
+                                <div className={cx('comment-mobile')}>
+                                    <div className={cx('contai-mobile')}>
+                                        <div className={cx('header-comments-mobi')}>
+                                            <div className={cx('line')}></div>
+                                            <div className={cx('header-title')}>
+                                                <span>Bình luận</span>
+                                                <button onClick={handleIsItemsmobi('hide')}>
+                                                    <FontAwesomeIcon icon={faXmark} />
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div className={cx('comments')}>
+                                            <CommentVideo />
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </Col>
-                <Col span={8}>
+                <Col span={colum ? 24 : 8} className={cx('colum-mobile')}>
                     <div className={cx('wrapper-right')}>
                         <Box sx={{ maxWidth: { xs: 320, sm: '100%' }, bgcolor: 'background.paper' }}>
                             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

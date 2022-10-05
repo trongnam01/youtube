@@ -8,9 +8,20 @@ import styles from '../CardHome.module.scss';
 const cx = classNames.bind(styles);
 
 function MenuCard({ MENUiTEM, zIndex, onClick }) {
+    function handleShow() {
+        console.log('show tippy');
+        document.body.style.overflow = 'hidden';
+    }
+    function handlehide() {
+        document.body.style.overflow = 'overlay';
+        console.log('hide tippy');
+    }
     return (
         <div>
             <MenuCardTippy
+                onHidden={handlehide}
+                onTrigger={handleShow}
+                onUntrigger={handlehide}
                 trigger="click"
                 interactive
                 zIndex={zIndex}

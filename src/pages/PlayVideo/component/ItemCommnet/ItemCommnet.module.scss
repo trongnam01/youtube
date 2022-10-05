@@ -87,3 +87,8 @@
     width: 24px;
     height: 24px;
 }
+@media (max-width: 1050px) {
+    .comment-setting-btn {
+        margin: 0;
+    }
+}

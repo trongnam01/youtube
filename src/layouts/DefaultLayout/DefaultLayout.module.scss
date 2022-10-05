@@ -6,3 +6,9 @@
 .content {
     width: 100%;
 }
+@media (max-width: 876px) {
+    .content {
+        margin-left: 0 !important;
+        margin-top: 48px !important;
+    }
+}

@@ -26,7 +26,7 @@ function HideSideBar({ data }) {
         });
     }
 
-    return <div>{renderItem()}</div>;
+    return <div className={cx('container')}>{renderItem()}</div>;
 }
 
 export default HideSideBar;

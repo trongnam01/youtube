@@ -4,6 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 
 import {
     CrardMenuIcon,
+    EllipsisIcon,
     LaterIcon,
     MenuSaveToListIcon,
     NotCareIcon,
@@ -77,7 +78,6 @@ function CardHome({ item }) {
     //     }, 500);
     // };
     const handleClickMenu = (e) => {
-        console.log(12);
         e.preventDefault();
         e.stopPropagation();
     };
@@ -92,7 +92,7 @@ function CardHome({ item }) {
     const handleChangeUserChannel = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        const custumName = item.userChannel.replace(/ /g, '');
+        const custumName = item.idName;
         navigate(`/channel/@${custumName}`);
     };
     // console.log(isMou);
@@ -133,8 +133,10 @@ function CardHome({ item }) {
 
                                     <span>{item.videoPostingData}</span>
                                 </p>
-                                <div onMouseDown={handleClickMenu}>
-                                    <MenuCard zIndex={10} MENUiTEM={MENUiTEM} onClick={handleClickMenu} />
+                                <div>
+                                    <button className={cx('setting')} onClick={handleClickMenu}>
+                                        <EllipsisIcon />
+                                    </button>
                                 </div>
                             </div>
                         </div>

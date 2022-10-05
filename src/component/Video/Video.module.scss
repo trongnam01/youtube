@@ -13,3 +13,18 @@
         display: none;
     }
 }
+@media (max-width: 590px) {
+    .Video {
+        height: 400px;
+    }
+}
+@media (max-width: 450px) {
+    .Video {
+        height: 300px;
+    }
+}
+@media (max-width: 370px) {
+    .Video {
+        height: 200px;
+    }
+}

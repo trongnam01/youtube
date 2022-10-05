@@ -21,10 +21,10 @@ import {
 } from '~/Icons';
 import HideSideBar from '../HideSideBar';
 import MenuSideBar from '../MenuSideBar';
-import { useLocation } from 'react-router-dom';
 import { ThemDefau } from '~/layouts/DefaultLayout';
 
 import styles from './SideBar.module.scss';
+import { width } from '@mui/system';
 
 const cx = classNames.bind(styles);
 
@@ -100,11 +100,11 @@ const MENU_ITEM_SIDEBAR = [
 ];
 
 function SideBar({ tongleSideBar }) {
-    const ThemCurren = useContext(ThemDefau);
+    const Them = useContext(ThemDefau);
     const [isModeSideBar, setIsModeSideBar] = useState(false);
 
     useEffect(() => {
-        if (ThemCurren.locotion.pathname.startsWith('/watch/@')) {
+        if (Them.locotion.pathname.startsWith('/watch/@')) {
             setIsModeSideBar(true);
         } else {
             setIsModeSideBar(false);
@@ -114,11 +114,12 @@ function SideBar({ tongleSideBar }) {
         } else {
             document.querySelector('body').style.overflow = 'auto';
         }
-    }, [tongleSideBar, ThemCurren.locotion.pathname, isModeSideBar]);
+    }, [tongleSideBar, Them.locotion.pathname, isModeSideBar]);
 
     const classes = cx({
-        hideSideBar: tongleSideBar,
-        showSideBar: !tongleSideBar,
+        hideSideBar: tongleSideBar && Them.width >= 1400,
+        // eslint-disable-next-line no-dupe-keys
+        showSideBar: !tongleSideBar && Them.width >= 1400,
     });
     const classSideBarPlay = cx('wrappe-sidebar-play', {
         ShowSidebarPlay: tongleSideBar,
@@ -126,12 +127,12 @@ function SideBar({ tongleSideBar }) {
 
     return (
         <>
-            {ThemCurren.locotion.pathname.startsWith('/watch/@') ? (
+            {Them.locotion.pathname.startsWith('/watch/@') ? (
                 <>
                     <div
                         className={cx('wrappe-playCrad')}
                         style={{ visibility: tongleSideBar ? 'visible' : 'hidden' }}
-                        onClick={ThemCurren.handleTongleSideBar}
+                        onClick={Them.handleTongleSideBar}
                     >
                         <div className={classSideBarPlay}>
                             <MenuSideBar data={MENU_ITEM_SIDEBAR} />
@@ -140,8 +141,27 @@ function SideBar({ tongleSideBar }) {
                 </>
             ) : (
                 <div className={cx(classes)}>
-                    {!tongleSideBar && <MenuSideBar data={MENU_ITEM_SIDEBAR} />}
-                    {tongleSideBar && <HideSideBar data={MENU_ITEM_SIDEBAR} />}
+                    {Them.width >= 1440 ? (
+                        <>
+                            {!tongleSideBar && <MenuSideBar data={MENU_ITEM_SIDEBAR} />}
+                            {tongleSideBar && <HideSideBar data={MENU_ITEM_SIDEBAR} />}
+                        </>
+                    ) : (
+                        <>
+                            <div className={cx('hide')}>
+                                <HideSideBar data={MENU_ITEM_SIDEBAR} />
+                            </div>
+                            <div
+                                className={cx('wrappe-playCrad')}
+                                style={{ visibility: tongleSideBar ? 'visible' : 'hidden' }}
+                                onClick={Them.handleTongleSideBar}
+                            >
+                                <div className={classSideBarPlay}>
+                                    <MenuSideBar data={MENU_ITEM_SIDEBAR} />
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
             )}
         </>

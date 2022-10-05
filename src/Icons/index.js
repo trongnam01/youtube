@@ -983,11 +983,33 @@ export const CommentIcons = ({ width = '2rem', height = '2rem', className }) => 
             height={height}
             viewBox="0 0 24 24"
             preserveAspectRatio="xMidYMid meet"
-            focusable="false"
         >
             <g>
                 <path d="M12,2C6.48,2,2,6.48,2,12c0,5.52,4.48,10,10,10s10-4.48,10-10C22,6.48,17.52,2,12,2z M12,21c-4.96,0-9-4.04-9-9 c0-4.96,4.04-9,9-9s9,4.04,9,9C21,16.96,16.96,21,12,21z M17,13c0,1-1,4-5,4s-5-3-5-4C8,13,16,13,17,13z M6.05,10 C6.28,8.86,7.29,8,8.5,8s2.22,0.86,2.45,2H9.91C9.7,9.42,9.15,9,8.5,9s-1.2,0.42-1.41,1H6.05z M13.05,10c0.23-1.14,1.24-2,2.45-2 s2.22,0.86,2.45,2h-1.04c-0.21-0.58-0.76-1-1.41-1s-1.2,0.42-1.41,1H13.05z"></path>
             </g>
+        </svg>
+    );
+};
+export const PlayICon = ({ width = '2.4rem', height = '2.4rem', className }) => {
+    return (
+        <svg
+            className={className}
+            width={width}
+            height={height}
+            viewBox="0 0 24 24"
+            preserveAspectRatio="xMidYMid meet"
+            fill="currentColor"
+        >
+            <g>
+                <path d="M6,4l12,8L6,20V4z"></path>
+            </g>
+        </svg>
+    );
+};
+export const OpenCommentsIcon = ({ width = '2.4rem', height = '2.4rem', className }) => {
+    return (
+        <svg className={className} width={width} height={height} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12,21.7l-6.4-6.4l0.7-0.7l5.6,5.6l5.6-5.6l0.7,0.7L12,21.7z M18.4,8.6L12,2.3L5.6,8.6l0.7,0.7L12,3.7l5.6,5.6L18.4,8.6z"></path>
         </svg>
     );
 };
