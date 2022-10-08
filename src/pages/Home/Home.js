@@ -160,28 +160,27 @@ function Home() {
 }
 function TabsHome({ index, loading, isLoading, datas }) {
     const Them = useContext(ThemDefau);
-    const colum = useRef();
+    const [colum, setColum] = useState();
     useEffect(() => {
         const number = Them.width;
         if (number >= 1128) {
-            colum.current = 6;
+            setColum(6);
         }
         if (number < 1128) {
-            colum.current = 8;
+            setColum(8);
         }
         if (number < 876) {
-            colum.current = 12;
+            setColum(12);
         }
         if (number < 576) {
-            colum.current = 24;
+            setColum(24);
         }
     }, [Them.width, colum]);
-
     const Tabs = ({ items }) => {
         return (
             <Row gutter={[16, 40]}>
                 {items.map((item, index) => (
-                    <Col key={index} span={colum.current}>
+                    <Col key={index} span={colum}>
                         <CardVideo index={index} item={item} />
                     </Col>
                 ))}

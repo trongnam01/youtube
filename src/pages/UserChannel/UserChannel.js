@@ -55,7 +55,7 @@ const opts = {
 
 function UserChannel() {
     const Them = useContext(ThemDefau);
-    const colum = useRef(6);
+    const [colum, setColum] = useState();
 
     const [value, setValue] = useState(0);
     const inputRef = useRef();
@@ -77,19 +77,18 @@ function UserChannel() {
     useEffect(() => {
         const number = Them.width;
         if (number >= 1128) {
-            colum.current = 6;
+            setColum(6);
         }
         if (number < 1128) {
-            colum.current = 8;
+            setColum(8);
         }
         if (number < 876) {
-            colum.current = 12;
+            setColum(12);
         }
         if (number < 576) {
-            colum.current = 24;
+            setColum(24);
         }
     }, [Them.width, colum]);
-    console.log(colum);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -203,7 +202,7 @@ function UserChannel() {
                                 <Row gutter={[8, 24]}>
                                     {datas.map((item, index) => {
                                         return (
-                                            <Col key={index} span={colum.current}>
+                                            <Col key={index} span={colum}>
                                                 <CrardImage item={item} className={cx('card-image')} />
                                             </Col>
                                         );
