@@ -1,11 +1,17 @@
 import Home from '~/pages/Home';
+import Library from '~/pages/Library';
 import New from '~/pages/New';
 import PlayVideo from '~/pages/PlayVideo/PlayVideo';
+import Register from '~/pages/Register';
+import Shorts from '~/pages/Shorts';
 import UserChannel from '~/pages/UserChannel';
 
 export const publicRouters = [
     { path: '/', component: Home },
     { path: '/new', component: New },
+    { path: '/shorts', component: Shorts },
+    { path: '/register', component: Register },
+    { path: '/library', component: Library },
     { path: '/watch/@:name', component: PlayVideo },
     { path: '/channel/@:channel', component: UserChannel },
 ];
