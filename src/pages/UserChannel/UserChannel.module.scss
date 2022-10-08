@@ -204,3 +204,10 @@
 .title-mobile {
     display: none;
 }
+@media (max-width: 578px) {
+    .header-user-channel {
+        img {
+            margin-right: 12px;
+        }
+    }
+}

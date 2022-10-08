@@ -10,7 +10,7 @@ import SupportSideBar from '../SupportSideBar/SupportSideBar';
 
 import styles from './MenuSideBar.module.scss';
 import { ThemDefau } from '~/layouts/DefaultLayout';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import LoginBtn from '~/component/LoginBtn';
 
 const cx = classNames.bind(styles);

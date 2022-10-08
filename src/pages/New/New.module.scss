@@ -1,0 +1,98 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+}
+.container {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    max-width: 1070px;
+}
+header.header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .items-tabs {
+        margin-right: 4px;
+        margin-bottom: 4px;
+        display: flex;
+        width: 210px;
+        background-color: #fff;
+        border-radius: 8px;
+        flex-direction: column;
+        cursor: pointer;
+        img {
+            width: 32px;
+            margin: 20px 20px 4px 20px;
+        }
+        span {
+            margin: 0 20px 12px 20px;
+            height: 48px;
+            max-height: 48px;
+            display: flex;
+            align-items: center;
+            font-size: 1.6rem;
+            line-height: 2.2rem;
+            font-weight: 500;
+            max-height: 4.4rem;
+        }
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+}
+.content {
+    margin-top: 8px;
+    > h3 {
+        margin: 24px 0 24px 0;
+        font-size: 1.6rem;
+        line-height: 2.2rem;
+        font-weight: 500;
+        max-height: 2.2rem;
+    }
+    .item-featured {
+        max-width: 862px;
+    }
+}
+
+@media (max-width: 1170px) {
+    .container {
+        max-width: 856px;
+    }
+}
+@media (max-width: 867px) {
+    .container {
+        max-width: 100%;
+    }
+
+    header.header {
+        flex-wrap: nowrap;
+        padding-left: 12px;
+        .items-tabs {
+            width: 114px;
+            margin-right: 12px;
+            margin-bottom: 12px px;
+        }
+        img {
+            width: 24px;
+            height: 24px;
+            margin: 8px 8px 4px 8px;
+        }
+        .items-tabs:last-child {
+            margin-right: 0;
+        }
+    }
+}
+@media (max-width: 576px) {
+    header.header {
+        overflow: overlay;
+        width: 100%;
+        .items-tabs {
+            min-width: 86px;
+        }
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}

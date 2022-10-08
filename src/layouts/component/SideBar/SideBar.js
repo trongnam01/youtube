@@ -24,7 +24,6 @@ import MenuSideBar from '../MenuSideBar';
 import { ThemDefau } from '~/layouts/DefaultLayout';
 
 import styles from './SideBar.module.scss';
-import { width } from '@mui/system';
 
 const cx = classNames.bind(styles);
 

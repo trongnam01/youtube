@@ -48,7 +48,7 @@ const MENUiTEM = [
     },
 ];
 
-function CrardPlay({ item, className }) {
+function CrardPlay({ item, className, pageNew }) {
     const navigate = useNavigate();
     const Them = useContext(ThemDefau);
     const custumTextView = Number.parseInt(item.view);
@@ -95,6 +95,13 @@ function CrardPlay({ item, className }) {
 
                             <span>{item.videoPostingData}</span>
                         </p>
+
+                        {pageNew && (
+                            <p className={cx('infomation')}>
+                                {item.title} | Official Music Video Spotify: https://spoti.fi/3SthiUH Apple Music:
+                                https://apple.co/3BZzQXu Zing MP3: https://bit.ly/3UJhLV5 Composer: ĐỖ HOÀI...
+                            </p>
+                        )}
 
                         <div className={cx('menu-hide')} onClick={handleClickSettting}>
                             <MenuCard zIndex={4} MENUiTEM={MENUiTEM} />

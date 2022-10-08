@@ -250,3 +250,15 @@
     margin-right: 12px;
     display: none;
 }
+.infomation {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-family: 'Roboto', 'Arial', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    font-weight: 400;
+    max-height: 3.6rem;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    color: #606060;
+}
