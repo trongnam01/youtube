@@ -1,23 +1,39 @@
 import classNames from 'classnames/bind';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import ItemResultSearch from '~/component/ItemResultSearch';
 import { RightLineIcon, SearchIcon, VoiceIcon } from '~/Icons';
+import { ThemDefau } from '~/layouts/DefaultLayout';
 import styles from './SearchMobile.module.scss';
 const cx = classNames.bind(styles);
 
 function SearchMobile({ handleShowSearchMobi }) {
     const refInput = useRef();
-    const [resultSearch, setResultSearch] = useState([
-        { id: 1, title: 'kkkkk', isSuccess: false },
-        { id: 2, title: 'kkkkk', isSuccess: false },
-        { id: 3, title: 'kkkkk', isSuccess: false },
-        { id: 4, title: 'kkkkk', isSuccess: false },
-    ]);
+    const Them = useContext(ThemDefau);
+    const [valueSearch, setValueSearch] = useState('');
+    const [datas, setDatas] = useState([]);
+
+    const [itemsSearch, setItemsSearch] = useState([]);
     useEffect(() => {
         refInput.current.focus();
+        setDatas(Them.DataApi);
     }, []);
+    useEffect(() => {
+        if (valueSearch.trim().length > 0) {
+            const valueInput = valueSearch.toLowerCase().replace(/ /g, '');
+            const result = datas.filter((item) => {
+                return item.title.toLowerCase().replace(/ /g, '').includes(valueInput);
+            });
+            setItemsSearch(result);
+        } else {
+            setItemsSearch([]);
+        }
+    }, [valueSearch, datas]);
     function handleClick(e) {
         e.stopPropagation();
+    }
+    function handleaClickItemSearch() {
+        setValueSearch('');
+        handleShowSearchMobi();
     }
 
     return (
@@ -27,7 +43,14 @@ function SearchMobile({ handleShowSearchMobi }) {
                     <RightLineIcon />
                 </button>
                 <div className={cx('contai-input')}>
-                    <input ref={refInput} placeholder="Tìm Kiếm Trên Youtube" />
+                    <input
+                        ref={refInput}
+                        placeholder="Tìm Kiếm Trên Youtube"
+                        value={valueSearch}
+                        onChange={(e) => {
+                            setValueSearch(e.target.value);
+                        }}
+                    />
                 </div>
                 <div>
                     <button className={cx('btn-search')}>
@@ -39,9 +62,16 @@ function SearchMobile({ handleShowSearchMobi }) {
                 </div>
             </div>
             <div className={cx('result-search')} onClick={handleClick}>
-                {resultSearch.map((item) => (
-                    <ItemResultSearch className={cx('custom-item-search')} show={false} key={item.id} data={item} />
+                {itemsSearch.slice(0, 6).map((item) => (
+                    <ItemResultSearch
+                        className={cx('custom-item-search')}
+                        show={false}
+                        key={item.id}
+                        data={item}
+                        handleaClickItemSearch={handleaClickItemSearch}
+                    />
                 ))}
+                {/* {itemsSearch.length === 0 && <span>Không có kết quả như đã tìm kiếm</span>} */}
             </div>
         </div>
     );

@@ -179,6 +179,7 @@ function DefaultLauout({ children }) {
     const [tongleSideBar, setTongleSideBar] = useState(false);
     const [iscurrentUser, setIsCurrentUser] = useState(false);
     const [itemVideoPlay, setItemVideoPlay] = useState([]);
+    const [resultSearch, setResultSearch] = useState([]);
     const [width, setWidth] = useState(window.innerWidth);
 
     useEffect(() => {
@@ -186,7 +187,6 @@ function DefaultLauout({ children }) {
             setDataApi(datas);
         });
     }, []);
-
     useEffect(() => {
         const handleResize = () => {
             setWidth(window.innerWidth);
@@ -211,6 +211,8 @@ function DefaultLauout({ children }) {
     }
     const data = {
         items: MENU_ITEM,
+        setResultSearch,
+        resultSearch,
         width,
         locotion,
         DataApi,

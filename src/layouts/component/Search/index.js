@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import SearchTippy from '@tippyjs/react/headless';
+import { ThemDefau } from '~/layouts/DefaultLayout';
 
 import { ClearIcon, SearchIcon } from '~/Icons';
 import styles from './Search.module.scss';
@@ -11,31 +12,38 @@ const cx = classNames.bind(styles);
 
 function Search() {
     const [valueSearch, setValueSearch] = useState('');
-    const [resultSearch, setResultSearch] = useState([]);
+    const [datas, setDatas] = useState([]);
+    const [ItemsSearch, setItemsSearch] = useState([]);
     const [isresult, setIsResult] = useState(true);
+    const Them = useContext(ThemDefau);
+    useEffect(() => {
+        setDatas(Them.DataApi);
+    }, [Them.DataApi]);
 
     useEffect(() => {
-        setResultSearch([
-            { id: 1, title: 'kkkkk', isSuccess: false },
-            { id: 2, title: 'kkkkk', isSuccess: false },
-            { id: 3, title: 'kkkkk', isSuccess: false },
-            { id: 4, title: 'kkkkk', isSuccess: false },
-            { id: 5, title: 'kkkkk', isSuccess: false },
-            { id: 6, title: 'kkkkk', isSuccess: false },
-            { id: 7, title: 'kkkkk', isSuccess: false },
-            { id: 8, title: 'kkkkk', isSuccess: false },
-        ]);
-    }, []);
-
+        if (valueSearch.trim().length > 0) {
+            const valueInput = valueSearch.toLowerCase().replace(/ /g, '');
+            const result = datas.filter((item) => {
+                return item.title.toLowerCase().replace(/ /g, '').includes(valueInput);
+            });
+            setItemsSearch(result);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [valueSearch, datas]);
+    console.log(Them.resultSearch);
     const handleHideResult = () => {
         setIsResult(false);
     };
     const handleFocusInput = () => {
         setIsResult(true);
-        setValueSearch('1');
     };
     const handleClickWrapper = () => {
         setIsResult(false);
+    };
+    const handleaClickItemSearch = () => {
+        setValueSearch('');
+        Them.setResultSearch(ItemsSearch);
+        window.localStorage.setItem('resultSearch', JSON.stringify(ItemsSearch));
     };
 
     return (
@@ -47,10 +55,18 @@ function Search() {
                 placement="bottom-start"
                 render={(attrs) => (
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                        <PopperWrapper className={'wrapper-search'} onClick={handleClickWrapper}>
-                            {resultSearch.map((item) => (
-                                <ItemResultSearch key={item.id} data={item} />
+                        <PopperWrapper className={cx('wrapper-search')} onClick={handleClickWrapper}>
+                            {ItemsSearch.slice(0, 6).map((item) => (
+                                <ItemResultSearch
+                                    key={item.id}
+                                    data={item}
+                                    value={valueSearch.toLowerCase().replace(/ /g, '')}
+                                    handleaClickItemSearch={handleaClickItemSearch}
+                                />
                             ))}
+                            {ItemsSearch.length === 0 && (
+                                <span className={cx('notification')}> Không có kết quả tìm kiếm</span>
+                            )}
                         </PopperWrapper>
                     </div>
                 )}
@@ -64,7 +80,12 @@ function Search() {
                         <input
                             placeholder="Tìm Kiếm"
                             value={valueSearch}
-                            onChange={(e) => setValueSearch(e.target.value)}
+                            onChange={(e) => {
+                                const result = e.target.value;
+                                // if (!result.startsWith(' ')) {
+                                // }
+                                setValueSearch(result);
+                            }}
                             onFocus={handleFocusInput}
                         />
 

@@ -48,7 +48,7 @@ const MENUiTEM = [
     },
 ];
 
-function CrardPlay({ item, className, pageNew }) {
+function CrardImage({ item, className, pageNew, imageUser }) {
     const navigate = useNavigate();
     const Them = useContext(ThemDefau);
     const custumTextView = Number.parseInt(item.view);
@@ -95,6 +95,12 @@ function CrardPlay({ item, className, pageNew }) {
 
                             <span>{item.videoPostingData}</span>
                         </p>
+                        {imageUser && (
+                            <div className={cx('wrapper-userChanne')}>
+                                <img src={item.channeImage} alt="avatar" />
+                                <span>{item.userChannel}</span>
+                            </div>
+                        )}
 
                         {pageNew && (
                             <p className={cx('infomation')}>
@@ -113,4 +119,4 @@ function CrardPlay({ item, className, pageNew }) {
     );
 }
 
-export default CrardPlay;
+export default CrardImage;

@@ -1,7 +1,7 @@
 import { Col, Row } from 'antd';
 import classNames from 'classnames/bind';
 import { useContext, useEffect, useState } from 'react';
-import CrardPlay from '~/component/CardImage/CardImage';
+import CrardImage from '~/component/CardImage/CardImage';
 
 import { ThemDefau } from '~/layouts/DefaultLayout';
 
@@ -59,7 +59,7 @@ function New() {
                         {featuredVideo.map((item, index) => {
                             return (
                                 <Col className={cx('item-featured')} key={index} span={24}>
-                                    <CrardPlay item={item} pageNew={true} />
+                                    <CrardImage item={item} pageNew={true} />
                                 </Col>
                             );
                         })}

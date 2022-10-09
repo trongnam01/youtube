@@ -41,6 +41,10 @@
 }
 .result-search {
     background-color: white;
+    > span {
+        padding: 12px;
+        display: flex;
+    }
 }
 .custom-item-search {
     border-bottom: 1px solid #dddddd70;

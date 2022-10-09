@@ -1,3 +1,4 @@
+import FilterSearch from '~/pages/FilterSearch';
 import Home from '~/pages/Home';
 import Library from '~/pages/Library';
 import New from '~/pages/New';
@@ -10,6 +11,7 @@ export const publicRouters = [
     { path: '/', component: Home },
     { path: '/new', component: New },
     { path: '/shorts', component: Shorts },
+    { path: '/search/:value', component: FilterSearch },
     { path: '/register', component: Register },
     { path: '/library', component: Library },
     { path: '/watch/@:name', component: PlayVideo },

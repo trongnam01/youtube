@@ -14,14 +14,19 @@
     display: flex;
     align-items: center;
     padding-right: 8px;
+    overflow: hidden;
 }
 .icon {
     margin-right: 10px;
+    display: flex;
 }
 .title {
     font-size: 1.6rem;
     font-weight: 400;
     color: var(--text-color);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .clear {
     font-size: 13px;
