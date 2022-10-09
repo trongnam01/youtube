@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import classNames from 'classnames/bind';
 import { CreatorYoutube, YoutubeKids, YoutubeMusic, YoutubeTv } from '~/Icons';
 import { renderItem } from '../Entertainment/Entertainment';

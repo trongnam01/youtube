@@ -16,7 +16,7 @@ function SearchMobile({ handleShowSearchMobi }) {
     useEffect(() => {
         refInput.current.focus();
         setDatas(Them.DataApi);
-    }, []);
+    }, [Them.DataApi]);
     useEffect(() => {
         if (valueSearch.trim().length > 0) {
             const valueInput = valueSearch.toLowerCase().replace(/ /g, '');

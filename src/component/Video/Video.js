@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import YouTube from 'react-youtube';
 import styles from './Video.module.scss';

@@ -35,7 +35,6 @@ import CommentVideo from './component/CommentVideo';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { Hidden } from '@mui/material';
 
 const cx = classNames.bind(styles);
 

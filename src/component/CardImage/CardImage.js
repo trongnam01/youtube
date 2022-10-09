@@ -49,7 +49,6 @@ const MENUiTEM = [
 ];
 
 function CrardImage({ item, className, pageNew, imageUser }) {
-    const navigate = useNavigate();
     const Them = useContext(ThemDefau);
     const custumTextView = Number.parseInt(item.view);
 
@@ -57,12 +56,7 @@ function CrardImage({ item, className, pageNew, imageUser }) {
         e.preventDefault();
         e.stopPropagation();
     };
-    // const handleChangeUserChannel = (e) => {
-    //     e.preventDefault();
-    //     e.stopPropagation();
-    //     const custumName = item.idName;
-    //     navigate(`/channel/@${custumName}`);
-    // };
+
     return (
         <Link
             className={cx('wrapper', className)}
@@ -71,8 +65,6 @@ function CrardImage({ item, className, pageNew, imageUser }) {
                 window.scrollTo(0, 0);
                 Them.handleSetItemPlayVideo(item);
             }}
-            //  onMouseMove={handleMouContent}
-            //  onMouseOut={handleOutContent}
         >
             <div className={cx('wrapper-content-video')}>
                 <img className={cx('content-video')} src={item.image} alt={item.title} />

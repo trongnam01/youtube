@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react';
 import classNames from 'classnames/bind';
-import Nav from 'react-bootstrap/Nav';
 
 import {
     CrardMenuIcon,
@@ -64,19 +63,6 @@ function CardHome({ item }) {
     const navigate = useNavigate();
     const custumTextView = Number.parseInt(item.view);
 
-    // const handleMOu = (e) => {
-    //     // console.log(videoRef.current);
-    //     // setIsImage(false);
-    //     // videoRef.current.play();
-    //     // videoRef.current.setVolume(50);
-    //     // clearTimeout(idTimemou.current);
-    // };
-    // const handleMouseOut = () => {
-    //     idTimemou.current = setTimeout(() => {
-    //         setIsImage(true);
-    //         // videoRef.current.pause();
-    //     }, 500);
-    // };
     const handleClickMenu = (e) => {
         e.preventDefault();
         e.stopPropagation();
