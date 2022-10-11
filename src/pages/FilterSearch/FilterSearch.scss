@@ -1,0 +1,54 @@
+.FilterSearch_container-filter__JgyB\+ {
+    .CardImage_wrapper__YrspD {
+        margin-top: 16px;
+        height: auto;
+    }
+    .CardImage_wrapper-content-video__owR7M {
+        max-width: 360px;
+        min-width: 240px;
+        height: auto;
+        margin-right: 16px;
+    }
+    .CardImage_first-title__DwUT4 {
+        font-size: 1.8rem;
+        line-height: 2.6rem;
+        font-weight: 400;
+    }
+    .CardImage_first-name__dEdJU {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .FilterSearch_container-filter__JgyB\+ {
+        .CardImage_wrapper-content-video__owR7M {
+            width: 200px;
+            // height: 90px;
+        }
+        .CardImage_first-title__DwUT4 {
+            font-size: 14px;
+            line-height: 1.25;
+        }
+    }
+}
+@media (max-width: 576px) {
+    .FilterSearch_container-filter__JgyB\+ {
+        .CardImage_wrapper-content-video__owR7M {
+            width: 160px;
+            height: 90px;
+        }
+        .CardImage_infomation__oRTrm {
+            display: none;
+        }
+        .CardImage_wrapper-userChanne__0f1C\+ {
+            padding: 6px 0;
+        }
+        .CardImage_first-title__DwUT4 {
+            font-size: 14px;
+            line-height: 1.25;
+        }
+    }
+    .FilterSearch_wrapper__PYKxP {
+        padding: 12px 12px;
+    }
+}

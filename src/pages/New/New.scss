@@ -1,76 +1,76 @@
-.New_container__KzElA {
-    .New_item-featured__ujdm5 {
-        .CardImage_wrapper__YrspD {
-            height: 138px;
-            .CardImage_wrapper-content-video__owR7M {
-                height: 100%;
-                min-width: 246px;
-            }
-        }
-    }
-}
+// .New_container__KzElA {
+//     .New_item-featured__ujdm5 {
+//         .CardImage_wrapper__YrspD {
+//             height: 138px;
+//             .CardImage_wrapper-content-video__owR7M {
+//                 height: 100%;
+//                 min-width: 246px;
+//             }
+//         }
+//     }
+// }
 
-@media (max-width: 867px) {
-    .New_container__KzElA {
-        .New_content__KJJl1 {
-            > h3 {
-                padding-left: 12px;
-            }
-            .New_item-featured__ujdm5 {
-                min-width: 699px;
-            }
-        }
-        .New_item-featured__ujdm5 {
-            .CardImage_wrapper__YrspD {
-                height: 138px;
-                .CardImage_wrapper-content-video__owR7M {
-                    // margin-right: 0;
-                    height: 100%;
-                    min-width: 246px;
-                }
-            }
-        }
-    }
-}
-@media (max-width: 667px) {
-    .New_container__KzElA {
-        .New_content__KJJl1 {
-            .New_item-featured__ujdm5 {
-                min-width: 500px;
-            }
-        }
-    }
-}
-@media (max-width: 576px) {
-    .New_container__KzElA {
-        .New_content__KJJl1 {
-            .New_item-featured__ujdm5 {
-                min-width: auto;
-                margin-top: 10px;
-            }
-        }
-        .New_item-featured__ujdm5 {
-            .CardImage_wrapper__YrspD {
-                flex-direction: column;
-                height: auto;
-                .CardImage_wrapper-content-video__owR7M {
-                    margin-right: 0;
-                }
-                .CardImage_content-title__ZRe7r {
-                    padding-top: 12px;
-                    padding-left: 12px;
-                }
-            }
-            .CardImage_infomation__oRTrm {
-                display: none;
-            }
-            .CardHome_setting__PJ6UW {
-                right: 6px;
-            }
-        }
-        .ant-row {
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-        }
-    }
-}
+// @media (max-width: 867px) {
+//     .New_container__KzElA {
+//         .New_content__KJJl1 {
+//             > h3 {
+//                 padding-left: 12px;
+//             }
+//             .New_item-featured__ujdm5 {
+//                 min-width: 699px;
+//             }
+//         }
+//         .New_item-featured__ujdm5 {
+//             .CardImage_wrapper__YrspD {
+//                 height: 138px;
+//                 .CardImage_wrapper-content-video__owR7M {
+//                     // margin-right: 0;
+//                     height: 100%;
+//                     min-width: 246px;
+//                 }
+//             }
+//         }
+//     }
+// }
+// @media (max-width: 667px) {
+//     .New_container__KzElA {
+//         .New_content__KJJl1 {
+//             .New_item-featured__ujdm5 {
+//                 min-width: 500px;
+//             }
+//         }
+//     }
+// }
+// @media (max-width: 576px) {
+//     .New_container__KzElA {
+//         .New_content__KJJl1 {
+//             .New_item-featured__ujdm5 {
+//                 min-width: auto;
+//                 margin-top: 10px;
+//             }
+//         }
+//         .New_item-featured__ujdm5 {
+//             .CardImage_wrapper__YrspD {
+//                 flex-direction: column;
+//                 height: auto;
+//                 .CardImage_wrapper-content-video__owR7M {
+//                     margin-right: 0;
+//                 }
+//                 .CardImage_content-title__ZRe7r {
+//                     padding-top: 12px;
+//                     padding-left: 12px;
+//                 }
+//             }
+//             .CardImage_infomation__oRTrm {
+//                 display: none;
+//             }
+//             .CardHome_setting__PJ6UW {
+//                 right: 6px;
+//             }
+//         }
+//         .ant-row {
+//             margin-left: 0 !important;
+//             margin-right: 0 !important;
+//         }
+//     }
+// }

@@ -59,7 +59,7 @@ function New() {
                         {featuredVideo.map((item, index) => {
                             return (
                                 <Col className={cx('item-featured')} key={index} span={24}>
-                                    <CrardImage item={item} pageNew={true} />
+                                    <CrardImage item={item} pageNew={true} classCustom={cx('Crad-NEW')} />
                                 </Col>
                             );
                         })}

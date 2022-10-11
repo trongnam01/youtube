@@ -357,9 +357,43 @@
         padding: 12px 12px;
     }
 }
+.Crad-NEW {
+    height: 138px;
+    .wrapper-content-video {
+        height: 100%;
+        min-width: 246px;
+    }
+}
+@media (max-width: 867px) {
+    .Crad-NEW {
+        height: 138px;
+        .wrapper-content-video {
+            height: 100%;
+            min-width: 246px;
+        }
+    }
+}
 @media (max-width: 576px) {
     .card-PLAYVIDEO {
         flex-direction: column;
         height: auto;
+    }
+
+    .Crad-NEW {
+        flex-direction: column;
+        height: auto;
+        .wrapper-content-video {
+            margin-right: 0;
+        }
+        .content-title {
+            padding-top: 12px;
+            padding-left: 12px;
+        }
+        .infomation {
+            display: none;
+        }
+        // .CardHome_setting {
+        //     right: 6px;
+        // }
     }
 }
