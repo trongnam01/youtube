@@ -119,12 +119,14 @@ header.header {
             .item-featured {
                 min-width: auto;
                 margin-top: 10px;
+                // padding-left: 0 !important;
+                // padding-right: 0 !important;
             }
         }
-
-        .ant-row {
-            margin-left: 0 !important;
-            margin-right: 0 !important;
+    }
+    .content {
+        > h3 {
+            margin: 0;
         }
     }
 }

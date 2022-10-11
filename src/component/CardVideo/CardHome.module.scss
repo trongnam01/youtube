@@ -256,3 +256,8 @@
     object-fit: cover;
     z-index: 99;
 }
+@media (max-width: 576px) {
+    .setting {
+        right: 6px;
+    }
+}

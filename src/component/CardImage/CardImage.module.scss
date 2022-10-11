@@ -336,6 +336,24 @@
         }
     }
 }
+
+.Crad-NEW {
+    height: 138px;
+    .wrapper-content-video {
+        height: 100%;
+        min-width: 246px;
+    }
+}
+@media (max-width: 867px) {
+    .Crad-NEW {
+        height: 138px;
+        padding: 0 12px;
+        .wrapper-content-video {
+            height: 100%;
+            min-width: 246px;
+        }
+    }
+}
 @media (max-width: 576px) {
     .fiter-search {
         .wrapper-content-video {
@@ -353,27 +371,7 @@
             line-height: 1.25;
         }
     }
-    .wrapper {
-        padding: 12px 12px;
-    }
-}
-.Crad-NEW {
-    height: 138px;
-    .wrapper-content-video {
-        height: 100%;
-        min-width: 246px;
-    }
-}
-@media (max-width: 867px) {
-    .Crad-NEW {
-        height: 138px;
-        .wrapper-content-video {
-            height: 100%;
-            min-width: 246px;
-        }
-    }
-}
-@media (max-width: 576px) {
+
     .card-PLAYVIDEO {
         flex-direction: column;
         height: auto;
@@ -395,5 +393,8 @@
         // .CardHome_setting {
         //     right: 6px;
         // }
+    }
+    .Crad-NEW {
+        padding: 0;
     }
 }

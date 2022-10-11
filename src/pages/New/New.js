@@ -53,7 +53,7 @@ function New() {
                         );
                     })}
                 </header>
-                <article className={cx('content')}>
+                <article className={cx('content', 'content-NEW')}>
                     <h3>Video thịnh hành</h3>
                     <Row gutter={[16, 12]}>
                         {featuredVideo.map((item, index) => {
