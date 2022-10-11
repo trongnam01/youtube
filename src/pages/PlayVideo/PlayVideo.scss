@@ -1,10 +1,7 @@
 .wrapper-PLAYVIDEO .MuiBox-root.css-19kzrtu {
     padding: 0;
 }
-.wrapper-right-PLAYVIDEO .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
-    background-color: #030303;
-    color: #fff;
-}
+
 .wrapper-right-PLAYVIDEO {
     .tabs-btn {
         min-height: 32px;
@@ -23,8 +20,11 @@
         color: var(--text-color);
         letter-spacing: 0.2px;
     }
-
-    .MuiTabs-indicator {
+    .Mui-selected {
+        background-color: #030303;
+        color: #fff !important;
+    }
+    .css-1aquho2-MuiTabs-indicator {
         display: none;
     }
     .css-1gsv261 {
@@ -34,13 +34,9 @@
         width: 2.4rem;
         height: 2.4rem;
     }
-    .MuiTabScrollButton-root {
+    .css-145v6pe-MuiButtonBase-root-MuiTabScrollButton-root.Mui-disabled {
         display: none;
     }
-}
-.Mui-selected {
-    background-color: #030303;
-    color: #fff !important;
 }
 
 .tippy-box[data-placement^='top'] > .tippy-arrow {
