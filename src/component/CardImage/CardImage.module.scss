@@ -300,6 +300,29 @@
         display: none;
     }
 }
+// USERCHANNEL
+.card-image-USERCHANNEL {
+    flex-direction: column;
+    height: auto;
+    margin-top: 0;
+    .wrapper-content-video {
+        margin: 0;
+    }
+    .wrapper-content-video {
+        height: auto;
+    }
+    .first-title__DwUT4 {
+        margin: 8px 0;
+    }
+    .content-title .first {
+        padding-top: 10px;
+        padding-left: 2px;
+        flex: 1;
+    }
+    .first-name {
+        display: none;
+    }
+}
 
 @media (max-width: 768px) {
     .fiter-search {
@@ -332,5 +355,11 @@
     }
     .wrapper {
         padding: 12px 12px;
+    }
+}
+@media (max-width: 576px) {
+    .card-PLAYVIDEO {
+        flex-direction: column;
+        height: auto;
     }
 }

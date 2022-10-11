@@ -13,7 +13,7 @@ import { ThemDefau } from '~/layouts/DefaultLayout';
 
 import styles from './PlayVideo.module.scss';
 import Video from '../../component/Video';
-import CrardPlay from '../../component/CardImage';
+import CardImage from '../../component/CardImage';
 import { Wrapper as PopperWrapper } from '~/component/Popper';
 import { useContext, useEffect, useState } from 'react';
 import {
@@ -131,7 +131,7 @@ function PlayVideo() {
         }
     };
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper', 'wrapper-PLAYVIDEO')}>
             <Row gutter={[24, 16]}>
                 <Col span={colum ? 24 : 16} className={cx('colum-mobile')}>
                     <div className={cx('wrapper-left')}>
@@ -335,7 +335,7 @@ function PlayVideo() {
                     </div>
                 </Col>
                 <Col span={colum ? 24 : 8} className={cx('colum-mobile')}>
-                    <div className={cx('wrapper-right')}>
+                    <div className={cx('wrapper-right', 'wrapper-right-PLAYVIDEO')}>
                         <Box sx={{ maxWidth: { xs: 320, sm: '100%' }, bgcolor: 'background.paper' }}>
                             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                 <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto">
@@ -353,7 +353,7 @@ function PlayVideo() {
                             </Box>
                             <TabPanel value={value} index={0}>
                                 {datas.map((item, index) => {
-                                    return <CrardPlay key={index} item={item} />;
+                                    return <CardImage key={index} item={item} classCustom={cx('card-PLAYVIDEO')} />;
                                 })}
                             </TabPanel>
                             <TabPanel value={value} index={1}>

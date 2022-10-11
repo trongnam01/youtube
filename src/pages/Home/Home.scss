@@ -1,0 +1,53 @@
+.wrapper-Home {
+    .css-1aquho2-MuiTabs-indicator {
+        display: none;
+    }
+    .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+        background-color: #030303;
+        color: #fff;
+    }
+    .css-8je8zh-MuiTouchRipple-root {
+        display: none;
+    }
+
+    .css-afwrde {
+        background-color: transparent;
+        max-width: unset;
+    }
+    .css-145v6pe-MuiButtonBase-root-MuiTabScrollButton-root.Mui-disabled {
+        display: none;
+    }
+
+    .css-ptiqhd-MuiSvgIcon-root {
+        width: 2.4rem;
+        height: 2.4rem;
+    }
+    .Home_wrapper__WRCXR {
+        .css-145v6pe-MuiButtonBase-root-MuiTabScrollButton-root.Mui-disabled {
+            display: none;
+        }
+
+        .css-ptiqhd-MuiSvgIcon-root {
+            width: 2.4rem;
+            height: 2.4rem;
+        }
+    }
+}
+@media (max-width: 876px) {
+    .wrapper-Home .css-145v6pe-MuiButtonBase-root-MuiTabScrollButton-root.Mui-disabled {
+        display: none;
+    }
+}
+@media (max-width: 576px) {
+    .wrapper-Home {
+        .css-19kzrtu {
+            padding: 0;
+        }
+        .ant-row {
+            margin: 0 !important;
+        }
+        .ant-col-24 {
+            padding: 0 !important;
+        }
+    }
+}

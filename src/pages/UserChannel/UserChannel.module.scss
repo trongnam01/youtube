@@ -101,6 +101,7 @@
 }
 .wrapper-content {
     background-color: #f1f1f1;
+    padding-bottom: 50px;
 }
 .wrapper-video-top {
     padding: 24px 0;
@@ -172,11 +173,7 @@
         margin-bottom: 4px;
     }
 }
-.card-image {
-    flex-direction: column;
-    height: auto;
-    margin-top: 0;
-}
+
 .contents-title {
     margin: 20px 0;
     display: flex;

@@ -1,0 +1,101 @@
+.content-user-channel-USERCHANNEL {
+    .css-qh29qi {
+        margin-left: -40px;
+        padding: 0 107px;
+        position: sticky;
+        top: 56px;
+        background: white;
+        z-index: 99;
+    }
+    .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+        color: #030303;
+        background-color: transparent;
+    }
+
+    .css-1h9z7r5-MuiButtonBase-root-MuiTab-root:last-child {
+        padding-right: 0;
+        padding-left: 0;
+        z-index: 9;
+    }
+    .css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+        font-size: 1.4rem;
+        color: #606060;
+        padding-right: 32px;
+        padding-left: 32px;
+        font-weight: 500;
+        font-family: 'Roboto', 'Noto', sans-serif;
+    }
+    .css-1aquho2-MuiTabs-indicator {
+        background-color: #606060;
+    }
+    .css-y4cjyz-MuiTouchRipple-ripple .MuiTouchRipple-child {
+        background-color: transparent;
+    }
+    .css-ptiqhd-MuiSvgIcon-root {
+        font-size: 2.2rem;
+    }
+}
+@media (max-width: 876px) {
+    .content-user-channel-USERCHANNEL {
+        .css-qh29qi {
+            top: 48px;
+        }
+    }
+
+    .wrapper-USERCHANNEL {
+        .header {
+            padding: 16px 50px 4px;
+        }
+        .wrapper-Tabpanel,
+        .content-user-channel {
+            padding: 0 50px;
+        }
+        .wrapper-video-top {
+            flex-direction: column;
+        }
+        .video-top {
+            width: 100%;
+            flex-shrink: 0;
+        }
+        .wrapper-content-video {
+            padding-top: 12px;
+            max-width: 100%;
+        }
+        .iframe-video {
+            height: 350px;
+        }
+    }
+}
+@media (max-width: 576px) {
+    .wrapper-USERCHANNEL {
+        .wrapper-content-video {
+            display: none;
+        }
+        .iframe-video {
+            height: 250px;
+        }
+        .title-mobile {
+            display: block;
+            padding: 12px;
+        }
+        .wrapper-Tabpanel {
+            padding: 0;
+        }
+        .wrapper-video-top {
+            padding-bottom: 0;
+        }
+        .contents {
+            padding: 0 12px;
+        }
+        .header {
+            padding: 16px 12px 4px;
+            position: relative;
+            img {
+                width: 55px;
+                height: 55px;
+                position: absolute;
+                top: -38px;
+            }
+        }
+    }
+}

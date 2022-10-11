@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 
 import { ThemDefau } from '~/layouts/DefaultLayout';
 import styles from './UserChannel.module.scss';
+import './UserChannel.scss';
 import { PlayICon, SearchIcon } from '~/Icons';
 import Video from '~/component/Video';
 import { Col, Row } from 'antd';
@@ -94,7 +95,7 @@ function UserChannel() {
         setValue(newValue);
     };
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper','wrapper-USERCHANNEL')}>
             <img className={cx('cover-image')} src={datas[0].coverImage} alt={datas[0].title} />
             <div className={cx('header')}>
                 <div className={cx('header-user-channel')}>
@@ -108,7 +109,7 @@ function UserChannel() {
                     <button>Đăng ký</button>
                 </div>
             </div>
-            <div className={cx('content-user-channel')}>
+            <div className={cx('content-user-channel', 'content-user-channel-USERCHANNEL')}>
                 <Box sx={{ width: '100%' }}>
                     <Box sx={{ borderBottom: 1, borderColor: 'transparent' }}>
                         <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto">
@@ -203,7 +204,7 @@ function UserChannel() {
                                     {datas.map((item, index) => {
                                         return (
                                             <Col key={index} span={colum}>
-                                                <CrardImage item={item} className={cx('card-image')} />
+                                                <CrardImage item={item} classCustom={cx('card-image-USERCHANNEL')} />
                                             </Col>
                                         );
                                     })}

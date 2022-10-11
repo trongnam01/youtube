@@ -8,6 +8,7 @@ import { getListApi, ThemDefau } from '~/layouts/DefaultLayout';
 import CardVideo from '~/component/CardVideo';
 import { Col, Row } from 'antd';
 import 'antd/dist/antd.css';
+import './Home.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
@@ -113,7 +114,7 @@ function Home() {
     };
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={(cx('wrapper'), cx('wrapper-Home'))}>
             {isLoading && (
                 <span className={cx('loading')}>
                     <FontAwesomeIcon className={cx('loading-icon')} icon={faSpinner} />{' '}

@@ -1,47 +1,51 @@
-.PlayVideo_wrapper__8c3NH .MuiBox-root.css-19kzrtu {
+.wrapper-PLAYVIDEO .MuiBox-root.css-19kzrtu {
     padding: 0;
 }
-.PlayVideo_wrapper-right__IqITP .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+.wrapper-right-PLAYVIDEO .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
     background-color: #030303;
     color: #fff;
 }
-.PlayVideo_wrapper-right__IqITP .tabs-btn {
-    min-height: 32px;
-    padding: 0 12px;
-    font-size: 1.4rem;
-    font-weight: 400;
-    line-height: 2rem;
-    white-space: nowrap;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 16px;
-    margin: 8px 8px 8px 0;
-    margin-left: 0;
-    background-color: rgba(0, 0, 0, 0.05);
-    text-transform: none;
-    min-width: 12px;
-    color: var(--text-color);
-    letter-spacing: 0.2px;
+.wrapper-right-PLAYVIDEO {
+    .tabs-btn {
+        min-height: 32px;
+        padding: 0 12px;
+        font-size: 1.4rem;
+        font-weight: 400;
+        line-height: 2rem;
+        white-space: nowrap;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 16px;
+        margin: 8px 8px 8px 0;
+        margin-left: 0;
+        background-color: rgba(0, 0, 0, 0.05);
+        text-transform: none;
+        min-width: 12px;
+        color: var(--text-color);
+        letter-spacing: 0.2px;
+    }
+
+    .css-1aquho2-MuiTabs-indicator {
+        display: none;
+    }
+    .css-1gsv261 {
+        border: none;
+    }
+    .css-ptiqhd-MuiSvgIcon-root {
+        width: 2.4rem;
+        height: 2.4rem;
+    }
+    .css-145v6pe-MuiButtonBase-root-MuiTabScrollButton-root.Mui-disabled {
+        display: none;
+    }
 }
 .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
     background-color: #030303;
-}
-.PlayVideo_wrapper-right__IqITP .css-1aquho2-MuiTabs-indicator {
-    display: none;
-}
-.PlayVideo_wrapper-right__IqITP .css-1gsv261 {
-    border: none;
-}
-.PlayVideo_wrapper-right__IqITP .css-ptiqhd-MuiSvgIcon-root {
-    width: 2.4rem;
-    height: 2.4rem;
-}
-.PlayVideo_wrapper-right__IqITP .css-145v6pe-MuiButtonBase-root-MuiTabScrollButton-root.Mui-disabled {
-    display: none;
 }
 
 .tippy-box[data-placement^='top'] > .tippy-arrow {
     display: none;
 }
+
 .CommentVideo_wrapper__G1BDd .css-y4cjyz-MuiTouchRipple-ripple .MuiTouchRipple-child {
     background-color: rgba(0, 0, 0, 0.5);
 }
@@ -49,13 +53,7 @@
     max-width: unset !important;
 }
 @media (max-width: 576px) {
-    .PlayVideo_wrapper-right__IqITP .css-1gsv261 {
+    .wrapper-PLAYVIDEO .css-1gsv261 {
         padding: 0 12px;
-        .CardImage_wrapper__YrspD {
-            flex-direction: column;
-            height: auto;
-        }
-    }
-    .CardImage_wrapper__YrspD {
     }
 }
