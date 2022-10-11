@@ -12,12 +12,12 @@
         background-color: transparent;
     }
 
-    .css-1h9z7r5-MuiButtonBase-root-MuiTab-root:last-child {
+    .tabs-menu:last-child {
         padding-right: 0;
         padding-left: 0;
         z-index: 9;
     }
-    .css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+    .tabs-menu {
         font-size: 1.4rem;
         color: #606060;
         padding-right: 32px;
@@ -25,14 +25,15 @@
         font-weight: 500;
         font-family: 'Roboto', 'Noto', sans-serif;
     }
-    .css-1aquho2-MuiTabs-indicator {
-        background-color: #606060;
-    }
-    .css-y4cjyz-MuiTouchRipple-ripple .MuiTouchRipple-child {
+
+    .MuiTouchRipple-child {
         background-color: transparent;
     }
     .css-ptiqhd-MuiSvgIcon-root {
         font-size: 2.2rem;
+    }
+    .MuiTabs-indicator {
+        background-color: #606060;
     }
 }
 @media (max-width: 876px) {

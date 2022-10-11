@@ -95,7 +95,7 @@ function UserChannel() {
         setValue(newValue);
     };
     return (
-        <div className={cx('wrapper','wrapper-USERCHANNEL')}>
+        <div className={cx('wrapper', 'wrapper-USERCHANNEL')}>
             <img className={cx('cover-image')} src={datas[0].coverImage} alt={datas[0].title} />
             <div className={cx('header')}>
                 <div className={cx('header-user-channel')}>
@@ -114,7 +114,9 @@ function UserChannel() {
                     <Box sx={{ borderBottom: 1, borderColor: 'transparent' }}>
                         <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto">
                             {menuUserChannel.map((item, index) => {
-                                return <Tab key={index} label={item} {...a11yProps(index)} />;
+                                return (
+                                    <Tab key={index} label={item} {...a11yProps(index)} className={cx('tabs-menu')} />
+                                );
                             })}
                             <Tab
                                 label={
