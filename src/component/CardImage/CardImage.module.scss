@@ -278,3 +278,59 @@
         font-weight: 400;
     }
 }
+
+// result search
+.fiter-search {
+    margin-top: 16px;
+    height: auto;
+
+    .wrapper-content-video {
+        max-width: 360px;
+        min-width: 240px;
+        height: auto;
+        margin-right: 16px;
+    }
+    .first-title {
+        font-size: 1.8rem;
+        line-height: 2.6rem;
+        font-weight: 400;
+        max-height: 5.2rem;
+    }
+    .first-name {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .fiter-search {
+        .wrapper-content-video {
+            width: 200px;
+            min-width: max-content;
+        }
+        .first-title {
+            font-size: 14px;
+            line-height: 1.25;
+        }
+    }
+}
+@media (max-width: 576px) {
+    .fiter-search {
+        .wrapper-content-video {
+            width: 160px;
+            height: 90px;
+        }
+        .infomation {
+            display: none;
+        }
+        .wrapper-userChanne {
+            padding: 6px 0;
+        }
+        .first-title {
+            font-size: 14px;
+            line-height: 1.25;
+        }
+    }
+    .wrapper {
+        padding: 12px 12px;
+    }
+}

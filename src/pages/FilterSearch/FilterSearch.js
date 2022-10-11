@@ -6,7 +6,6 @@ import CrardImage from '~/component/CardImage/CardImage';
 import Buttons from '~/component/Buttons';
 import { FilterIcon } from '~/Icons';
 import styles from './FilterSearch.module.scss';
-import './FilterSearch.scss';
 
 const cx = classNames.bind(styles);
 
@@ -29,7 +28,12 @@ function FilterSearch() {
                         {data.map((item, index) => {
                             return (
                                 <Col key={index} span={24} className={cx('colums')}>
-                                    <CrardImage item={item} imageUser={true} pageNew={true} />
+                                    <CrardImage
+                                        item={item}
+                                        imageUser={true}
+                                        pageNew={true}
+                                        classCustom={cx('fiter-search')}
+                                    />
                                 </Col>
                             );
                         })}

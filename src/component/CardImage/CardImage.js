@@ -48,7 +48,7 @@ const MENUiTEM = [
     },
 ];
 
-function CrardImage({ item, className, pageNew, imageUser }) {
+function CrardImage({ item, className, pageNew, imageUser, classCustom }) {
     const Them = useContext(ThemDefau);
     const custumTextView = Number.parseInt(item.view);
 
@@ -59,7 +59,7 @@ function CrardImage({ item, className, pageNew, imageUser }) {
 
     return (
         <Link
-            className={cx('wrapper', className)}
+            className={cx('wrapper', className, classCustom)}
             to={`/watch/@${item.video}`}
             onClick={() => {
                 window.scrollTo(0, 0);
