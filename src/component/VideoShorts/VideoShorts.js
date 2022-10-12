@@ -9,6 +9,7 @@ import {
     NotRecommendIcon,
     NotVoiceShortsIcon,
     PauseIcon,
+    PauseShortsIcon,
     PlayShortsIcons,
     ReportIcon,
     ShareIcon,
@@ -46,7 +47,7 @@ const MENUACTION = [
         content: '',
     },
 ];
-function VideoShorts({ src }) {
+function VideoShorts({ url }) {
     const videoRef = useRef();
     const [isPlay, setIsPlay] = useState(false);
     const [isFollow, setIsFollow] = useState(false);
@@ -98,6 +99,11 @@ function VideoShorts({ src }) {
     return (
         <section className={cx('wrapper')}>
             <div className={cx('contai')} onClick={handeleIsPlay}>
+                {!isPlay && (
+                    <div className={cx('pause-icon-mobi')}>
+                        <PauseShortsIcon />
+                    </div>
+                )}
                 <div className={cx('controls')} style={{ visibility: !isPlay ? 'visible' : '' }}>
                     {isPlay ? (
                         <PlayShortsIcons className={cx('icon-controls')} />
@@ -114,7 +120,7 @@ function VideoShorts({ src }) {
                         </button>
                     )}
                 </div>
-                <VideoItemsShorts ref={videoRef} isVoice={isVoice} src={src} />
+                <VideoItemsShorts ref={videoRef} isVoice={isVoice} url={url} />
 
                 <div className={cx('content-video')}>
                     <h2>Lần đầu biết yêu</h2>

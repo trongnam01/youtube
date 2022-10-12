@@ -1,4 +1,4 @@
-.hide,
+.sidebar-mobi,
 .hideSideBar {
     position: fixed;
     top: var(--height-header);
@@ -78,7 +78,7 @@
 }
 
 @media (max-width: 876px) {
-    .hide,
+    .sidebar-mobi,
     .hideSideBar {
         top: unset;
         right: 0;

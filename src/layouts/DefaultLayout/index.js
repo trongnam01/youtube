@@ -172,7 +172,6 @@ export function getListApi() {
 }
 function DefaultLauout({ children }) {
     const locotion = useLocation();
-    console.log(locotion);
 
     const [DataApi, setDataApi] = useState([]);
 
@@ -181,12 +180,16 @@ function DefaultLauout({ children }) {
     const [itemVideoPlay, setItemVideoPlay] = useState([]);
     const [resultSearch, setResultSearch] = useState([]);
     const [width, setWidth] = useState(window.innerWidth);
+    const [hideItemShorts, sethideItemShorts] = useState(false);
+
+    const classHiden = cx({ hiden: hideItemShorts });
 
     useEffect(() => {
         getListApi().then((datas) => {
             setDataApi(datas);
         });
     }, []);
+
     useEffect(() => {
         const handleResize = () => {
             setWidth(window.innerWidth);
@@ -197,7 +200,14 @@ function DefaultLauout({ children }) {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
-    console.log(width);
+    useEffect(() => {
+        if (locotion.pathname.startsWith('/shorts') && width <= 876) {
+            sethideItemShorts(true);
+        } else {
+            sethideItemShorts(false);
+        }
+        console.log(hideItemShorts);
+    }, [width, locotion]);
 
     function handleTongleSideBar() {
         setTongleSideBar(!tongleSideBar);
@@ -229,7 +239,7 @@ function DefaultLauout({ children }) {
             <div className={cx('wrapper')}>
                 <Header />
                 <div className={cx('container')}>
-                    <SideBar tongleSideBar={tongleSideBar} />
+                    <SideBar tongleSideBar={tongleSideBar} classHiden={classHiden} />
                     <div
                         className={cx('content')}
                         style={{

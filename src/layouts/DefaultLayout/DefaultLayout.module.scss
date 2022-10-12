@@ -1,10 +1,11 @@
-.wrapper {
-}
 .container {
     display: flex;
 }
 .content {
     width: 100%;
+}
+.hiden {
+    display: none !important;
 }
 @media (max-width: 876px) {
     .content {

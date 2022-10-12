@@ -98,10 +98,9 @@ const MENU_ITEM_SIDEBAR = [
     ],
 ];
 
-function SideBar({ tongleSideBar }) {
+function SideBar({ tongleSideBar, classHiden }) {
     const Them = useContext(ThemDefau);
     const [isModeSideBar, setIsModeSideBar] = useState(false);
-
     useEffect(() => {
         if (Them.locotion.pathname.startsWith('/watch/@')) {
             setIsModeSideBar(true);
@@ -147,7 +146,7 @@ function SideBar({ tongleSideBar }) {
                         </>
                     ) : (
                         <>
-                            <div className={cx('hide')}>
+                            <div className={cx('sidebar-mobi', classHiden)}>
                                 <HideSideBar data={MENU_ITEM_SIDEBAR} />
                             </div>
                             <div

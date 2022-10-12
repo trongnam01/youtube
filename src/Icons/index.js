@@ -95,6 +95,7 @@ export const EllipsisIcon = ({ width = '2.4rem', height = '2.4rem', className })
             className={className}
             width={width}
             height={height}
+            fill="currentColor"
             viewBox="0 0 24 24"
             preserveAspectRatio="xMidYMid meet"
         >
@@ -1148,6 +1149,7 @@ export const ShareShortsIcon = ({ width = '3.2rem', height = '3.2rem', className
             className={className}
             width={width}
             height={height}
+            fill="currentColor"
             viewBox="0 0 32 32"
             preserveAspectRatio="xMidYMid meet"
             focusable="false"
@@ -1155,6 +1157,18 @@ export const ShareShortsIcon = ({ width = '3.2rem', height = '3.2rem', className
             <g>
                 <path d="M17.7375 5.26556L28.6745 15.2624C29.1083 15.6589 29.1083 16.3422 28.6745 16.7387L17.7375 26.7356C17.0958 27.3222 16.0628 26.8669 16.0628 25.9975V21.6217C16.0628 21.6217 16.0627 21.6217 16.0626 21.6217C9.92564 21.6217 6.69114 23.9378 5.1615 25.5968C4.80726 25.981 3.97329 25.7343 4.00015 25.2125C4.22558 20.8321 5.86088 10.8892 16.0626 10.8892C16.0627 10.8892 16.0628 10.8892 16.0628 10.8892V6.00368C16.0628 5.13426 17.0958 4.67898 17.7375 5.26556Z"></path>
             </g>
+        </svg>
+    );
+};
+export const PauseShortsIcon = ({ width = '8rem', height = '8rem', className }) => {
+    return (
+        <svg className={className} width={width} height={height} fill="currentColor" viewBox="0 0 24 24">
+            <path
+                d="M 12,2 C 17.52,2 22,6.48 22,12 22,17.52 17.52,22 12,22 6.48,22 2,17.52 2,12 2,6.48 6.48,2 12,2 Z"
+                id="circle"
+                fill="#120c0c7a"
+            ></path>
+            <path d="m 9.5,7.5 v 9 l 7,-4.5 z" id="triangle" fill="white"></path>
         </svg>
     );
 };
