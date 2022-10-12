@@ -1,0 +1,134 @@
+.wrapper {
+    display: flex;
+    height: 100%;
+}
+.contai {
+    width: 329px;
+    height: 585px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    margin: 24px 12px 0 12px;
+
+    &:hover {
+        .controls {
+            visibility: visible;
+        }
+    }
+}
+.controls {
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 16px 32px 16px;
+    visibility: hidden;
+}
+.icon-controls {
+    color: white;
+    cursor: pointer;
+}
+.content-video {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 16px;
+
+    h2 {
+        color: white;
+        margin-bottom: 12px;
+        font-family: 'Roboto', 'Arial', sans-serif;
+        font-size: 1.6rem;
+        line-height: 2.2rem;
+        font-weight: 400;
+    }
+}
+.channel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.channel-information {
+    display: flex;
+    align-items: center;
+    .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        cursor: pointer;
+        margin-right: 6px;
+    }
+    span {
+        font-size: 1.4rem;
+        color: white;
+        font-weight: 500;
+    }
+}
+.btn-follow {
+    padding: 10px 16px;
+    text-transform: uppercase;
+    color: white;
+    background-color: #c00;
+    font-weight: 500;
+    border-radius: 2px;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+.notFollow {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.contai-interactive {
+    margin-top: 24px;
+    width: 64px;
+    height: calc(100% - 24px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    .menu-item-shorts {
+        right: 50%;
+        transform: translateX(50%);
+        margin-top: 10px;
+        padding: 6px;
+    }
+}
+.interactive-content {
+    padding-top: 16px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    color: #606060;
+    &.blue {
+        color: #065fd4;
+    }
+    span {
+        font-weight: 500;
+        margin-top: 4px;
+        font-size: 1.4rem;
+        width: 100%;
+    }
+
+    &:active {
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+    }
+}
+
+.avatar-user {
+    padding-top: 22px;
+    padding-bottom: 16px;
+    display: flex;
+    justify-content: center;
+    img {
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+}

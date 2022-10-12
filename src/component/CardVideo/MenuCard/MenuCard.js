@@ -7,7 +7,7 @@ import styles from '../CardHome.module.scss';
 
 const cx = classNames.bind(styles);
 
-function MenuCard({ MENUiTEM, zIndex, onClick }) {
+function MenuCard({ MENUiTEM, zIndex, onClick, className }) {
     function handleShow() {
         console.log('show tippy');
         document.body.style.overflow = 'hidden';
@@ -43,7 +43,7 @@ function MenuCard({ MENUiTEM, zIndex, onClick }) {
                     </div>
                 )}
             >
-                <button className={cx('setting')} onClick={onClick}>
+                <button className={cx('setting', className)} onClick={onClick}>
                     <EllipsisIcon />
                 </button>
             </MenuCardTippy>
