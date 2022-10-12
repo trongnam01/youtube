@@ -46,7 +46,7 @@ const MENUACTION = [
         content: '',
     },
 ];
-function VideoShorts() {
+function VideoShorts({ src }) {
     const videoRef = useRef();
     const [isPlay, setIsPlay] = useState(false);
     const [isFollow, setIsFollow] = useState(false);
@@ -114,7 +114,7 @@ function VideoShorts() {
                         </button>
                     )}
                 </div>
-                <VideoItemsShorts ref={videoRef} isVoice={isVoice} />
+                <VideoItemsShorts ref={videoRef} isVoice={isVoice} src={src} />
 
                 <div className={cx('content-video')}>
                     <h2>Lần đầu biết yêu</h2>
