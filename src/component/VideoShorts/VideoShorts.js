@@ -1,6 +1,6 @@
 import Tippy from '@tippyjs/react';
 import classNames from 'classnames/bind';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import {
     CommentShortIcon,
     LikeShortsIcon,
@@ -41,12 +41,7 @@ const MENUiTEM = [
         title: 'Báo vi phạm',
     },
 ];
-const MENUACTION = [
-    {
-        icon: <LikeShortsIcon />,
-        content: '',
-    },
-];
+
 function VideoShorts({ url }) {
     const videoRef = useRef();
     const [isPlay, setIsPlay] = useState(false);
@@ -54,6 +49,42 @@ function VideoShorts({ url }) {
     const [isVoice, setIsVoice] = useState(true);
     const [isLike, setIsLike] = useState(false);
     const [isNotLike, setisNotLike] = useState(false);
+
+    useEffect(() => {
+        setIsVoice(true);
+        const observer = new IntersectionObserver(handleViewChange, {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5,
+        });
+
+        if (videoRef.current?.refVideo) {
+            observer.observe(videoRef.current.refVideo.current);
+        }
+        console.log('lop');
+        return () => {
+            if (observer) {
+                observer.disconnect();
+            }
+        };
+    }, []);
+
+    const handleViewChange = useCallback((entries) => {
+        entries.forEach((element, index) => {
+            if (element.intersectionRatio > 0.5) {
+                if (videoRef.current.refVideo.current) {
+                    console.log(element);
+                    setIsPlay(true);
+
+                    videoRef.current.play();
+                }
+            } else {
+                console.log(element);
+                videoRef.current.pause();
+                setIsPlay(false);
+            }
+        });
+    }, []);
 
     const classBtnFollow = cx('btn-follow', {
         notFollow: isFollow,

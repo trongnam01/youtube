@@ -14,8 +14,8 @@ function VideoItemsShorts({ isVoice, url }, ref) {
         pause() {
             refVideo.current.pause();
         },
+        refVideo,
     }));
-    console.log(isVoice);
     const handleErrorImage = () => {
         console.log('lỗi url video shorts');
     };
