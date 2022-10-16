@@ -375,6 +375,17 @@
     .card-PLAYVIDEO {
         flex-direction: column;
         height: auto;
+
+        .wrapper-content-video {
+            margin-right: 0;
+            height: auto;
+        }
+        .content-title {
+            padding: 12px;
+        }
+        .avatar-user-mobi {
+            display: block;
+        }
     }
 
     .Crad-NEW {

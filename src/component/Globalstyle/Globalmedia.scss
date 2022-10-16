@@ -3,33 +3,3 @@
         display: none;
     }
 }
-@media (max-width: 576px) {
-    .PlayVideo_wrapper-right__IqITP {
-        .CardImage_wrapper__YrspD {
-            flex-direction: column;
-            height: auto;
-        }
-        .CardImage_wrapper-content-video__owR7M {
-            margin-right: 0;
-            height: auto;
-        }
-        .CardImage_content-title__ZRe7r {
-            padding: 12px;
-        }
-        .CardImage_avatar-user-mobi__Sfq-H {
-            display: block;
-        }
-        .CardHome_setting__PJ6UW {
-            right: 6px;
-        }
-    }
-    .Home_wrapper__WRCXR {
-        .CardHome_setting__PJ6UW {
-            right: 6px;
-        }
-
-        .CardHome_content-title__sS0pV {
-            padding: 0 12px;
-        }
-    }
-}
