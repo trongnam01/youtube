@@ -61,7 +61,6 @@ function VideoShorts({ url }) {
         if (videoRef.current?.refVideo) {
             observer.observe(videoRef.current.refVideo.current);
         }
-        console.log('lop');
         return () => {
             if (observer) {
                 observer.disconnect();
@@ -73,13 +72,13 @@ function VideoShorts({ url }) {
         entries.forEach((element, index) => {
             if (element.intersectionRatio > 0.5) {
                 if (videoRef.current.refVideo.current) {
-                    console.log(element);
+                    // console.log(element);
                     setIsPlay(true);
 
                     videoRef.current.play();
                 }
             } else {
-                console.log(element);
+                // console.log(element);
                 videoRef.current.pause();
                 setIsPlay(false);
             }

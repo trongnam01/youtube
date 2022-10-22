@@ -11,6 +11,7 @@ import 'antd/dist/antd.css';
 import './Home.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import Request from '~/api/httpRequest';
 
 // import Duration from './Duration';
 const cx = classNames.bind(styles);
@@ -84,18 +85,21 @@ function Home() {
     const [data, setData] = useState([]);
 
     const ref = useRef(0);
-    console.log(ref.current);
 
     useEffect(() => {
         ref.current = ref.current + 1;
 
         if (ref.current === 1) {
-            console.log('loop');
-            getListApi().then((datas) => {
-                console.log(22);
-                const ressult = [...datas].sort(() => Math.random() - 0.5);
-                setData(ressult);
-            });
+            const getApi = async () => {
+                try {
+                    const datas = await Request.getAll();
+                    const ressult = [...datas].sort(() => Math.random() - 0.5);
+                    setData(ressult);
+                } catch (error) {
+                    console.log(error, 'lỗi');
+                }
+            };
+            getApi();
         }
     }, []);
 

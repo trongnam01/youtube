@@ -38,6 +38,9 @@ a {
     color: var(--text-color);
     text-decoration: none;
 }
+a:hover {
+    color: #030303;
+}
 
 html *::-webkit-scrollbar {
     width: 16px;
@@ -76,4 +79,10 @@ body {
 
 #player {
     display: none;
+}
+.firebaseui-container {
+    max-width: none !important;
+}
+.firebaseui-idp-list {
+    margin: 0 0 26px 0 !important;
 }

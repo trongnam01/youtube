@@ -1,5 +1,15 @@
+import Tippy from '@tippyjs/react';
 import classNames from 'classnames/bind';
+import React, { useContext, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import 'tippy.js/dist/tippy.css';
+import Image from '~/component/Image';
+import LoginBtn from '~/component/LoginBtn';
+import ManagerUser from '~/component/ManagerUser';
+import { ThemDefau } from '~/layouts/DefaultLayout';
+import images from '../../../assets/images';
+import firebase from 'firebase/compat/app';
 import {
     CreateVideoIcon,
     EllipsisIcon,
@@ -9,18 +19,11 @@ import {
     UserIcon,
     VoiceIcon,
 } from '../../../Icons';
-import React, { useContext, useState } from 'react';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
-import { ThemDefau } from '~/layouts/DefaultLayout';
-
-import styles from './Header.module.scss';
-import images from '../../../assets/images';
+import Request from '~/api/httpRequest';
 import Search from '../Search';
-import ManagerUser from '~/component/ManagerUser';
-import LoginBtn from '~/component/LoginBtn';
-import Image from '~/component/Image';
 import SearchMobile from '../SearchMobile';
+import styles from './Header.module.scss';
+import { addUser } from '~/redux/userSplice';
 
 const cx = classNames.bind(styles);
 
@@ -28,13 +31,48 @@ function Header() {
     const them = useContext(ThemDefau);
     const { currentUser, handleTongleSideBar, handleCurrentUser } = them;
     const [isSearch, setIsSearchMobi] = useState(false);
+    const dispatch = useDispatch();
 
-    const handleLogin = (e) => {
-        let TimeoutHandle = setTimeout(() => {
-            handleCurrentUser();
-            clearTimeout(TimeoutHandle);
-        }, 1000);
-    };
+    const secletor =
+        useSelector((state) => {
+            const length = state.user.length;
+
+            return state.user[length - 1];
+        }) || {};
+
+    useEffect(() => {
+        const id = JSON.parse(window.localStorage.getItem('id'));
+        const succes = JSON.parse(window.localStorage.getItem('token'));
+        if (succes) {
+            const idTimeout = setTimeout(() => {
+                const currentUser = firebase.auth().currentUser?.providerData[0];
+                const customData = {
+                    name: currentUser?.displayName,
+                    image: currentUser?.photoURL,
+                    email: currentUser?.email,
+                };
+
+                dispatch(addUser(customData));
+                handleCurrentUser(true);
+                clearTimeout(idTimeout);
+            }, 1000);
+        }
+
+        const fetchData = async () => {
+            if (id) {
+                try {
+                    await Request.getId(id).then((data) => {
+                        dispatch(addUser(data));
+                    });
+                } catch (error) {
+                    console.log('lll');
+                }
+            }
+        };
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     const handleShowSearchMobi = () => {
         setIsSearchMobi(!isSearch);
     };
@@ -68,7 +106,10 @@ function Header() {
                     {currentUser ? (
                         <Image
                             className={cx('avatar-mobile')}
-                            src="https://yt3.ggpht.com/m2SNGstG0MtpG8-f88RV1RUVyH2RDXw9za5riMIzY7tRRMh13ZCrqg0bhKnz81f92Lk1_QJtHA=s88-c-k-c0x00ffffff-no-rj"
+                            src={
+                                secletor.image ||
+                                'https://scontent.fhan2-2.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=cp0_dst-png_p56x56&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=1Rph2yqJK04AX-m8j8z&_nc_ht=scontent.fhan2-2.fna&oh=00_AT-n9X9vkZyDv847ZcME2tZ_z_-GtKio3Jfp90uSMGVOaQ&oe=63787DF8'
+                            }
                             alt="avatar"
                         />
                     ) : (
@@ -91,10 +132,13 @@ function Header() {
                                 </button>
                             </Tippy>
 
-                            <ManagerUser>
+                            <ManagerUser secletor={secletor}>
                                 <button className={cx('user-avatar')}>
                                     <Image
-                                        src="https://scontent.fhan2-2.fna.fbcdn.net/v/t39.30808-6/306545225_480300720778873_5681159161992728100_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8631f5&_nc_ohc=fwcYkXKOZyoAX-qexbB&_nc_oc=AQmyw846t8jPGs1hYRvKbtrzoY7WQwMaagZH0RElEclKPge18KTHaOCzBsXL8Ghlpz5rLkGwSPpeW7AJ3vzQC22L&tn=k_Zw9YE9eTW8oaKE&_nc_ht=scontent.fhan2-2.fna&oh=00_AT8Zj6tu9z-lvocFuDSeFNhCbuD5x5gP2yxXnooZHQpv8Q&oe=6335179B"
+                                        src={
+                                            secletor.image ||
+                                            'https://scontent.fhan2-2.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=cp0_dst-png_p56x56&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=1Rph2yqJK04AX-m8j8z&_nc_ht=scontent.fhan2-2.fna&oh=00_AT-n9X9vkZyDv847ZcME2tZ_z_-GtKio3Jfp90uSMGVOaQ&oe=63787DF8'
+                                        }
                                         alt="avatar"
                                     />
                                 </button>
@@ -112,7 +156,7 @@ function Header() {
                                 </div>
                             </Tippy>
 
-                            <LoginBtn onClick={handleLogin} />
+                            <LoginBtn />
                         </>
                     )}
                 </div>

@@ -30,7 +30,6 @@ function Search() {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [valueSearch, datas]);
-    console.log(Them.resultSearch);
     const handleHideResult = () => {
         setIsResult(false);
     };

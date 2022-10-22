@@ -1,21 +1,18 @@
-import classNames from 'classnames/bind';
-import { Col, Row } from 'antd';
-import 'antd/dist/antd.css';
-import './PlayVideo.scss';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
 import Tippy from '@tippyjs/react';
 import Menusetting from '@tippyjs/react/headless';
-import { TabPanel } from '../Home/Home';
-import { a11yProps } from '../Home/Home';
-import { ThemDefau } from '~/layouts/DefaultLayout';
-
-import styles from './PlayVideo.module.scss';
-import Video from '../../component/Video';
-import CardImage from '../../component/CardImage';
-import { Wrapper as PopperWrapper } from '~/component/Popper';
+import { Col, Row } from 'antd';
+import 'antd/dist/antd.css';
+import classNames from 'classnames/bind';
 import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Buttons from '~/component/Buttons';
+import Image from '~/component/Image';
+import { Wrapper as PopperWrapper } from '~/component/Popper';
 import {
     CoppyIcon,
     CutVideoIcon,
@@ -29,12 +26,13 @@ import {
     ReportIcon,
     ShareIcon,
 } from '~/Icons';
-import Buttons from '~/component/Buttons';
-import Image from '~/component/Image';
+import { ThemDefau } from '~/layouts/DefaultLayout';
+import CardImage from '../../component/CardImage';
+import Video from '../../component/Video';
+import { a11yProps, TabPanel } from '../Home/Home';
 import CommentVideo from './component/CommentVideo';
-import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import styles from './PlayVideo.module.scss';
+import './PlayVideo.scss';
 
 const cx = classNames.bind(styles);
 
@@ -68,6 +66,8 @@ function PlayVideo() {
     const [datas, setDatas] = useState([DataApi]);
     const [IsCommentsMobi, setIsCommentsMobi] = useState(false);
 
+    console.log(datas);
+
     useEffect(() => {
         setDatas(() => {
             const result = [...DataApi].sort(() => Math.random() - 0.5);
@@ -76,7 +76,7 @@ function PlayVideo() {
         setVideoPlay(() => {
             const idVideo = locotion.pathname.slice(8);
             const result =
-                datas.find((item) => {
+                DataApi.find((item) => {
                     return item.video === idVideo;
                 }) || [];
             return itemVideoPlay.length === 0 ? result : itemVideoPlay;
@@ -93,7 +93,6 @@ function PlayVideo() {
             setColum(false);
         }
     }, [Them.width]);
-    console.log(colum);
     const handleChangeUserChannel = (e) => {
         e.preventDefault();
         e.stopPropagation();

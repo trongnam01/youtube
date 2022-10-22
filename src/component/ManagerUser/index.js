@@ -9,7 +9,9 @@ import ManagerItem from './ManagerItem';
 import { RightLineIcon } from '~/Icons';
 import { ThemDefau } from '~/layouts/DefaultLayout';
 import Image from '../Image';
-
+import firebase from 'firebase/compat/app';
+import { useDispatch } from 'react-redux';
+import { removeAll } from '~/redux/userSplice';
 const cx = classNames.bind(styles);
 
 function ManagerUser(props, ref) {
@@ -17,6 +19,7 @@ function ManagerUser(props, ref) {
     const { items, currentUser, handleCurrentUser } = them;
     const [menuItems, setMenuItems] = useState([{ data: items }]);
     const [menuTitle, setMenuTitle] = useState('');
+    const dispatch = useDispatch();
 
     const current = menuItems[menuItems.length - 1];
 
@@ -28,6 +31,11 @@ function ManagerUser(props, ref) {
             setMenuItems((prev) => [...prev, item.children]);
         }
         if (out) {
+            dispatch(removeAll(1));
+            firebase.auth().signOut();
+            window.localStorage.removeItem('Authorization');
+            window.localStorage.removeItem('id');
+            window.localStorage.removeItem('token');
             handleCurrentUser();
         }
     };
@@ -75,12 +83,15 @@ function ManagerUser(props, ref) {
                                         <button className={cx('user-avatar')} style={{ width: '40px', height: '40px' }}>
                                             <Image
                                                 className={cx('avatar')}
-                                                src="https://scontent.fhan2-2.fna.fbcdn.net/v/t39.30808-6/306545225_480300720778873_5681159161992728100_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8631f5&_nc_ohc=fwcYkXKOZyoAX-qexbB&_nc_oc=AQmyw846t8jPGs1hYRvKbtrzoY7WQwMaagZH0RElEclKPge18KTHaOCzBsXL8Ghlpz5rLkGwSPpeW7AJ3vzQC22L&tn=k_Zw9YE9eTW8oaKE&_nc_ht=scontent.fhan2-2.fna&oh=00_AT8Zj6tu9z-lvocFuDSeFNhCbuD5x5gP2yxXnooZHQpv8Q&oe=6335179B"
+                                                src={
+                                                    props.secletor.image ||
+                                                    'https://scontent.fhan2-2.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=cp0_dst-png_p56x56&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=1Rph2yqJK04AX-m8j8z&_nc_ht=scontent.fhan2-2.fna&oh=00_AT-n9X9vkZyDv847ZcME2tZ_z_-GtKio3Jfp90uSMGVOaQ&oe=63787DF8'
+                                                }
                                                 alt="avatar"
                                             />
                                         </button>
                                         <div>
-                                            <span>Lê Hoàng</span>
+                                            <span>{props.secletor.name}</span>
                                             <Link to="/user">Quản lý Tài khoản Google của bạn</Link>
                                         </div>
                                     </div>

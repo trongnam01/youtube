@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
 import classNames from 'classnames/bind';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import Request from '~/api/httpRequest';
 import {
     CoinIcon,
     ConvertUserIcon,
@@ -17,12 +18,10 @@ import {
     StudioIcon,
     UserIconWrapIcon,
 } from '~/Icons';
-
-import styles from './DefaultLayout.module.scss';
-
 import Header from '../component/Header';
 import SideBar from '../component/SideBar';
-import { useLocation } from 'react-router-dom';
+import styles from './DefaultLayout.module.scss';
+
 export const ThemDefau = React.createContext();
 
 const cx = classNames.bind(styles);
@@ -167,16 +166,16 @@ const MENU_ITEM = [
     ],
 ];
 
-export function getListApi() {
-    return fetch(`https://6290441a27f4ba1c65b64525.mockapi.io/api/video`).then((Response) => Response.json());
-}
+// export function getListApi() {
+//     return fetch(`https://6290441a27f4ba1c65b64525.mockapi.io/api/video`).then((Response) => Response.json());
+// }
 function DefaultLauout({ children }) {
     const locotion = useLocation();
 
     const [DataApi, setDataApi] = useState([]);
 
     const [tongleSideBar, setTongleSideBar] = useState(false);
-    const [iscurrentUser, setIsCurrentUser] = useState(false);
+    const [iscurrentUser, setIsCurrentUser] = useState();
     const [itemVideoPlay, setItemVideoPlay] = useState([]);
     const [resultSearch, setResultSearch] = useState([]);
     const [width, setWidth] = useState(window.innerWidth);
@@ -185,9 +184,22 @@ function DefaultLauout({ children }) {
     const classHiden = cx({ hiden: hideItemShorts });
 
     useEffect(() => {
-        getListApi().then((datas) => {
-            setDataApi(datas);
-        });
+        const getApi = async () => {
+            try {
+                const result = await Request.getAll();
+
+                setDataApi(result);
+            } catch (error) {
+                console.log(error, 'lỗi');
+            }
+        };
+        getApi();
+    }, []);
+    useEffect(() => {
+        const boolean = window.localStorage.getItem('Authorization');
+        if (boolean) {
+            setIsCurrentUser(true);
+        }
     }, []);
 
     useEffect(() => {
@@ -200,21 +212,22 @@ function DefaultLauout({ children }) {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+
     useEffect(() => {
         if (locotion.pathname.startsWith('/shorts') && width <= 876) {
             sethideItemShorts(true);
         } else {
             sethideItemShorts(false);
         }
-        console.log(hideItemShorts);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [width, locotion]);
 
     function handleTongleSideBar() {
         setTongleSideBar(!tongleSideBar);
     }
 
-    function handleCurrentUser() {
-        setIsCurrentUser(!iscurrentUser);
+    function handleCurrentUser(boolean) {
+        setIsCurrentUser(boolean || !iscurrentUser);
     }
     function handleSetItemPlayVideo(data) {
         setItemVideoPlay(data);
@@ -240,6 +253,7 @@ function DefaultLauout({ children }) {
                 <Header />
                 <div className={cx('container')}>
                     <SideBar tongleSideBar={tongleSideBar} classHiden={classHiden} />
+
                     <div
                         className={cx('content')}
                         style={{

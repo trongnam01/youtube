@@ -13,12 +13,12 @@ function Video({ className, item, opts }) {
     }, [item]);
 
     function handleStateChange(e) {
-        console.log(e);
+        // console.log(e);
     }
     function handleOnRead(event) {
-        console.log(1);
+        // console.log(1);
         // event.target.setVolume(90);
-        console.log(event.target);
+        // console.log(event.target);
     }
 
     const classes = cx('Video', className);

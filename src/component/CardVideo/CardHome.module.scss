@@ -104,6 +104,9 @@
         border-radius: 50%;
         background: #e5e5e5;
     }
+    a:hover {
+        color: #000;
+    }
 }
 .first-name {
     display: block;
@@ -152,16 +155,7 @@
         color: #606060;
     }
 }
-// .isTongleSideBar {
-//     display: flex;
-//     justify-content: space-between;
-//     button {
-//         width: 49%;
-//     }
-//     button + button {
-//         margin-top: 0;
-//     }
-// }
+
 .wrapper-content-video {
     &:hover .wrapper-scale {
         visibility: visible;
