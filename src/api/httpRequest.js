@@ -1,5 +1,4 @@
 import axiosClient from './axiosClient';
-import axios from 'axios';
 
 class HtppRequest {
     getAll = (params) => {
@@ -21,7 +20,6 @@ class HtppRequest {
 
     post = (params) => {
         const url = 'login';
-        console.log(params);
         return axiosClient.post(url, params);
     };
 }

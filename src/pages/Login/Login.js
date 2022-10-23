@@ -1,8 +1,7 @@
 import classNames from 'classnames/bind';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import { useEffect, useState } from 'react';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import images from '~/assets/images';
 import styles from './Login.module.scss';
@@ -10,31 +9,35 @@ import styles from './Login.module.scss';
 import FormLogin from './FormLogin';
 import FormRegister from './FormRegister';
 
+import { onAuthStateChanged } from 'firebase/auth';
+import * as firebaseui from 'firebaseui';
+import 'firebaseui/dist/firebaseui.css';
+
 const cx = classNames.bind(styles);
 
 const config = {
     apiKey: process.env.FIREBASE_API_KEY || 'AIzaSyA4a_3xx1WevZFqRU0hL4JcExa7tvh403E',
     authDomain: process.env.FIREBASE_ATHUTH_DOMAIN || 'project-api-2728d.firebaseapp.com',
 };
-firebase.initializeApp(config);
-
-// console.log(process.env);
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
 
 const uiConfig = {
-    signInFlow: 'redirect',
+    signInFlow: 'popup',
     signInSuccessUrl: '/',
     signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+        firebase.auth.PhoneAuthProvider.PROVIDER_ID,
     ],
 };
 
 function Login() {
     const [statusLogin, setStatusLogin] = useState(true);
-
+    const [userSignedIn, setUserSignedIn] = useState(false);
+    const elementRef = useRef(null);
     const handleSetStatusLogin = (boolean) => {
-        console.log(boolean);
         setStatusLogin(boolean);
     };
 
@@ -47,16 +50,24 @@ function Login() {
     };
 
     useEffect(() => {
-        const unregisterAuthObserver = firebase.auth().onAuthStateChanged(async (user) => {
-            if (!user) return;
+        const firebaseUiWidget = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(firebase.auth());
+        // if (uiConfig.signInFlow === 'redirect') {
+        //     return firebaseUiWidget.reset();
+        // }
 
-            const token = user;
-            console.log(token.getIdToken);
+        const unregisterAuthObserver = onAuthStateChanged(firebase.auth(), (user) => {
+            if (!user && userSignedIn) firebaseUiWidget.reset();
+            setUserSignedIn(!!user);
         });
 
-        return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
-    }, []);
+        firebaseUiWidget.start(elementRef.current, uiConfig);
 
+        return () => {
+            unregisterAuthObserver();
+            firebaseUiWidget.reset();
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     const classBtn = cx('btn');
     const classBtnBackgroundLogin = cx({ active: statusLogin });
     const classBtnBackgroundSingup = cx({ active: !statusLogin });
@@ -82,8 +93,7 @@ function Login() {
                 ) : (
                     <FormRegister setStatus={handleSetStatusLogin} />
                 )}
-
-                <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+                <div className={cx('from-2')} ref={elementRef} />
             </div>
         </section>
     );

@@ -3,3 +3,8 @@
         display: none;
     }
 }
+@media (max-width: 425px) {
+    .firebaseui-card-content {
+        padding: 0;
+    }
+}

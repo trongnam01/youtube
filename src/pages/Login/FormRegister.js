@@ -130,12 +130,6 @@ function FormRegister({ setStatus }) {
             <button type="submit" className={cx('btn-submit')}>
                 Đăng ký
             </button>
-            <p>
-                Not a member?{' '}
-                <span className={cx('text')} onClick={() => setStatus(false)}>
-                    signup now
-                </span>
-            </p>
         </form>
     );
 }

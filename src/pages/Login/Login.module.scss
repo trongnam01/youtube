@@ -61,6 +61,7 @@
     p {
         text-align: center;
         margin-bottom: 0;
+        line-height: initial;
     }
 
     .text {
@@ -120,4 +121,34 @@
     padding-left: 4px;
     padding-top: 4px;
     display: flex;
+}
+
+@media (max-width: 768px) {
+    .from-2 {
+        form {
+            padding-top: 20px;
+            width: auto;
+        }
+    }
+}
+@media (max-width: 576px) {
+    .wrapper {
+        background-image: unset;
+        background-color: white;
+        position: unset;
+    }
+    .contai {
+        width: 100%;
+    }
+}
+@media (max-width: 425px) {
+    .btn {
+        height: 32px;
+        width: 120px;
+    }
+    .contai {
+        form {
+            width: 321px;
+        }
+    }
 }

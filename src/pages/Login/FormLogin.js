@@ -95,7 +95,7 @@ function FormLogin({ setStatus }) {
                 </div>
             </div>
             <button type="submit" className={cx('btn-submit')}>
-                Đăng nhập'
+                Đăng nhập
             </button>
             <p>
                 Not a member?{' '}

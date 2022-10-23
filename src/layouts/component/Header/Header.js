@@ -42,9 +42,9 @@ function Header() {
 
     useEffect(() => {
         const id = JSON.parse(window.localStorage.getItem('id'));
-        const succes = JSON.parse(window.localStorage.getItem('token'));
-        if (succes) {
-            const idTimeout = setTimeout(() => {
+        const idTimeout = setTimeout(() => {
+            const succes = JSON.parse(window.localStorage.getItem('token'));
+            if (succes) {
                 const currentUser = firebase.auth().currentUser?.providerData[0];
                 const customData = {
                     name: currentUser?.displayName,
@@ -54,9 +54,9 @@ function Header() {
 
                 dispatch(addUser(customData));
                 handleCurrentUser(true);
-                clearTimeout(idTimeout);
-            }, 1000);
-        }
+            }
+            clearTimeout(idTimeout);
+        }, 1000);
 
         const fetchData = async () => {
             if (id) {
@@ -65,7 +65,7 @@ function Header() {
                         dispatch(addUser(data));
                     });
                 } catch (error) {
-                    console.log('lll');
+                    console.log('lỗi fetch api');
                 }
             }
         };
