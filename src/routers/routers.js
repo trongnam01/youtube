@@ -7,12 +7,14 @@ import Register from '~/pages/Register';
 import Shorts from '~/pages/Shorts';
 import UserChannel from '~/pages/UserChannel';
 import Login from '~/pages/Login';
+import Whatched from '~/pages/Watched';
 
 export const publicRouters = [
     { path: '/', component: Home },
     { path: '/new', component: New },
     { path: '/login', component: Login, layout: null },
     { path: '/shorts', component: Shorts },
+    { path: '/watched', component: Whatched },
     { path: '/search/:value', component: FilterSearch },
     { path: '/register', component: Register },
     { path: '/library', component: Library },

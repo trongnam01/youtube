@@ -2,7 +2,7 @@
     width: 100%;
 }
 .Video {
-    height: 447px;
+    height: 448px;
     width: 100%;
     left: 0;
     right: 0;
@@ -11,6 +11,36 @@
 .Video {
     body {
         display: none;
+    }
+}
+@media (min-width: 2560px) {
+    .Video {
+        height: 1000px;
+    }
+}
+@media (max-width: 2560px) {
+    .Video {
+        height: 800px;
+    }
+}
+@media (max-width: 2148px) {
+    .Video {
+        height: 678px;
+    }
+}
+@media (max-width: 1440px) {
+    .Video {
+        height: 448px;
+    }
+}
+// @media (max-width: 1440px) {
+//     .Video {
+//         height: 448px;
+//     }
+// }
+@media (max-width: 590px) {
+    .Video {
+        height: 400px;
     }
 }
 @media (max-width: 590px) {

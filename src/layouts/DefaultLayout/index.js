@@ -175,7 +175,7 @@ function DefaultLauout({ children }) {
     const [DataApi, setDataApi] = useState([]);
 
     const [tongleSideBar, setTongleSideBar] = useState(false);
-    const [iscurrentUser, setIsCurrentUser] = useState();
+    const [iscurrentUser, setIsCurrentUser] = useState(false);
     const [itemVideoPlay, setItemVideoPlay] = useState([]);
     const [resultSearch, setResultSearch] = useState([]);
     const [width, setWidth] = useState(window.innerWidth);

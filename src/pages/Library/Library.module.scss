@@ -1,0 +1,92 @@
+.Library {
+    display: flex;
+    justify-content: center;
+
+    .wrapper {
+        margin-top: 12px;
+        display: flex;
+        flex-direction: column;
+        width: 1070px;
+    }
+    .header-library {
+        display: flex;
+        justify-content: space-between;
+        .title-header {
+            color: #0f0f0f;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            max-height: 2.2rem;
+            svg {
+                margin-right: 15px;
+            }
+        }
+        .btn-all {
+            color: #065fd4;
+            font-weight: 400;
+        }
+    }
+    .isWrapper {
+        padding-top: 140px;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        h4 {
+            margin: 24px 0;
+            font-size: 2.4rem;
+            font-weight: 400;
+        }
+        p {
+            margin-bottom: 24px;
+        }
+    }
+    .frame-user {
+        display: flex;
+        flex-direction: column;
+        > div:first-child {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            .image {
+                margin: 88px 16px 16px;
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+            .name {
+                display: block;
+                margin-top: 10px;
+                color: #0f0f0f;
+                font-size: 1.6rem;
+            }
+        }
+        > div:last-child {
+            margin-top: 24px;
+            width: 100%;
+            .wrapper-item-user {
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                padding: 10px 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                span {
+                    font-size: 1.2rem;
+                    line-height: 1.8rem;
+                    font-weight: 400;
+                    color: #606060;
+                }
+
+                & + .wrapper-item-user {
+                    border-top: none;
+                }
+            }
+        }
+    }
+}

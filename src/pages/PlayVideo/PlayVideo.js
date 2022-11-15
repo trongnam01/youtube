@@ -31,8 +31,10 @@ import CardImage from '../../component/CardImage';
 import Video from '../../component/Video';
 import { a11yProps, TabPanel } from '../Home/Home';
 import CommentVideo from './component/CommentVideo';
+import { useDispatch } from 'react-redux';
 import styles from './PlayVideo.module.scss';
 import './PlayVideo.scss';
+import { addView } from '~/redux/watchedSplice';
 
 const cx = classNames.bind(styles);
 
@@ -56,6 +58,7 @@ function PlayVideo() {
     const Them = useContext(ThemDefau);
     const { itemVideoPlay, DataApi, locotion } = Them;
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [value, setValue] = useState(0);
     const [colum, setColum] = useState(false);
@@ -66,7 +69,11 @@ function PlayVideo() {
     const [datas, setDatas] = useState([DataApi]);
     const [IsCommentsMobi, setIsCommentsMobi] = useState(false);
 
-    console.log(datas);
+    useEffect(() => {
+        if (!(Object.keys(videoPlay).length === 0)) {
+            dispatch(addView(videoPlay));
+        }
+    }, [videoPlay]);
 
     useEffect(() => {
         setDatas(() => {
