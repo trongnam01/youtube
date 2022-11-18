@@ -52,6 +52,8 @@ function Header() {
                     refHeader.current.style.top = '-48px';
                 }
                 prevScrollpos = currentScrollPos;
+            } else {
+                refHeader.current.style.top = '0';
             }
         };
         window.addEventListener('scroll', handeleScroll);

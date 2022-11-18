@@ -83,6 +83,8 @@ function UserChannel() {
                     refTabs.current.style.top = '-66px';
                 }
                 prevScrollpos = currentScrollPos;
+            } else {
+                refTabs.current.style.top = '48px';
             }
         };
         window.addEventListener('scroll', handeleScroll);

@@ -116,6 +116,8 @@ function Home() {
                     refTabs.current.style.top = '-58px';
                 }
                 prevScrollpos = currentScrollPos;
+            } else {
+                refTabs.current.style.top = '48px';
             }
         };
         window.addEventListener('scroll', handeleScroll);
