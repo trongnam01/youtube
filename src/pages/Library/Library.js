@@ -160,8 +160,6 @@ function Library() {
     }, [secletor]);
     const { currentUser, width } = them;
 
-    console.log(width);
-
     return (
         <article className={cx('Library')}>
             {currentUser ? (
