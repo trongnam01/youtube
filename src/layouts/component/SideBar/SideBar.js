@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import {
     HomeActiveIcon,
@@ -110,7 +110,7 @@ function SideBar({ tongleSideBar, classHiden }) {
         if (tongleSideBar && isModeSideBar) {
             document.querySelector('body').style.overflow = 'hidden';
         } else {
-            document.querySelector('body').style.overflow = 'auto';
+            document.querySelector('body').style.overflow = 'overlay';
         }
     }, [tongleSideBar, Them.locotion.pathname, isModeSideBar]);
 
@@ -166,4 +166,4 @@ function SideBar({ tongleSideBar, classHiden }) {
     );
 }
 
-export default SideBar;
+export default React.memo(SideBar);

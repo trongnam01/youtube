@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import images from '~/assets/images';
 import styles from './Login.module.scss';
@@ -51,9 +51,6 @@ function Login() {
 
     useEffect(() => {
         const firebaseUiWidget = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(firebase.auth());
-        // if (uiConfig.signInFlow === 'redirect') {
-        //     return firebaseUiWidget.reset();
-        // }
 
         const unregisterAuthObserver = onAuthStateChanged(firebase.auth(), (user) => {
             if (!user && userSignedIn) firebaseUiWidget.reset();
@@ -99,4 +96,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default React.memo(Login);

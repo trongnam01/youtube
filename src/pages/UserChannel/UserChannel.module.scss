@@ -43,10 +43,37 @@
     display: flex;
     align-items: center;
     button {
-        padding: 10px 16px;
-        background-color: #c00;
+        border-radius: 30px;
+        padding: 6px 16px;
+        background-color: #000;
         color: white;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+        &:focus,
+        &:hover {
+            background-color: #000;
+            color: white;
+            border-color: transparent;
+        }
+        span {
+            font-size: 1.6rem;
+            font-weight: 400;
+        }
+    }
+    .icon-bell {
+        margin-left: 10px;
+        cursor: pointer;
+    }
+    .Registered {
+        background-color: #f2f2f2 !important;
+        color: rgb(0, 0, 0) !important;
+        border-color: transparent;
+        &:hover {
+            background-color: rgb(228, 227, 227) !important;
+        }
     }
 }
 .content-user-channel {
@@ -201,6 +228,35 @@
 .title-mobile {
     display: none;
 }
+.modal-register {
+    width: auto !important;
+    min-width: 240px;
+    border-radius: 20px;
+    overflow: hidden;
+    h4 {
+        font-size: 18px;
+    }
+    .text-modal {
+        display: flex;
+        padding-top: 12px;
+    }
+    .link-login {
+        display: flex;
+        width: 100px;
+        align-items: center;
+        justify-content: center;
+        height: 36px;
+        &:hover {
+            background-color: #def1ff;
+            color: #1890ff;
+            border-radius: 30px;
+        }
+    }
+}
+.tabs-USERCHANNEL {
+    transition: top 0.3s;
+}
+
 @media (max-width: 578px) {
     .header-user-channel {
         img {

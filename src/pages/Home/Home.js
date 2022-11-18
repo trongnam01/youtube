@@ -80,9 +80,11 @@ export function a11yProps(index: number) {
 
 function Home() {
     const Them = useContext(ThemDefau);
+    const { width } = Them;
     const [value, setValue] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
+    const refTabs = useRef();
 
     const ref = useRef(0);
 
@@ -102,6 +104,26 @@ function Home() {
             getApi();
         }
     }, []);
+    useEffect(() => {
+        let prevScrollpos = window.pageYOffset;
+        let handeleScroll = () => {};
+        handeleScroll = () => {
+            if (width < 877) {
+                let currentScrollPos = window.pageYOffset;
+                if (prevScrollpos > currentScrollPos) {
+                    refTabs.current.style.top = '48px';
+                } else {
+                    refTabs.current.style.top = '-58px';
+                }
+                prevScrollpos = currentScrollPos;
+            }
+        };
+        window.addEventListener('scroll', handeleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handeleScroll);
+        };
+    }, [width]);
 
     useEffect(() => {
         if (data.length > 0) {
@@ -126,8 +148,11 @@ function Home() {
             )}
             <Box sx={{ maxWidth: { xs: 320, sm: '100%' }, bgcolor: 'background.paper' }}>
                 <Box
+                    ref={refTabs}
                     sx={{ borderBottom: 1, borderColor: 'divider' }}
-                    className={cx('Header-content')}
+                    className={cx('Header-content', {
+                        tabsHome: width < 877,
+                    })}
                     style={{
                         marginLeft:
                             Them.width >= 1440

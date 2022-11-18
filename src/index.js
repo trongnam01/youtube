@@ -15,7 +15,6 @@ root.render(
                 <App />
             </Provider>
         </Globalstyle>
-        ,
     </React.StrictMode>,
 );
 

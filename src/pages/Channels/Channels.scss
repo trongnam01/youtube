@@ -1,0 +1,19 @@
+.modal-channels-channels {
+    .ant-modal-footer {
+        border-color: transparent;
+        .ant-btn {
+            border-color: transparent;
+            &:hover {
+                color: #000;
+            }
+            &:last-child {
+                background-color: transparent;
+                color: #1890ff;
+                box-shadow: unset;
+                &:hover {
+                    color: #1890ff;
+                }
+            }
+        }
+    }
+}

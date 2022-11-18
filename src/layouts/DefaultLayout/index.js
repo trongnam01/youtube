@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Request from '~/api/httpRequest';
 import {
@@ -18,9 +18,12 @@ import {
     StudioIcon,
     UserIconWrapIcon,
 } from '~/Icons';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../component/Header';
 import SideBar from '../component/SideBar';
 import styles from './DefaultLayout.module.scss';
+import { getinitialState } from '~/redux/dataUserSplice';
+import firebase from 'firebase/compat/app';
 
 export const ThemDefau = React.createContext();
 
@@ -170,35 +173,111 @@ const MENU_ITEM = [
 //     return fetch(`https://6290441a27f4ba1c65b64525.mockapi.io/api/video`).then((Response) => Response.json());
 // }
 function DefaultLauout({ children }) {
+    const dispatch = useDispatch();
     const locotion = useLocation();
+    const secletor = useSelector((state) => state.dataUser);
 
     const [DataApi, setDataApi] = useState([]);
 
     const [tongleSideBar, setTongleSideBar] = useState(false);
     const [iscurrentUser, setIsCurrentUser] = useState(false);
+    const [isPut, setIsPut] = useState(false);
     const [itemVideoPlay, setItemVideoPlay] = useState([]);
     const [resultSearch, setResultSearch] = useState([]);
     const [width, setWidth] = useState(window.innerWidth);
     const [hideItemShorts, sethideItemShorts] = useState(false);
+    const refIndex = useRef(0);
 
     const classHiden = cx({ hiden: hideItemShorts });
 
     useEffect(() => {
-        const getApi = async () => {
-            try {
-                const result = await Request.getAll();
-
-                setDataApi(result);
-            } catch (error) {
-                console.log(error, 'lỗi');
-            }
+        let idSetTime;
+        if (isPut && iscurrentUser) {
+            idSetTime = setTimeout(() => {
+                Request.putdataUser(secletor.id, secletor);
+            }, 100);
+        }
+        return () => {
+            clearTimeout(idSetTime);
         };
-        getApi();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [secletor]);
+
+    useEffect(() => {
+        refIndex.current = refIndex.current + 1;
+        if (refIndex.current === 1) {
+            const getApi = async () => {
+                try {
+                    const result = await Request.getAll();
+
+                    setIsPut(true);
+
+                    setDataApi(result);
+                    const succes = JSON.parse(window.localStorage.getItem('token'));
+                    if (succes) {
+                        const currentUser = firebase.auth().currentUser?.providerData[0];
+                        const customData = {
+                            name: currentUser?.displayName,
+                            image: currentUser?.photoURL,
+                            google: currentUser?.email,
+                            admin: false,
+                        };
+                        const res = await Request.getAllUser().then((datas) => {
+                            return datas.find((data) => {
+                                return data.google === customData.google;
+                            });
+                        });
+                        if (res) {
+                            Request.getdataUser(res.id).then((data) => {
+                                dispatch(getinitialState(data));
+                            });
+                        } else {
+                            Request.post(customData).then((data) => {
+                                const datasUser = {
+                                    id: data.id,
+                                    google: data.google,
+                                    data: {
+                                        watched: [],
+                                        whatLaster: [],
+                                        videoUser: [],
+                                        like: [],
+                                        movie: [],
+                                        listPlay: [],
+                                        notLike: [],
+                                        subscribedChanel: [],
+                                    },
+                                };
+                                dispatch(getinitialState(datasUser));
+                                Request.postdataUser(datasUser);
+                            });
+                        }
+                        console.log(6);
+                        // Request.getdataUser(customData).then((data) => {
+                    }
+                } catch (error) {
+                    console.log(error, 'lỗi');
+                }
+            };
+            getApi();
+        }
     }, []);
     useEffect(() => {
         const boolean = window.localStorage.getItem('Authorization');
         if (boolean) {
             setIsCurrentUser(true);
+            const getDataUser = async () => {
+                try {
+                    const id = JSON.parse(window.localStorage.getItem('id'));
+
+                    if (id) {
+                        const result = await Request.getdataUser(Number(id));
+                        dispatch(getinitialState(result));
+                    }
+                } catch (error) {
+                    console.log(error, 'lỗi');
+                }
+            };
+            getDataUser();
         }
     }, []);
 

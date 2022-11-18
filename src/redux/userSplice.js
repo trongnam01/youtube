@@ -5,7 +5,8 @@ const userSplice = createSlice({
     initialState: [],
     reducers: {
         addUser: (state, active) => {
-            state.push(active.payload);
+            // state.push(active.payload);
+            return [active.payload];
         },
         removeUser: (state, active) => {
             state.splice(active.payload, 1);

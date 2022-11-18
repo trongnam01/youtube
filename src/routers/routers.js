@@ -8,12 +8,14 @@ import Shorts from '~/pages/Shorts';
 import UserChannel from '~/pages/UserChannel';
 import Login from '~/pages/Login';
 import Whatched from '~/pages/Watched';
+import Channels from '~/pages/Channels';
 
 export const publicRouters = [
     { path: '/', component: Home },
     { path: '/new', component: New },
     { path: '/login', component: Login, layout: null },
     { path: '/shorts', component: Shorts },
+    { path: '/channels', component: Channels },
     { path: '/watched', component: Whatched },
     { path: '/search/:value', component: FilterSearch },
     { path: '/register', component: Register },

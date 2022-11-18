@@ -1,6 +1,6 @@
 import Tippy from '@tippyjs/react';
 import classNames from 'classnames/bind';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import 'tippy.js/dist/tippy.css';
@@ -29,9 +29,10 @@ const cx = classNames.bind(styles);
 
 function Header() {
     const them = useContext(ThemDefau);
-    const { currentUser, handleTongleSideBar, handleCurrentUser } = them;
+    const { currentUser, handleTongleSideBar, handleCurrentUser, width } = them;
     const [isSearch, setIsSearchMobi] = useState(false);
     const dispatch = useDispatch();
+    const refHeader = useRef();
 
     const secletor =
         useSelector((state) => {
@@ -39,6 +40,26 @@ function Header() {
 
             return state.user[length - 1];
         }) || {};
+
+    useEffect(() => {
+        let prevScrollpos = window.pageYOffset;
+        const handeleScroll = () => {
+            if (width < 877) {
+                let currentScrollPos = window.pageYOffset;
+                if (prevScrollpos > currentScrollPos) {
+                    refHeader.current.style.top = '0';
+                } else {
+                    refHeader.current.style.top = '-48px';
+                }
+                prevScrollpos = currentScrollPos;
+            }
+        };
+        window.addEventListener('scroll', handeleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handeleScroll);
+        };
+    }, [width]);
 
     useEffect(() => {
         const id = JSON.parse(window.localStorage.getItem('id'));
@@ -78,7 +99,7 @@ function Header() {
     };
 
     return (
-        <header className={cx('wrapper')}>
+        <header ref={refHeader} className={cx('wrapper', { wrapperHeader: width < 877 })}>
             <div className={cx('header-left')}>
                 <button className={cx('menu-btn')} onClick={handleTongleSideBar}>
                     <MenuIcon />
@@ -113,7 +134,9 @@ function Header() {
                             alt="avatar"
                         />
                     ) : (
-                        <UserIcon className={cx('icon-user-mobile')} />
+                        <Link to={'/login'}>
+                            <UserIcon className={cx('icon-user-mobile')} />
+                        </Link>
                     )}
                     {isSearch && <SearchMobile handleShowSearchMobi={handleShowSearchMobi} />}
                 </div>
@@ -165,4 +188,4 @@ function Header() {
     );
 }
 
-export default Header;
+export default React.memo(Header);

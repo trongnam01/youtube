@@ -22,6 +22,18 @@ class HtppRequest {
         const url = 'login';
         return axiosClient.post(url, params);
     };
+    getdataUser = (id) => {
+        const url = `users/${id}`;
+        return axiosClient.get(url);
+    };
+    putdataUser = (id, params) => {
+        const url = `users/${id}`;
+        return axiosClient.put(url, params);
+    };
+    postdataUser = (params) => {
+        const url = `users`;
+        return axiosClient.post(url, params);
+    };
 }
 
 const Request = new HtppRequest();

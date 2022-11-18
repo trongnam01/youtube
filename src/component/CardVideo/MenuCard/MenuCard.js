@@ -4,10 +4,13 @@ import Buttons from '~/component/Buttons';
 import { Wrapper as PopperWrapper } from '~/component/Popper';
 import { EllipsisIcon } from '~/Icons';
 import styles from '../CardHome.module.scss';
+import { useDispatch } from 'react-redux';
+import { addWhatLaster } from '~/redux/dataUserSplice';
 
 const cx = classNames.bind(styles);
 
-function MenuCard({ MENUiTEM, zIndex, onClick, className }) {
+function MenuCard({ MENUiTEM, zIndex, onClick, className, itemvideo }) {
+    const dispatch = useDispatch();
     function handleShow() {
         console.log('show tippy');
         document.body.style.overflow = 'hidden';
@@ -16,6 +19,20 @@ function MenuCard({ MENUiTEM, zIndex, onClick, className }) {
         document.body.style.overflow = 'overlay';
         console.log('hide tippy');
     }
+    const handleClick = (item) => () => {
+        switch (item.typeo) {
+            case 'danhSachCho':
+                break;
+            case 'danhXemSau':
+                dispatch(addWhatLaster(itemvideo));
+                break;
+            case 'DanhSachPhat':
+                break;
+            default:
+                console.log('lỗi click');
+                break;
+        }
+    };
     return (
         <div>
             <MenuCardTippy
@@ -27,13 +44,17 @@ function MenuCard({ MENUiTEM, zIndex, onClick, className }) {
                 zIndex={zIndex}
                 placement="bottom-start"
                 render={(attrs) => (
-                    <div className={cx('MenuCard')} tabIndex="-1" {...attrs}>
+                    <div className={cx('MenuCard')} tabIndex="-1" {...attrs} onClick={onClick}>
                         <PopperWrapper className={cx('wrapper-MenuCard')}>
                             {MENUiTEM.map((item, index) => {
                                 return (
                                     <div key={index}>
                                         {!!item.line && <span className={cx('line')} />}
-                                        <Buttons className={cx('menu-card-btn')} LeftIcon={item.icon}>
+                                        <Buttons
+                                            className={cx('menu-card-btn')}
+                                            onClick={item.onClick && handleClick(item)}
+                                            LeftIcon={item.icon}
+                                        >
                                             {item.title}
                                         </Buttons>
                                     </div>

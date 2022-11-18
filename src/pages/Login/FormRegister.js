@@ -43,10 +43,26 @@ function FormRegister({ setStatus }) {
                         return data.email === email;
                     });
                 });
+                console.log(res);
                 if (res) {
                     alert('Email này đã được sử dụng');
                 } else {
+                    const datasUser = {
+                        id: values.id,
+                        email,
+                        data: {
+                            watched: [],
+                            whatLaster: [],
+                            videoUser: [],
+                            like: [],
+                            movie: [],
+                            listPlay: [],
+                            notLike: [],
+                            subscribedChanel: [],
+                        },
+                    };
                     Request.post(values);
+                    Request.postdataUser(datasUser);
                     alert('Bạn đã đăng ký thành công tài khoản');
                     // formik.handleReset();
                     setStatus(true);

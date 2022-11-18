@@ -11,6 +11,7 @@
     .header-library {
         display: flex;
         justify-content: space-between;
+        margin-bottom: 20px;
         .title-header {
             color: #0f0f0f;
             font-size: 1.6rem;
@@ -87,6 +88,155 @@
                     border-top: none;
                 }
             }
+        }
+    }
+    .frame {
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+        & + .frame {
+            margin-top: 24px;
+        }
+        .title-frame {
+            font-size: 1.4rem;
+            line-height: 2rem;
+            font-weight: 400;
+            max-height: 4rem;
+            overflow: hidden;
+        }
+        .header-cutVideo {
+            display: flex;
+            align-items: center;
+            span {
+                margin-left: 10px;
+            }
+            margin-bottom: 15px;
+        }
+        &.frame-cut {
+            padding-bottom: 30px;
+            > span {
+                line-height: 2rem;
+                color: #8b8787;
+            }
+        }
+    }
+    .frame-mobi {
+        .frame-mobi-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 12px 10px;
+            padding-top: 0;
+
+            span {
+                margin-left: 10px;
+            }
+        }
+        .contai {
+            display: flex;
+            margin-bottom: 12px;
+            padding-left: 12px;
+        }
+        .frame-mobi-img {
+            width: 160px;
+            .image {
+                width: 100%;
+                height: 90px;
+                border-radius: 8px;
+                overflow: hidden;
+                position: relative;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .title {
+                margin-top: 6px;
+                padding-left: 1px;
+                p {
+                    margin-bottom: 2px;
+                    font-size: 1.3rem;
+                    color: #000;
+                    line-height: 1.25;
+                }
+                span {
+                    font-size: 1.2rem;
+                    color: #8b8787;
+                }
+            }
+            .playlist-card-overlay {
+                position: absolute;
+                background-color: rgba(0, 0, 0, 0.4);
+                top: 0;
+                left: 0;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+                color: white;
+                span {
+                    font-weight: 500;
+                    margin-top: 4px;
+                    font-size: 1.2rem;
+                }
+            }
+            & + .frame-mobi-img {
+                margin-left: 10px;
+            }
+            .like-action {
+                color: white;
+            }
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 12px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding-left: 12px;
+
+            .item-content {
+                display: flex;
+                align-items: center;
+                margin-top: 12px;
+                span {
+                    margin-left: 10px;
+                    padding: 12px;
+                    line-height: 1.8rem;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1170px) {
+    .Library {
+        display: flex;
+        justify-content: center;
+
+        .wrapper {
+            width: 746px;
+        }
+    }
+}
+@media (max-width: 992px) {
+    .Library {
+        display: flex;
+        justify-content: center;
+
+        .wrapper {
+            width: 700px;
+        }
+    }
+}
+@media (max-width: 876px) {
+    .Library {
+        display: flex;
+        justify-content: center;
+
+        .wrapper {
+            width: 100%;
         }
     }
 }

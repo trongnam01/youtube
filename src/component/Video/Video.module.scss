@@ -28,16 +28,16 @@
         height: 678px;
     }
 }
-@media (max-width: 1440px) {
+@media (max-width: 1940px) {
     .Video {
-        height: 448px;
+        height: 500px;
     }
 }
-// @media (max-width: 1440px) {
-//     .Video {
-//         height: 448px;
-//     }
-// }
+@media (max-width: 1051px) {
+    .Video {
+        height: 510px;
+    }
+}
 @media (max-width: 590px) {
     .Video {
         height: 400px;

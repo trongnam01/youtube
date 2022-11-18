@@ -36,6 +36,7 @@ function ManagerUser(props, ref) {
             window.localStorage.removeItem('Authorization');
             window.localStorage.removeItem('id');
             window.localStorage.removeItem('token');
+            window.localStorage.removeItem('idFirebase');
             handleCurrentUser();
         }
     };

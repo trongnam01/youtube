@@ -25,10 +25,7 @@ const MENUiTEM = [
         icon: <CrardMenuIcon />,
         title: 'Thêm vào danh sách chờ',
     },
-    {
-        icon: <LaterIcon />,
-        title: 'Lưu vào danh sách Xem sau',
-    },
+    { typeo: 'danhXemSau', icon: <LaterIcon />, title: 'Lưu vào danh sách Xem sau', onClick: true },
     {
         icon: <MenuSaveToListIcon />,
         title: 'Lưu vào danh sách phát',
@@ -154,7 +151,7 @@ function CardHome({ item }) {
                         </p>
 
                         <div className={cx('menu-hide')}>
-                            <MenuCard zIndex={4} MENUiTEM={MENUiTEM} onClick={handleClickMenu} />
+                            <MenuCard zIndex={4} MENUiTEM={MENUiTEM} onClick={handleClickMenu} itemvideo={item} />
                         </div>
                     </div>
                 </div>

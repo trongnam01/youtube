@@ -597,6 +597,7 @@ export const LikeActiveIcon = ({ width = '2.4rem', height = '2.4rem', className 
             height={height}
             viewBox="0 0 24 24"
             preserveAspectRatio="xMidYMid meet"
+            fill="currentColor"
         >
             <g>
                 <path d="M3,11h3v10H3V11z M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11v10h10.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z"></path>
@@ -1030,6 +1031,22 @@ export const FilterIcon = ({ width = '2.4rem', height = '2.4rem', className }) =
         </svg>
     );
 };
+export const YourMovirIcon = ({ width = '2.4rem', height = '2.4rem', className }) => {
+    return (
+        <svg
+            className={className}
+            width={width}
+            height={height}
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            enableBackground="new 0 0 24 24"
+        >
+            <g>
+                <path d="M5.02,6.75C4.88,5.93,5.44,5.16,6.25,5.02s1.59,0.41,1.73,1.23c0.14,0.82-0.41,1.59-1.23,1.73 C5.93,8.12,5.16,7.56,5.02,6.75z M3.99,4L4,11.08l9.36,9.36l7.07-7.07l-9.36-9.36L3.99,4 M2.99,3l8.49,0.01l10.36,10.36l-8.49,8.49 L3,11.49L2.99,3L2.99,3z"></path>
+            </g>
+        </svg>
+    );
+};
 export const PlayShortsIcons = ({ width = '2.4rem', height = '2.4rem', className }) => {
     return (
         <svg
@@ -1183,6 +1200,116 @@ export const IconVideoLibrary = ({ width = '12rem', height = '12rem', className 
         >
             <g>
                 <path d="M11,7l6,3.5L11,14V7L11,7z M18,20H4V6H3v15h15V20z M21,18H6V3h15V18z M7,17h13V4H7V17z"></path>
+            </g>
+        </svg>
+    );
+};
+
+export const MenuListPlay = ({ width = '2.4rem', height = '2.4rem', className }) => {
+    return (
+        <svg
+            className={className}
+            width={width}
+            height={height}
+            viewBox="0 0 24 24"
+            preserveAspectRatio="xMidYMid meet"
+            focusable="false"
+        >
+            <g>
+                <path d="M22,7H2v1h20V7z M13,12H2v-1h11V12z M13,16H2v-1h11V16z M15,19v-8l7,4L15,19z"></path>
+            </g>
+        </svg>
+    );
+};
+export const ChannelIconsIs = ({ width = '12rem', height = '12rem', className }) => {
+    return (
+        <svg
+            className={className}
+            width={width}
+            height={height}
+            viewBox="0 0 24 24"
+            preserveAspectRatio="xMidYMid meet"
+            focusable="false"
+        >
+            <g>
+                <path d="M10,18v-6l5,3L10,18z M17,3H7v1h10V3z M20,6H4v1h16V6z M22,9H2v12h20V9z M3,10h18v10H3V10z"></path>
+            </g>
+        </svg>
+    );
+};
+export const BellIcon = ({ width = '2.4rem', height = '2.4rem', className }) => {
+    return (
+        <svg
+            className={className}
+            width={width}
+            height={height}
+            viewBox="0 0 24 24"
+            preserveAspectRatio="xMidYMid meet"
+            focusable="false"
+        >
+            <g>
+                <path d="M10,20h4c0,1.1-0.9,2-2,2S10,21.1,10,20z M20,17.35V19H4v-1.65l2-1.88v-5.15c0-2.92,1.56-5.22,4-5.98V3.96 c0-1.42,1.49-2.5,2.99-1.76C13.64,2.52,14,3.23,14,3.96l0,0.39c2.44,0.75,4,3.06,4,5.98v5.15L20,17.35z M19,17.77l-2-1.88v-5.47 c0-2.47-1.19-4.36-3.13-5.1c-1.26-0.53-2.64-0.5-3.84,0.03C8.15,6.11,7,7.99,7,10.42v5.47l-2,1.88V18h14V17.77z"></path>
+            </g>
+        </svg>
+    );
+};
+export const GridActionIcon = ({ width = '2.4rem', height = '2.4rem', className }) => {
+    return (
+        <svg
+            className={className}
+            width={width}
+            height={height}
+            viewBox="0 0 24 24"
+            preserveAspectRatio="xMidYMid meet"
+            focusable="false"
+        >
+            <g>
+                <path d="M2,4h6v7H2V4z M2,20h6v-7H2V20z M9,11h6V4H9V11z M9,20h6v-7H9V20z M16,4v7h6V4H16z M16,20h6v-7h-6V20z"></path>
+            </g>
+        </svg>
+    );
+};
+export const GridIcon = ({ width = '2.4rem', height = '2.4rem', className }) => {
+    return (
+        <svg
+            className={className}
+            width={width}
+            height={height}
+            viewBox="0 0 24 24"
+            preserveAspectRatio="xMidYMid meet"
+        >
+            <g>
+                <path d="M8,11H2V4h6V11z M3,10h4V5H3V10z M8,20H2v-7h6V20z M3,19h4v-5H3V19z M15,11H9V4h6V11z M10,10h4V5h-4V10z M15,20H9v-7h6V20z M10,19h4v-5h-4V19z M22,11h-6V4h6V11z M17,10h4V5h-4V10z M22,20h-6v-7h6V20z M17,19h4v-5h-4V19z"></path>
+            </g>
+        </svg>
+    );
+};
+export const ListActionIcon = ({ width = '2.4rem', height = '2.4rem', className }) => {
+    return (
+        <svg
+            className={className}
+            width={width}
+            height={height}
+            viewBox="0 0 24 24"
+            preserveAspectRatio="xMidYMid meet"
+        >
+            <g>
+                <path d="M20,9H9V7h11V9z M20,11H9v2h11V11z M20,15H9v2h11V15z M7,7H4v2h3V7z M7,11H4v2h3V11z M7,15H4v2h3V15z"></path>
+            </g>
+        </svg>
+    );
+};
+export const ListIcon = ({ width = '2.4rem', height = '2.4rem', className }) => {
+    return (
+        <svg
+            className={className}
+            width={width}
+            height={height}
+            viewBox="0 0 24 24"
+            preserveAspectRatio="xMidYMid meet"
+        >
+            <g>
+                <path d="M20,8H9V7h11V8z M20,11H9v1h11V11z M20,15H9v1h11V15z M7,7H4v1h3V7z M7,11H4v1h3V11z M7,15H4v1h3V15z"></path>
             </g>
         </svg>
     );

@@ -1,7 +1,7 @@
 import { faAngleUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import ItemSideBar from '~/component/ItemSideBar';
 import styles from './PagesSideBar.module.scss';
 
@@ -42,4 +42,4 @@ function PagesSideBar({ data, isCurren }) {
     );
 }
 
-export default PagesSideBar;
+export default React.memo(PagesSideBar);

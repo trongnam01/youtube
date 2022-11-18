@@ -1,0 +1,74 @@
+.Channels {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 1070px;
+    }
+    .frame-item-channel {
+        display: flex;
+        align-items: center;
+        & + .frame-item-channel {
+            margin-top: 24px;
+        }
+    }
+    .avatar-channel {
+        margin-right: 16px;
+        max-width: 360px;
+        min-width: 240px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+            width: 136px;
+            height: 136px;
+            border-radius: 50%;
+        }
+    }
+    .frame-item-content {
+        flex: 1;
+        > span {
+            font-size: 1.8rem;
+        }
+        .infomation-channel {
+            display: flex;
+            margin-top: 16px;
+            span {
+                font-size: 1.2rem;
+                color: #606060;
+            }
+            .icon-content {
+                margin: 0 4px;
+            }
+        }
+    }
+    .btn-sub-channel {
+        border-color: transparent;
+        background-color: #f2f2f2;
+        color: #000;
+        font-size: 1.5rem;
+        font-weight: 500;
+        padding: 8px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 30px;
+        &:hover {
+            background-color: #ebe7e7;
+        }
+    }
+    .frame-item-footer {
+        display: flex;
+        align-items: center;
+        > span {
+            margin-left: 10px;
+        }
+    }
+}
+.modal-channels {
+    width: auto !important;
+    min-width: 240px;
+}

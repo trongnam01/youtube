@@ -18,16 +18,22 @@ const cx = classNames.bind(styles);
 
 const MENUiTEM = [
     {
+        typeo: 'danhSachCho',
         icon: <CrardMenuIcon />,
         title: 'Thêm vào danh sách chờ',
+        onClick: true,
     },
     {
+        typeo: 'danhXemSau',
         icon: <LaterIcon />,
         title: 'Lưu vào danh sách Xem sau',
+        onClick: true,
     },
     {
+        typeo: 'DanhSachPhat',
         icon: <MenuSaveToListIcon />,
         title: 'Lưu vào danh sách phát',
+        onClick: true,
     },
     {
         icon: <ShareIcon />,
@@ -48,7 +54,7 @@ const MENUiTEM = [
     },
 ];
 
-function CrardImage({ item, className, pageNew, imageUser, classCustom }) {
+function CrardImage({ item, className, pageNew, register, imageUser, classCustom, registerImg }) {
     const Them = useContext(ThemDefau);
     const custumTextView = Number.parseInt(item.view);
 
@@ -82,11 +88,14 @@ function CrardImage({ item, className, pageNew, imageUser, classCustom }) {
                         <p className={cx('first-title')}>{item.title}</p>
 
                         <span className={cx('first-name')}>{item.userChannel}</span>
-                        <p className={cx(cx('first-Information'))}>
-                            <span>{custumTextView} N</span>
+                        {!registerImg && (
+                            <p className={cx(cx('first-Information'))}>
+                                <span>{custumTextView} N</span>
 
-                            <span>{item.videoPostingData}</span>
-                        </p>
+                                <span>{item.videoPostingData}</span>
+                            </p>
+                        )}
+
                         {imageUser && (
                             <div className={cx('wrapper-userChanne')}>
                                 <img src={item.channeImage} alt="avatar" />
@@ -100,9 +109,19 @@ function CrardImage({ item, className, pageNew, imageUser, classCustom }) {
                                 https://apple.co/3BZzQXu Zing MP3: https://bit.ly/3UJhLV5 Composer: ĐỖ HOÀI...
                             </p>
                         )}
+                        {register && (
+                            <p className={cx('infomation')}>
+                                {item.title} | Laato ke bhoot bato se nhi mante #shorts #trending #viral #youtubeshorts
+                                #funny #comedy #ytshorts #shorts #trending #viral #funny #comedy #ytshorts #7seven
+                                brothers #chikan vane
+                            </p>
+                        )}
+                        {registerImg && (
+                            <img src={item.channeImage} alt={'avatar'} className={cx('image-register-mobi')} />
+                        )}
 
                         <div className={cx('menu-hide')} onClick={handleClickSettting}>
-                            <MenuCard zIndex={4} MENUiTEM={MENUiTEM} />
+                            <MenuCard zIndex={4} MENUiTEM={MENUiTEM} itemvideo={item} />
                         </div>
                     </div>
                 </div>

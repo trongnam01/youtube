@@ -7,12 +7,15 @@ import Box from '@mui/material/Box';
 import { ThemDefau } from '~/layouts/DefaultLayout';
 import styles from './UserChannel.module.scss';
 import './UserChannel.scss';
-import { PlayICon, SearchIcon } from '~/Icons';
+import { BellIcon, PlayICon, SearchIcon } from '~/Icons';
 import Video from '~/component/Video';
-import { Col, Row } from 'antd';
+import { Button, Col, Modal, Row } from 'antd';
 import CrardImage from '~/component/CardImage';
 import Buttons from '~/component/Buttons';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import 'antd/dist/antd.css';
+import { addRegister, unRegister } from '~/redux/dataUserSplice';
 
 const cx = classNames.bind(styles);
 
@@ -55,12 +58,46 @@ const opts = {
 };
 
 function UserChannel() {
+    const dispatch = useDispatch();
+
     const Them = useContext(ThemDefau);
     const [colum, setColum] = useState();
+    const [isRegister, setIsRegister] = useState(false);
 
     const [value, setValue] = useState(0);
     const inputRef = useRef();
     const [datas, setDatas] = useState([{}]);
+    const { width } = Them;
+    const refTabs = useRef();
+
+    const selectorRgisterChannel = useSelector((state) => state.dataUser.data.subscribedChanel);
+    useEffect(() => {
+        let prevScrollpos = window.pageYOffset;
+        let handeleScroll = () => {};
+        handeleScroll = () => {
+            if (width < 877) {
+                let currentScrollPos = window.pageYOffset;
+                if (prevScrollpos > currentScrollPos) {
+                    refTabs.current.style.top = '48px';
+                } else {
+                    refTabs.current.style.top = '-66px';
+                }
+                prevScrollpos = currentScrollPos;
+            }
+        };
+        window.addEventListener('scroll', handeleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handeleScroll);
+        };
+    }, [width]);
+
+    useEffect(() => {
+        const fiter = selectorRgisterChannel.some((item) => {
+            return item.idName === datas[0].idName && item.IduserChannel === datas[0].IduserChannel;
+        });
+        setIsRegister(fiter);
+    }, [selectorRgisterChannel, datas]);
 
     useEffect(() => {
         const pat = Them.locotion.pathname.slice(10);
@@ -68,8 +105,6 @@ function UserChannel() {
             return pat === item.idName;
         });
 
-        console.log(result);
-        console.log(Them.DataApi);
         setDatas(() => {
             return result.length < 1 ? [{}] : result;
         });
@@ -90,6 +125,40 @@ function UserChannel() {
             setColum(24);
         }
     }, [Them.width, colum]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpenCurrent, setIsModalOpenCurrent] = useState(false);
+
+    const showModal = () => {
+        if (Them.currentUser) {
+            setIsModalOpenCurrent(false);
+            if (isRegister) {
+                setIsModalOpen(true);
+            } else {
+                const dataId = {
+                    idName: datas[0].idName,
+                    IduserChannel: datas[0].IduserChannel,
+                };
+                dispatch(addRegister(dataId));
+            }
+        } else {
+            setIsModalOpenCurrent(true);
+        }
+    };
+
+    const handleOk = () => {
+        const dataId = {
+            idName: datas[0].idName,
+            IduserChannel: datas[0].IduserChannel,
+        };
+        dispatch(unRegister(dataId));
+
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+        setIsModalOpenCurrent(false);
+    };
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -106,12 +175,47 @@ function UserChannel() {
                     </div>
                 </div>
                 <div className={cx('btn-subscribers')}>
-                    <button>Đăng ký</button>
+                    <Button className={cx({ Registered: isRegister })} onClick={showModal}>
+                        {isRegister ? 'Đã đăng ký' : 'Đăng ký'}
+                    </Button>
+                    <span className={cx('icon-bell')}>{isRegister && <BellIcon />}</span>
+                    <Modal
+                        key={1}
+                        open={isModalOpen}
+                        onOk={handleOk}
+                        onCancel={handleCancel}
+                        cancelText={'Hủy'}
+                        okText={'Hủy đăng ký'}
+                        className={cx('modal-register', 'modal-register2')}
+                        centered
+                    >
+                        Hủy đăng ký {datas[0].userChannel}?
+                    </Modal>
+                    <Modal
+                        className={cx('modal-register', 'modal-register2')}
+                        key={2}
+                        closable={false}
+                        open={isModalOpenCurrent}
+                        onCancel={handleCancel}
+                        footer={[
+                            <Link to={'/login'} className={cx('link-login')}>
+                                Đăng nhập
+                            </Link>,
+                        ]}
+                        centered
+                    >
+                        <h4>Bạn muốn đăng ký kênh này?</h4>
+                        <span className={cx('text-modal')}>Đăng nhập để đăng ký kênh này.</span>
+                    </Modal>
                 </div>
             </div>
             <div className={cx('content-user-channel', 'content-user-channel-USERCHANNEL')}>
                 <Box sx={{ width: '100%' }}>
-                    <Box sx={{ borderBottom: 1, borderColor: 'transparent' }}>
+                    <Box
+                        ref={refTabs}
+                        className={'tabs-USERCHANNEL'}
+                        sx={{ borderBottom: 1, borderColor: 'transparent' }}
+                    >
                         <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto">
                             {menuUserChannel.map((item, index) => {
                                 return (

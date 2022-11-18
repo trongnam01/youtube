@@ -10,6 +10,9 @@
     position: fixed;
     top: 0;
 }
+.wrapperHeader {
+    transition: top 0.3s;
+}
 .header-left {
     display: flex;
     align-items: center;
@@ -141,6 +144,7 @@
 @media (max-width: 876px) {
     .wrapper {
         height: 48px;
+        box-shadow: 0 4px 2px -2px rgb(0 0 0 / 20%);
     }
     .menu-btn {
         display: none;
