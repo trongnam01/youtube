@@ -213,15 +213,15 @@ function Library() {
                                     <div>
                                         <div className={cx('wrapper-item-user')}>
                                             <span>Kênh đăng ký</span>
-                                            <span>222</span>
+                                            <span>{secletor.data.subscribedChanel.length}</span>
                                         </div>
                                         <div className={cx('wrapper-item-user')}>
                                             <span>Video tải lên</span>
-                                            <span>{datas.data.videoUser.length}</span>
+                                            <span>{secletor.data.videoUser.length}</span>
                                         </div>
                                         <div className={cx('wrapper-item-user')}>
                                             <span>Video đã thích</span>
-                                            <span>{datas.data.like.length}</span>
+                                            <span>{secletor.data.like.length}</span>
                                         </div>
                                     </div>
                                 </div>
