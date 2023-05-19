@@ -1,0 +1,11 @@
+.container-item-form {
+    display: grid;
+    justify-content: center;
+    gap: 10px;
+    grid-template-columns: auto auto auto;
+}
+.text-red-600 {
+    color: red;
+    font-weight: 400;
+    margin: 0;
+}

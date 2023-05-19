@@ -24,6 +24,7 @@ import SideBar from '../component/SideBar';
 import styles from './DefaultLayout.module.scss';
 import { getinitialState } from '~/redux/dataUserSplice';
 import firebase from 'firebase/compat/app';
+import Loading from '~/component/Loading';
 
 export const ThemDefau = React.createContext();
 
@@ -36,6 +37,8 @@ const MENU_ITEM = [
             title: 'Kênh của bạn',
             to: '/name',
             currentUser: true,
+            type: 'KENH_CUA_BAN',
+            // isClick: true,
         },
         {
             icon: <StudioIcon />,
@@ -178,6 +181,7 @@ function DefaultLauout({ children }) {
     const secletor = useSelector((state) => state.dataUser);
 
     const [DataApi, setDataApi] = useState([]);
+    const [menuHeader, setMenuHeader] = useState(MENU_ITEM); // menu khi đang nhập thành công
 
     const [tongleSideBar, setTongleSideBar] = useState(false);
     const [iscurrentUser, setIsCurrentUser] = useState(false);
@@ -187,6 +191,7 @@ function DefaultLauout({ children }) {
     const [width, setWidth] = useState(window.innerWidth);
     const [hideItemShorts, sethideItemShorts] = useState(false);
     const refIndex = useRef(0);
+    const [isLoading, setisLoading] = useState(false);
 
     const classHiden = cx({ hiden: hideItemShorts });
 
@@ -204,15 +209,40 @@ function DefaultLauout({ children }) {
     }, [secletor]);
 
     useEffect(() => {
+        if (iscurrentUser) {
+            const cusMenuheader = [...MENU_ITEM];
+
+            cusMenuheader[0].push({
+                icon: <DataIcon />,
+                isClick: true,
+                title: 'Quản Trị Video',
+                to: '/quanTriVideo',
+            });
+
+            setMenuHeader(cusMenuheader);
+            // console.log(
+            //     cusMenuheader[0].push({
+            //         icon: <DataIcon />,
+
+            //         title: 'Quản Trị Video',
+            //         to: '/quanTriVideo',
+            //     }),
+            //     'iscurrentUser',
+            // );
+        } else {
+            setMenuHeader(MENU_ITEM);
+        }
+    }, [iscurrentUser]);
+
+    useEffect(() => {
         refIndex.current = refIndex.current + 1;
         if (refIndex.current === 1) {
             const getApi = async () => {
                 try {
-                    const result = await Request.getAll();
+                    handleLoadAllVideo();
 
                     setIsPut(true);
 
-                    setDataApi(result);
                     const succes = JSON.parse(window.localStorage.getItem('token'));
                     if (succes) {
                         const currentUser = firebase.auth().currentUser?.providerData[0];
@@ -311,8 +341,19 @@ function DefaultLauout({ children }) {
     function handleSetItemPlayVideo(data) {
         setItemVideoPlay(data);
     }
+
+    const handleLoadAllVideo = async function name() {
+        setisLoading(true);
+        const result = await Request.getAll().then((res) => {
+            setisLoading(false);
+
+            return res;
+        });
+        setDataApi(result);
+    };
+
     const data = {
-        items: MENU_ITEM,
+        items: menuHeader,
         setResultSearch,
         resultSearch,
         width,
@@ -324,11 +365,14 @@ function DefaultLauout({ children }) {
         handleTongleSideBar,
         handleCurrentUser,
         handleSetItemPlayVideo,
+        handleLoadAllVideo,
+        setisLoading,
     };
 
     return (
         <ThemDefau.Provider value={data}>
             <div className={cx('wrapper')}>
+                <Loading isLoading={isLoading} />
                 <Header />
                 <div className={cx('container')}>
                     <SideBar tongleSideBar={tongleSideBar} classHiden={classHiden} />

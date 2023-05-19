@@ -34,6 +34,7 @@ function Header() {
     const dispatch = useDispatch();
     const refHeader = useRef();
 
+    // get thông tin đăng nhập
     const secletor =
         useSelector((state) => {
             const length = state.user.length;

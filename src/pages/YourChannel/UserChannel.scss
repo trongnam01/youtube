@@ -1,0 +1,95 @@
+.YourChannel {
+    .cover-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+    .css-qh29qi {
+        margin-left: -40px;
+        padding: 0 107px;
+        position: sticky;
+        top: 56px;
+        background: white;
+        z-index: 99;
+    }
+    .Mui-selected {
+        color: #030303 !important;
+        background-color: transparent;
+    }
+
+    .tabs-menu:last-child {
+        padding-right: 0;
+        padding-left: 0;
+        z-index: 9;
+    }
+    .tabs-menu {
+        font-size: 1.4rem;
+        color: #606060;
+        padding-right: 32px;
+        padding-left: 32px;
+        font-weight: 500;
+        font-family: 'Roboto', 'Noto', sans-serif;
+    }
+
+    .MuiTouchRipple-child {
+        background-color: transparent;
+    }
+    .css-ptiqhd-MuiSvgIcon-root {
+        font-size: 2.2rem;
+    }
+    .MuiTabs-indicator {
+        background-color: #606060;
+    }
+}
+
+// css form
+
+.container-item-form {
+    display: grid;
+    justify-content: center;
+    gap: 10px;
+    grid-template-columns: auto auto auto;
+}
+.text-red-600 {
+    color: red;
+    font-weight: 400;
+    margin: 0;
+}
+.modal-register2 {
+    .ant-modal-content {
+        .ant-modal-body {
+            padding: 30px 30px 24px 35px;
+        }
+        .ant-modal-close-x {
+            width: 40px;
+            height: 40px;
+        }
+
+        .ant-modal-footer {
+            border-color: transparent;
+            .ant-btn {
+                border-color: transparent;
+            }
+            .ant-btn-primary {
+                background-color: white;
+                color: #1890ff;
+                box-shadow: unset;
+            }
+        }
+    }
+    .link-login {
+        color: #1890ff;
+        font-size: 1.6rem;
+    }
+}
+@media (max-width: 876px) {
+    .content-user-channel-USERCHANNEL {
+        .css-qh29qi {
+            top: 48px;
+            margin-left: 0;
+            padding: 0;
+            z-index: 1;
+            transition: top 0.3s;
+        }
+    }
+}

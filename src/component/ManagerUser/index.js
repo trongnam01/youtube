@@ -1,6 +1,8 @@
-import { useContext, useState, forwardRef } from 'react';
+import { useContext, useState, forwardRef, useRef } from 'react';
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { Modal, Input, message } from 'antd';
 
 import MenuHeader from '@tippyjs/react/headless';
 import styles from './ManagerUser.module.scss';
@@ -15,15 +17,20 @@ import { removeAll } from '~/redux/userSplice';
 const cx = classNames.bind(styles);
 
 function ManagerUser(props, ref) {
+    const navigate = useNavigate();
+
     const them = useContext(ThemDefau);
-    const { items, currentUser, handleCurrentUser } = them;
+    const { items, currentUser, handleCurrentUser, locotion } = them;
     const [menuItems, setMenuItems] = useState([{ data: items }]);
     const [menuTitle, setMenuTitle] = useState('');
+    const [modal, contextHolder] = Modal.useModal();
+    const [messageApi, contextHolders] = message.useMessage();
+    const valueManager = useRef();
     const dispatch = useDispatch();
-
     const current = menuItems[menuItems.length - 1];
 
     const handleClick = (item) => () => {
+        const { isClick, type, to } = item;
         const isParent = !!item.children;
         const out = !!item.out;
         if (isParent) {
@@ -38,7 +45,72 @@ function ManagerUser(props, ref) {
             window.localStorage.removeItem('token');
             window.localStorage.removeItem('idFirebase');
             handleCurrentUser();
+            navigate(`/`);
         }
+        if (isClick) {
+            if (type === 'KENH_CUA_BAN') {
+                navigate(`/@namtt/Yourchannel`);
+
+                return;
+            }
+
+            if (to === '/quanTriVideo') {
+                if (locotion.pathname === to) {
+                    return;
+                }
+                handleCreateVerification(to);
+                return;
+            }
+
+            navigate(to); // chuyển trang
+
+            // console.log(item, 'itemClick');
+        }
+    };
+    const handleGetDate = () => {
+        const currentDate = new Date();
+        const day = currentDate.getDate();
+        const month = currentDate.getMonth() + 1; // Tháng được đánh số từ 0 đến 11, cần cộng 1 để lấy tháng hiện tại
+        const year = currentDate.getFullYear();
+
+        return `${day}${month}${year}`;
+    };
+    // xác minh thông tin có được cấp quyền
+    const handleCreateVerification = (to) => {
+        valueManager.current = '';
+
+        modal.confirm({
+            title: 'Xác minh tài khoản',
+            onOk: () => {
+                if (valueManager.current === handleGetDate()) {
+                    navigate(to);
+                } else {
+                    messageApi.open({
+                        type: 'error',
+                        content: 'Mã xác minh không đúng',
+                    });
+                }
+            },
+            cancelText: 'HUỶ',
+            okText: 'XÁC MINH',
+            // icon: <CloseCircleOutlined style={{ color: 'red' }} />,
+            // okButtonProps: {
+            //     // Tùy chỉnh kiểu dáng cho nút "Không đồng ý"
+            //     style: { backgroundColor: 'red', color: 'white', borderColor: 'red' },
+            // },
+            content: (
+                <>
+                    <div>
+                        <label>Nhập mã xác minh được cấp</label>
+                        <Input
+                            onChange={(e) => {
+                                valueManager.current = e.target.value;
+                            }}
+                        />
+                    </div>
+                </>
+            ),
+        });
     };
 
     function renderItems() {
@@ -71,6 +143,8 @@ function ManagerUser(props, ref) {
     let classes = cx({ isclass: menuItems.length > 1, isWrapper: !currentUser && menuItems.length === 1 });
     return (
         <div>
+            {contextHolder}
+            {contextHolders}
             <MenuHeader
                 trigger="click"
                 interactive

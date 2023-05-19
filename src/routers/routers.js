@@ -6,9 +6,11 @@ import PlayVideo from '~/pages/PlayVideo/PlayVideo';
 import Register from '~/pages/Register';
 import Shorts from '~/pages/Shorts';
 import UserChannel from '~/pages/UserChannel';
+import YourChannel from '~/pages/YourChannel';
 import Login from '~/pages/Login';
 import Whatched from '~/pages/Watched';
 import Channels from '~/pages/Channels';
+import ManagerVideo from '~/pages/ManagerVideo';
 
 export const publicRouters = [
     { path: '/', component: Home },
@@ -22,4 +24,6 @@ export const publicRouters = [
     { path: '/library', component: Library },
     { path: '/watch/@:name', component: PlayVideo },
     { path: '/channel/@:channel', component: UserChannel },
+    { path: '@:channel/Yourchannel/', component: YourChannel },
+    { path: '/quanTriVideo/', component: ManagerVideo },
 ];

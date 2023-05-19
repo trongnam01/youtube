@@ -80,9 +80,8 @@ export function a11yProps(index: number) {
 
 function Home() {
     const Them = useContext(ThemDefau);
-    const { width } = Them;
+    const { width, setisLoading } = Them;
     const [value, setValue] = useState(0);
-    const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
     const refTabs = useRef();
 
@@ -104,6 +103,7 @@ function Home() {
             getApi();
         }
     }, []);
+
     useEffect(() => {
         let prevScrollpos = window.pageYOffset;
         let handeleScroll = () => {};
@@ -128,26 +128,19 @@ function Home() {
     }, [width]);
 
     useEffect(() => {
+        setisLoading(true);
+
         if (data.length > 0) {
-            setIsLoading(false);
+            setisLoading(false);
         }
     }, [data]);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
-    const handleIsLoading = (value) => {
-        console.log(value);
-        setIsLoading(value);
-    };
 
     return (
         <div className={(cx('wrapper'), cx('wrapper-Home'))}>
-            {isLoading && (
-                <span className={cx('loading')}>
-                    <FontAwesomeIcon className={cx('loading-icon')} icon={faSpinner} />{' '}
-                </span>
-            )}
             <Box sx={{ maxWidth: { xs: 320, sm: '100%' }, bgcolor: 'background.paper' }}>
                 <Box
                     ref={refTabs}
@@ -182,7 +175,7 @@ function Home() {
                 {ItemHeaderSideBar.map((item, index) => {
                     return (
                         <TabPanel key={index} value={value} index={index} className={cx('contai-content')}>
-                            <TabsHome index={index} isLoading={isLoading} datas={data} loading={handleIsLoading} />
+                            <TabsHome index={index} datas={data} />
                         </TabPanel>
                     );
                 })}
@@ -190,7 +183,7 @@ function Home() {
         </div>
     );
 }
-function TabsHome({ index, loading, isLoading, datas }) {
+function TabsHome({ index, datas }) {
     const Them = useContext(ThemDefau);
     const [colum, setColum] = useState();
     useEffect(() => {
