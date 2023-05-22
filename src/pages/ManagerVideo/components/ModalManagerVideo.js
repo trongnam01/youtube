@@ -110,7 +110,15 @@ function ModalManagerVideo(props) {
 
     return (
         <div>
-            <Modal open={isModalOpen} onOk={handleModalOk} onCancel={handleCancel} width={800} title="Thêm video">
+            <Modal
+                open={isModalOpen}
+                onOk={handleModalOk}
+                onCancel={handleCancel}
+                width={800}
+                cancelText="Hủy"
+                okText={dataRequest.isUpdate ? 'Cập nhật' : 'Thêm mới'}
+                title={dataRequest.isUpdate ? 'Cập nhật video' : 'Thêm mới video'}
+            >
                 {dataRequest.isUpdate && (
                     <div style={{ display: 'flex', justifyContent: 'end' }}>
                         <Switch
