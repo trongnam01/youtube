@@ -9,8 +9,6 @@ import CardVideo from '~/component/CardVideo';
 import { Col, Row } from 'antd';
 import 'antd/dist/antd.css';
 import './Home.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import Request from '~/api/httpRequest';
 
 // import Duration from './Duration';

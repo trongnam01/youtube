@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useContext, useState } from 'react';
 import { ThemDefau } from '~/layouts/DefaultLayout';
 import Request from '~/api/httpRequest';
@@ -19,7 +20,7 @@ const cx = classNames.bind(styles);
 function ManagerVideo() {
     const them = useContext(ThemDefau);
 
-    const { currentUser, width, DataApi, handleLoadAllVideo, handleSetItemPlayVideo } = them;
+    const { DataApi, handleLoadAllVideo, handleSetItemPlayVideo } = them;
 
     const [dataRequest, setDataRequest] = useState({
         page: 0,
@@ -101,10 +102,6 @@ function ManagerVideo() {
         return item[field];
     }, []);
 
-    const config = {
-        title: 'Use Hook!',
-        content: <>ssssssssssssssss</>,
-    };
     const handleRemoveVideo = (item) => () => {
         const deleteVideo = () => {
             Request.DeleteVideo(item.id).then(() => {
@@ -157,9 +154,11 @@ function ManagerVideo() {
                 page,
             };
             setDataRequest(newDataRequest);
+            handleLoadAllVideo();
+            window.scrollTo(0, 0);
             //   handleQuery(newDataRequest);
         },
-        [dataRequest, setDataRequest],
+        [dataRequest.page],
     );
     const handleCreateVideo = () => {
         setIsModalOpen(true);

@@ -9,6 +9,8 @@ import classNames from 'classnames/bind';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Image from '~/component/Image';
+import moment from 'moment';
+
 import { OpenCommentsIcon } from '~/Icons';
 import { ThemDefau } from '~/layouts/DefaultLayout';
 import CardImage from '../../component/CardImage';
@@ -107,6 +109,19 @@ function PlayVideo() {
             default:
         }
     };
+    const handleGetDate = (value) => {
+        if (value && moment(value).isValid()) {
+            console.log(value);
+            return (
+                moment(value).format('DD') +
+                ' ' +
+                'th' +
+                moment(value).format('MM') +
+                ' ' +
+                moment(value).format('YYYY')
+            );
+        }
+    };
     return (
         <div className={cx('wrapper', 'wrapper-PLAYVIDEO')}>
             <Row gutter={[24, 16]}>
@@ -125,7 +140,7 @@ function PlayVideo() {
                                     <p className={cx(cx('first-Information'))}>
                                         <span>{videoPlay.view} lượt xem</span>
 
-                                        <span>{videoPlay.videoPostingData}</span>
+                                        <span>{handleGetDate(videoPlay.videoPostingData)}</span>
                                     </p>
                                     <ActionVideo videoPlay={videoPlay} />
                                 </div>

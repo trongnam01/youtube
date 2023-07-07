@@ -9,3 +9,12 @@
     font-weight: 400;
     margin: 0;
 }
+.wapper-item-formManager {
+    display: block;
+    label : {
+        display: flex;
+    }
+    > div {
+        display: block;
+    }
+}

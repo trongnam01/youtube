@@ -1,7 +1,8 @@
-import { Form, Input, Modal, Switch } from 'antd';
+import { DatePicker, Input, Modal, Switch } from 'antd';
 import { useRef, useState, useEffect } from 'react';
 import Request from '~/api/httpRequest';
 
+import moment from 'moment';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -17,7 +18,7 @@ const initialState = {
     image: '',
     userChannel: '',
     IduserChannel: '',
-    date: '',
+    videoPostingData: new Date(),
     like: '',
 };
 
@@ -42,10 +43,10 @@ function ModalManagerVideo(props) {
         .required();
 
     const {
-        register,
+        // register,
         handleSubmit,
         control,
-        reset,
+        // reset,
         trigger,
         setValue,
         formState: { errors },
@@ -82,14 +83,14 @@ function ModalManagerVideo(props) {
         const customValue = {
             id: getIDLast + 1,
             ...data,
-            date: handleGetDate(),
+            videoPostingData: new Date(),
         };
 
         Request.createVideo(customValue).then(() => {
             handleLoadAllVideo();
             handleCancel();
         });
-        console.log(customValue);
+        // console.log(customValue);
     };
     const handleModalOk = function name(params) {
         refrom.current.click();
@@ -99,13 +100,52 @@ function ModalManagerVideo(props) {
     const handleChangeSwitch = function name(value) {
         setIsDisabledInput(value);
     };
-    const handleGetDate = () => {
-        const currentDate = new Date();
-        const day = currentDate.getDate();
-        const month = currentDate.getMonth() + 1; // Tháng được đánh số từ 0 đến 11, cần cộng 1 để lấy tháng hiện tại
-        const year = currentDate.getFullYear();
+    // const handleGetDate = () => {
+    //     const currentDate = new Date();
+    //     const day = currentDate.getDate();
+    //     const month = currentDate.getMonth() + 1; // Tháng được đánh số từ 0 đến 11, cần cộng 1 để lấy tháng hiện tại
+    //     const year = currentDate.getFullYear();
 
-        return `${day} th${month} ${year}`;
+    //     return `${day} th${month} ${year}`;
+    // };
+    const handleRenderItemForm = (field, disabled, label, type) => {
+        let itemRender;
+
+        switch (type) {
+            case 'date':
+                itemRender = (
+                    <DatePicker
+                        value={field.value !== undefined && moment(field.value).isValid() ? moment(field.value) : ''} // check value không hợp lệ
+                        onChange={(valueDate, dateString) => {
+                            if (dateString) {
+                                field.onChange(valueDate._d); // No need of a state // set lại value
+                            } else {
+                            }
+                        }}
+                        disabled={disabled && !isDisabledInput}
+                        format="DD/MM/YYYY"
+                        allowClear={false}
+                    />
+                );
+                break;
+
+            default:
+                itemRender = (
+                    <Input
+                        {...field}
+                        // value={field.value}
+                        onChange={(e) => {
+                            setValue(field.name, e.target.value);
+                            trigger(field.name); // kiểm tra =>> validate
+                        }}
+                        disabled={disabled && !isDisabledInput}
+                        placeholder={label}
+                    />
+                );
+                break;
+        }
+
+        return itemRender;
     };
 
     return (
@@ -131,50 +171,19 @@ function ModalManagerVideo(props) {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="container-item-form">
                         {ItemFormCreateVideo.map((item) => {
-                            const { field, label, disabled } = item;
+                            const { field, label, disabled, type } = item;
                             // console.log(field);
                             // console.log(errors[field] && errors[field], errors[field] && errors[field].message);
 
                             const message = errors[field] && errors[field].message;
                             return (
-                                <section key={field}>
+                                <section key={field} className="wapper-item-formManager">
                                     <label>{label}</label>
                                     <Controller
                                         key={field}
                                         name={field}
                                         control={control}
-                                        render={({ field, value }) => (
-                                            // <Form.Item
-                                            //     label={label}
-                                            //     name={field}
-                                            //     validateStatus={message && 'error'}
-                                            //     help={message}
-                                            //     labelCol={{ span: 24 }}
-                                            //     style={{ width: '100%' }}
-                                            //     // {...field}
-                                            // >
-                                            //     {/* {console.log(field, 'field')} */}
-                                            //     <Input
-                                            //         {...field}
-                                            //         // value={field.value}
-                                            //         onChange={(e) => {
-                                            //             setValue(field.name, e.target.value);
-                                            //             trigger(field.name);
-                                            //         }}
-                                            //         placeholder={label}
-                                            //     />
-                                            // </Form.Item>
-                                            <Input
-                                                {...field}
-                                                // value={field.value}
-                                                onChange={(e) => {
-                                                    setValue(field.name, e.target.value);
-                                                    trigger(field.name);
-                                                }}
-                                                disabled={disabled && !isDisabledInput}
-                                                placeholder={label}
-                                            />
-                                        )}
+                                        render={({ field }) => handleRenderItemForm(field, disabled, label, type)}
                                     />
                                     <p className="text-red-600">{message && message}</p>
                                 </section>

@@ -13,7 +13,7 @@ import styles from './UserChannel.module.scss';
 import './UserChannel.scss';
 import { SearchIcon } from '~/Icons';
 import { Button, Form, Input, Modal } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { ItemFormCreateVideo } from './constants';
 
@@ -67,7 +67,7 @@ const initialState = {
 };
 
 function UserChannel() {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     // const [form] = Form.useForm();
 
@@ -80,7 +80,6 @@ function UserChannel() {
         .required();
 
     const {
-        register,
         handleSubmit,
         control,
         reset,
@@ -191,9 +190,6 @@ function UserChannel() {
     };
     const handleCreateVideo = () => {
         setIsModalOpen(true);
-    };
-    const onFinishs = (value) => {
-        console.log(value);
     };
 
     const onSubmit = (data) => {
