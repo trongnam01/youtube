@@ -12,6 +12,9 @@ import FormRegister from './FormRegister';
 import { onAuthStateChanged } from 'firebase/auth';
 import * as firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css';
+import Verify from './Components/Verify';
+import { message } from 'antd';
+import Loading from '~/component/Loading';
 
 const cx = classNames.bind(styles);
 
@@ -36,7 +39,14 @@ const uiConfig = {
 function Login() {
     const [statusLogin, setStatusLogin] = useState(true);
     const [userSignedIn, setUserSignedIn] = useState(false);
+    const [isCheckVerify, setIsCheckVerify] = useState(false); // màn xác minh
+    const [dataAccount, setDatAccount] = useState({});
+    const [optCode, setOptCode] = useState('');
+    const [messageApi, contextHolder] = message.useMessage();
+    const [isLoading, setisLoading] = useState(false);
+
     const elementRef = useRef(null);
+
     const handleSetStatusLogin = (boolean) => {
         setStatusLogin(boolean);
     };
@@ -69,30 +79,52 @@ function Login() {
     const classBtnBackgroundLogin = cx({ active: statusLogin });
     const classBtnBackgroundSingup = cx({ active: !statusLogin });
     return (
-        <section className={cx('wrapper')}>
-            <div className={cx('contai')}>
-                <Link to={'/'} className={cx('logo-contai')}>
-                    <img src={images.logo} alt="logo" />
-                </Link>
-                <div className={cx('wrapper-button')}>
-                    <button
-                        onClick={handleSignup('login')}
-                        className={cx('btn-login', classBtn, classBtnBackgroundLogin)}
-                    >
-                        Login
-                    </button>
-                    <button onClick={handleSignup('signup')} className={cx(classBtn, classBtnBackgroundSingup)}>
-                        signup
-                    </button>
-                </div>
-                {statusLogin ? (
-                    <FormLogin setStatus={handleSetStatusLogin} />
-                ) : (
-                    <FormRegister setStatus={handleSetStatusLogin} />
-                )}
-                <div className={cx('from-2')} ref={elementRef} />
-            </div>
-        </section>
+        <>
+            <Loading isLoading={isLoading} />
+            {contextHolder}
+            {isCheckVerify ? (
+                <Verify optCode={optCode} setOptCode={setOptCode} messageApi={messageApi} dataAccount={dataAccount} />
+            ) : (
+                <section className={cx('wrapper')}>
+                    <div className={cx('contai')}>
+                        <Link to={'/'} className={cx('logo-contai')}>
+                            <img src={images.logo} alt="logo" />
+                        </Link>
+                        <div className={cx('wrapper-button')}>
+                            <button
+                                onClick={handleSignup('login')}
+                                className={cx('btn-login', classBtn, classBtnBackgroundLogin)}
+                            >
+                                Login
+                            </button>
+                            <button onClick={handleSignup('signup')} className={cx(classBtn, classBtnBackgroundSingup)}>
+                                signup
+                            </button>
+                        </div>
+                        {statusLogin ? (
+                            <FormLogin
+                                setStatus={handleSetStatusLogin}
+                                messageApi={messageApi}
+                                optCode={optCode}
+                                setIsCheckVerify={setIsCheckVerify}
+                                setOptCode={setOptCode}
+                                setDatAccount={setDatAccount}
+                            />
+                        ) : (
+                            <FormRegister
+                                setStatus={handleSetStatusLogin}
+                                setIsCheckVerify={setIsCheckVerify}
+                                setOptCode={setOptCode}
+                                messageApi={messageApi}
+                                setDatAccount={setDatAccount}
+                                setisLoading={setisLoading}
+                            />
+                        )}
+                        <div className={cx('from-2')} ref={elementRef} />
+                    </div>
+                </section>
+            )}
+        </>
     );
 }
 

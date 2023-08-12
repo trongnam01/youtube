@@ -9,9 +9,10 @@ import Request from '~/api/httpRequest';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '~/redux/userSplice';
+import { createFormVerify, findAccount } from './Actions';
 
 const cx = classNames.bind(styles);
-function FormLogin({ setStatus }) {
+function FormLogin({ setStatus, setIsCheckVerify, setOptCode, setDatAccount, messageApi }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const emailRef = useRef();
@@ -32,34 +33,36 @@ function FormLogin({ setStatus }) {
             password: Yup.string().required('Vui lòng nhap trường này').min(8, 'Mật khẩu tối thiểu 8 chữ số '),
         }),
         onSubmit: async (values) => {
-            const email = values.email;
-            const password = values.password;
-            try {
-                const res = await Request.getAllUser().then((datas) => {
-                    return datas.find((data) => {
-                        return data.email === email && data.password === password;
+            const res = await findAccount(values);
+
+            if (res) {
+                if (!res.verify && res.verify === false) {
+                    // check dk => đăng ký tài khoản
+                    createFormVerify(res).then((code) => {
+                        setIsCheckVerify(true);
+                        setOptCode(code);
+                        setDatAccount(res);
                     });
-                });
-                if (res) {
-                    const token = res.token;
-                    const Authorization = `Bearer ${token}`;
-                    window.localStorage.setItem('Authorization', JSON.stringify(Authorization));
-                    window.localStorage.setItem('id', JSON.stringify(res.id));
-                    dispatch(addUser(res));
-                    navigate('/');
-                } else {
-                    alert('email hoặc mật khẩu sai');
+                    return;
                 }
-                console.log(res);
-            } catch (error) {}
+                const token = res.token;
+                const Authorization = `Bearer ${token}`;
+                window.localStorage.setItem('Authorization', JSON.stringify(Authorization));
+                window.localStorage.setItem('id', JSON.stringify(res.id));
+                dispatch(addUser(res));
+                navigate('/');
+            } else {
+                messageApi.open({
+                    type: 'error',
+                    className: 'messageErrorr',
+                    content: 'Email hoặc mật khẩu không đúng. Vui lòng kiểm tra lại tài khoản',
+                });
+            }
         },
     });
 
     return (
-        <form
-            //  onSubmit={handleSubmit(statusLogin ? 'login' : 'signup')}
-            onSubmit={formik.handleSubmit}
-        >
+        <form onSubmit={formik.handleSubmit}>
             <div className={cx('wrapper-input')}>
                 <div className={cx('ground-input')}>
                     <input

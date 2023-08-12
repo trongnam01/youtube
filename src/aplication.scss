@@ -1,0 +1,30 @@
+.messageSuccess {
+    .ant-message-notice-content {
+        background: #3eba3e;
+        color: #fff;
+        border-radius: 30px;
+    }
+    .ant-message-success .anticon {
+        color: #fff;
+    }
+}
+.messageErrorr {
+    .ant-message-notice-content {
+        background: #ee2525;
+        color: #fff;
+        border-radius: 30px;
+    }
+    .ant-message-error .anticon {
+        color: #fff;
+    }
+}
+.messageWarring {
+    .ant-message-notice-content {
+        background: #ee7600;
+        color: #fff;
+        border-radius: 30px;
+    }
+    .ant-message-warning .anticon {
+        color: #fff;
+    }
+}

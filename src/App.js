@@ -3,6 +3,7 @@ import { Fragment } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import DefaultLauout from './layouts/DefaultLayout';
 import { publicRouters } from './routers';
+import './aplication.scss';
 
 function App() {
     return (

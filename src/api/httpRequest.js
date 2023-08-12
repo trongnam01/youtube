@@ -43,6 +43,10 @@ class HtppRequest {
         const url = 'login';
         return axiosClient.post(url, params);
     };
+    UpdatAccount = (id, params) => {
+        const url = `login/${id}`;
+        return axiosClient.put(url, params);
+    };
     getdataUser = (id) => {
         const url = `users/${id}`;
         return axiosClient.get(url);

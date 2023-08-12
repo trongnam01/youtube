@@ -1,5 +1,4 @@
 .wrapper {
-    background-image: linear-gradient(90deg, #45aaf2, #be2edd);
     position: fixed;
     top: 0;
     left: 0;
@@ -8,7 +7,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    background-color: #240046;
     .active {
         background-image: linear-gradient(90deg, #f368e0, #eb4d4b);
         color: #fff;
@@ -19,6 +18,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 10px;
 }
 .logo-contai {
     display: flex;
@@ -112,6 +112,10 @@
     margin-top: 10px;
     cursor: pointer;
 }
+.wapper_btn-submit-formLogin {
+    display: flex;
+    justify-content: center;
+}
 
 .btn-submit:hover {
     background: #54a0ff;
@@ -121,6 +125,77 @@
     padding-left: 4px;
     padding-top: 4px;
     display: flex;
+}
+.wrapper-Verify {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background-image: linear-gradient(90deg, #d4c6c2, #bba69f);
+
+    .title {
+        font-size: 22px;
+        color: #000000cf;
+        padding: 10px 10px 10px 0;
+        display: flex;
+        font-weight: 500;
+    }
+    .title-content {
+        padding: 10px 10px 10px 0;
+        display: flex;
+        text-align: center;
+        color: #606060;
+        font-weight: 300;
+        line-height: 26px;
+    }
+    .Container {
+        padding: 15px;
+        border: 10px;
+        border-radius: 20px;
+        // background-color: #ede9e2;
+        // box-shadow: -17px -15px 5px 15px #c4aea7;
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
+    .footer {
+        margin: 10px 0 0 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        a {
+            color: #59a5dc;
+            text-decoration: underline;
+            margin-left: 5px;
+        }
+        .time {
+            display: flex;
+            align-items: center;
+        }
+    }
+    .btn-Rerify {
+        background-color: #54a0ff;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        opacity: 1;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
 }
 
 @media (max-width: 768px) {

@@ -5,19 +5,24 @@ import { useEffect, useRef } from 'react';
 import * as Yup from 'yup';
 import Request from '~/api/httpRequest';
 import styles from './Login.module.scss';
+// import emailjs from 'emailjs-com';
+import { createFormVerify } from './Actions';
 
 const cx = classNames.bind(styles);
-function FormRegister({ setStatus }) {
+function FormRegister({ setStatus, setIsCheckVerify, setOptCode, setDatAccount, messageApi, setisLoading }) {
     const emailRef = useRef();
+    const formRef = useRef();
 
     useEffect(() => {
         emailRef.current.focus();
     }, []);
+
     const formik = useFormik({
         initialValues: {
             name: '',
             email: '',
             password: '',
+            verify: false,
             confirmedPassword: '',
             image: 'https://scontent.fhan2-2.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=cp0_dst-png_p56x56&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=1Rph2yqJK04AX-m8j8z&_nc_ht=scontent.fhan2-2.fna&oh=00_AT-n9X9vkZyDv847ZcME2tZ_z_-GtKio3Jfp90uSMGVOaQ&oe=63787DF8',
             admin: false,
@@ -35,6 +40,7 @@ function FormRegister({ setStatus }) {
                 .oneOf([Yup.ref('password'), null], 'Nhập lại mật khẩu không chính xác'),
         }),
         onSubmit: async (values) => {
+            setisLoading(true);
             const email = values.email;
 
             try {
@@ -43,9 +49,13 @@ function FormRegister({ setStatus }) {
                         return data.email === email;
                     });
                 });
-                console.log(res);
                 if (res) {
-                    alert('Email này đã được sử dụng');
+                    setisLoading(false);
+                    messageApi.open({
+                        type: 'warning',
+                        className: 'messageWarring',
+                        content: 'Email này đã được sử dụng',
+                    });
                 } else {
                     const datasUser = {
                         id: values.id,
@@ -61,11 +71,26 @@ function FormRegister({ setStatus }) {
                             subscribedChanel: [],
                         },
                     };
-                    Request.post(values);
+
+                    console.log(values, datasUser);
+                    const createDataAccount = await Request.post(values);
                     Request.postdataUser(datasUser);
-                    alert('Bạn đã đăng ký thành công tài khoản');
-                    // formik.handleReset();
-                    setStatus(true);
+
+                    if (createDataAccount) {
+                        setisLoading(false);
+
+                        messageApi.open({
+                            type: 'success',
+                            className: 'messageSuccess',
+                            content: 'Bạn đã đăng ký thành công tài khoản',
+                        });
+
+                        createFormVerify(values).then((code) => {
+                            setIsCheckVerify(true);
+                            setOptCode(code);
+                            setDatAccount(createDataAccount);
+                        });
+                    }
                 }
             } catch (error) {}
         },
@@ -74,6 +99,7 @@ function FormRegister({ setStatus }) {
     return (
         <form
             //  onSubmit={handleSubmit(statusLogin ? 'login' : 'signup')}
+            ref={formRef}
             onSubmit={formik.handleSubmit}
         >
             <div className={cx('wrapper-input')}>
@@ -82,7 +108,7 @@ function FormRegister({ setStatus }) {
                         ref={emailRef}
                         className={cx('input-email')}
                         id="email"
-                        placeholder="Email"
+                        placeholder="Nhập email"
                         type="text"
                         name="email"
                         value={formik.values.email}
@@ -96,7 +122,7 @@ function FormRegister({ setStatus }) {
                 </div>
                 <div className={cx('ground-input')}>
                     <input
-                        placeholder="Tài khoản"
+                        placeholder="Tên tài khoản"
                         type="text"
                         id="name"
                         name="name"
