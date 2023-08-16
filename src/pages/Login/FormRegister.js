@@ -7,6 +7,7 @@ import Request from '~/api/httpRequest';
 import styles from './Login.module.scss';
 // import emailjs from 'emailjs-com';
 import { createFormVerify } from './Actions';
+import bcryptjs from 'bcryptjs';
 
 const cx = classNames.bind(styles);
 function FormRegister({ setStatus, setIsCheckVerify, setOptCode, setDatAccount, messageApi, setisLoading }) {
@@ -39,7 +40,26 @@ function FormRegister({ setStatus, setIsCheckVerify, setOptCode, setDatAccount, 
                 .required('Vui lòng nhập trường này')
                 .oneOf([Yup.ref('password'), null], 'Nhập lại mật khẩu không chính xác'),
         }),
-        onSubmit: async (values) => {
+        onSubmit: async (dataForm) => {
+            const { confirmedPassword, ...values } = dataForm;
+
+            const hash = bcryptjs.hashSync(values.password, 10);
+            values.password = hash;
+
+            // bcryptjs.compare('anhnam01', hash, function (err, result) {
+            //     console.log(err, result);
+            //     if (err) {
+            //         console.error(err);
+            //     } else {
+            //         if (result) {
+            //             console.log('Password matches');
+            //             return 'Password matches';
+            //         } else {
+            //             console.log('Password does not match');
+            //         }
+            //     }
+            // });
+
             setisLoading(true);
             const email = values.email;
 

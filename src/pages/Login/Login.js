@@ -109,6 +109,7 @@ function Login() {
                                 setIsCheckVerify={setIsCheckVerify}
                                 setOptCode={setOptCode}
                                 setDatAccount={setDatAccount}
+                                setisLoading={setisLoading}
                             />
                         ) : (
                             <FormRegister

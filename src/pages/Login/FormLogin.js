@@ -12,7 +12,7 @@ import { addUser } from '~/redux/userSplice';
 import { createFormVerify, findAccount } from './Actions';
 
 const cx = classNames.bind(styles);
-function FormLogin({ setStatus, setIsCheckVerify, setOptCode, setDatAccount, messageApi }) {
+function FormLogin({ setStatus, setIsCheckVerify, setOptCode, setDatAccount, messageApi, setisLoading }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const emailRef = useRef();
@@ -33,9 +33,12 @@ function FormLogin({ setStatus, setIsCheckVerify, setOptCode, setDatAccount, mes
             password: Yup.string().required('Vui lòng nhap trường này').min(8, 'Mật khẩu tối thiểu 8 chữ số '),
         }),
         onSubmit: async (values) => {
+            setisLoading(true);
             const res = await findAccount(values);
 
             if (res) {
+                setisLoading(false);
+
                 if (!res.verify && res.verify === false) {
                     // check dk => đăng ký tài khoản
                     createFormVerify(res).then((code) => {
@@ -52,10 +55,12 @@ function FormLogin({ setStatus, setIsCheckVerify, setOptCode, setDatAccount, mes
                 dispatch(addUser(res));
                 navigate('/');
             } else {
+                setisLoading(false);
+
                 messageApi.open({
                     type: 'error',
                     className: 'messageErrorr',
-                    content: 'Email hoặc mật khẩu không đúng. Vui lòng kiểm tra lại tài khoản',
+                    content: 'Email hoặc mật khẩu không đúng',
                 });
             }
         },

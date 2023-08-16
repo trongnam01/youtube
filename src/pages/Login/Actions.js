@@ -1,18 +1,33 @@
 import Request from '~/api/httpRequest';
 import emailjs from '@emailjs/browser';
+import bcryptjs from 'bcryptjs';
 
 export const findAccount = async function (values) {
     const email = values.email;
     const password = values.password;
+
     try {
-        const res = await Request.getAllUser().then((datas) => {
-            return datas.find((data) => {
-                return data.email === email && data.password === password;
+        const res = await Request.getAllUser().then(async (datas) => {
+            const promises = datas.map(async (data) => {
+                const isMatch = await bcryptjs.compare(password, data.password || '');
+
+                if (isMatch && data.email === email) {
+                    return data;
+                }
+                return null;
             });
+
+            const results = await Promise.all(promises);
+
+            const result = results.find((data) => data !== null);
+
+            return result;
         });
 
         return res; // return check đk navigate
-    } catch (error) {}
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 function generateRandomFiveDigitNumber() {
