@@ -53,12 +53,11 @@ export function createFormVerify(values) {
             )
             .then(
                 (result) => {
-                    console.log(result);
                     resolve(GET_CODE);
                 },
                 (error) => {
                     reject();
-                    console.log(error.text);
+                    console.log(error.text, 'lỗi');
                 },
             );
     });

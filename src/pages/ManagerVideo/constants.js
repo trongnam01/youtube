@@ -1,21 +1,4 @@
 /* eslint-disable no-sparse-arrays */
-/*
- *
- * AppNodeList constants
- *
- */
-
-export const CLEANUP = 'app/AppNodeList/CLEANUP';
-
-export const GET_LIST = 'app/AppNodeList/GET_LIST';
-export const GET_LISTAGENTS = 'app/AppNodeList/GET_AGENTS';
-
-export const GET_LIST_SUCCESS = 'app/AppNodeList/GET_LIST_SUCCESS';
-export const GET_LIST_FAILED = 'app/AppNodeList/GET_LIST_FAILED';
-
-export const REMOVE = 'app/AppNodeList/REMOVE';
-export const REMOVE_SUCCESS = 'app/AppNodeList/REMOVE_SUCCESS';
-export const REMOVE_FAILED = 'app/AppNodeList/REMOVE_FAILED';
 
 export const CLEAR = 'app/AppNodeList/CLEAR';
 
@@ -51,7 +34,7 @@ export const columnConfig = [
     },
 
     {
-        name: 'Actions',
+        name: 'Thao tác',
         field: 'actions',
         align: 'center',
     },

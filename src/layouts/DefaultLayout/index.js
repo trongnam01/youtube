@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import classNames from 'classnames/bind';
 import React, { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Request from '~/api/httpRequest';
 import {
     CoinIcon,
@@ -25,6 +26,10 @@ import styles from './DefaultLayout.module.scss';
 import { getinitialState } from '~/redux/dataUserSplice';
 import firebase from 'firebase/compat/app';
 import Loading from '~/component/Loading';
+import { TeamOutlined } from '@ant-design/icons';
+import { message } from 'antd';
+import { addUser } from '~/redux/userSplice';
+import { Pathname } from './constants';
 
 export const ThemDefau = React.createContext();
 
@@ -172,13 +177,15 @@ const MENU_ITEM = [
     ],
 ];
 
-// export function getListApi() {
-//     return fetch(`https://6290441a27f4ba1c65b64525.mockapi.io/api/video`).then((Response) => Response.json());
-// }
 function DefaultLauout({ children }) {
     const dispatch = useDispatch();
     const locotion = useLocation();
     const secletor = useSelector((state) => state.dataUser);
+    const dataAccount = useSelector((state) => {
+        const length = state.user.length;
+        return state.user[length - 1];
+    });
+    const navigate = useNavigate();
 
     const [DataApi, setDataApi] = useState([]);
     const [menuHeader, setMenuHeader] = useState(MENU_ITEM); // menu khi đang nhập thành công
@@ -192,6 +199,7 @@ function DefaultLauout({ children }) {
     const [hideItemShorts, sethideItemShorts] = useState(false);
     const refIndex = useRef(0);
     const [isLoading, setisLoading] = useState(false);
+    const [messageApi, contextMessage] = message.useMessage();
 
     const classHiden = cx({ hiden: hideItemShorts });
 
@@ -209,30 +217,40 @@ function DefaultLauout({ children }) {
     }, [secletor]);
 
     useEffect(() => {
-        if (iscurrentUser) {
-            const cusMenuheader = [...MENU_ITEM];
+        if (iscurrentUser && dataAccount?.admin) {
+            const COPPY_MENU_ITEM = [...MENU_ITEM];
 
-            cusMenuheader[0].push({
+            const pushMenu = [];
+
+            pushMenu.push({
                 icon: <DataIcon />,
                 isClick: true,
                 title: 'Quản Trị Video',
                 to: '/quanTriVideo',
             });
 
-            setMenuHeader(cusMenuheader);
-            // console.log(
-            //     cusMenuheader[0].push({
-            //         icon: <DataIcon />,
+            // đk check quyền được sửa
 
-            //         title: 'Quản Trị Video',
-            //         to: '/quanTriVideo',
-            //     }),
-            //     'iscurrentUser',
-            // );
+            pushMenu.push({
+                icon: <TeamOutlined style={{ fontSize: '18px', padding: '4px' }} />,
+                isClick: true,
+                title: 'Quản Lý Tài Khoản',
+                to: '/quanLyTaiKhoan',
+            });
+
+            if (pushMenu.length > 0) {
+                COPPY_MENU_ITEM.splice(1, 0, pushMenu);
+
+                setMenuHeader(COPPY_MENU_ITEM);
+            }
         } else {
             setMenuHeader(MENU_ITEM);
+            if (dataAccount) {
+                //khi đã login
+                handlePathNameVerify('verify');
+            }
         }
-    }, [iscurrentUser]);
+    }, [iscurrentUser, dataAccount]);
 
     useEffect(() => {
         refIndex.current = refIndex.current + 1;
@@ -243,56 +261,86 @@ function DefaultLauout({ children }) {
 
                     setIsPut(true);
 
-                    const succes = JSON.parse(window.localStorage.getItem('token'));
+                    const succes = JSON.parse(window.localStorage.getItem('token')); // get firebase
+
                     if (succes) {
-                        const currentUser = firebase.auth().currentUser?.providerData[0];
-                        const customData = {
-                            name: currentUser?.displayName,
-                            image: currentUser?.photoURL,
-                            google: currentUser?.email,
-                            admin: false,
-                        };
-                        const res = await Request.getAllUser().then((datas) => {
-                            return datas.find((data) => {
-                                return data.google === customData.google;
-                            });
-                        });
-                        if (res) {
-                            Request.getdataUser(res.id).then((data) => {
-                                dispatch(getinitialState(data));
-                            });
-                        } else {
-                            Request.post(customData).then((data) => {
-                                const datasUser = {
-                                    id: data.id,
-                                    google: data.google,
-                                    data: {
-                                        watched: [],
-                                        whatLaster: [],
-                                        videoUser: [],
-                                        like: [],
-                                        movie: [],
-                                        listPlay: [],
-                                        notLike: [],
-                                        subscribedChanel: [],
-                                    },
+                        firebase.auth().onAuthStateChanged(function (user) {
+                            if (user) {
+                                // Người dùng đã đăng nhập, bạn có thể truy cập thông tin của người dùng từ user
+                                let customData = {
+                                    name: user?.displayName,
+                                    image: user?.photoURL,
+                                    google: user?.email,
+                                    admin: false,
+                                    isUpdate: false,
                                 };
-                                dispatch(getinitialState(datasUser));
-                                Request.postdataUser(datasUser);
+
+                                dispatch(addUser(customData));
+                                handleCurrentUser(true);
+                                handleLoginFirebase(customData);
+                            } else {
+                                // Không có người dùng đăng nhập
+                                // messageApi.open({
+                                //     type: 'error',
+                                //     className: 'messageErrorr',
+                                //     content: 'Không có người dùng đăng nhập!',
+                                // });
+                            }
+                        });
+
+                        const handleLoginFirebase = async (customData) => {
+                            const res = await Request.getAllUser().then((datas) => {
+                                return datas.find((data) => {
+                                    return data.google === customData.google;
+                                });
                             });
-                        }
-                        console.log(6);
+
+                            if (res) {
+                                Request.getdataUser(res.id).then((data) => {
+                                    dispatch(getinitialState(data));
+                                });
+                            } else {
+                                // them cai khoan
+                                Request.post(customData).then((data) => {
+                                    const datasUser = {
+                                        id: data.id,
+                                        google: data.google,
+                                        data: {
+                                            watched: [],
+                                            whatLaster: [],
+                                            videoUser: [],
+                                            like: [],
+                                            movie: [],
+                                            listPlay: [],
+                                            notLike: [],
+                                            subscribedChanel: [],
+                                        },
+                                    };
+                                    dispatch(getinitialState(datasUser));
+                                    Request.postdataUser(datasUser); // thêm data người dùng
+                                });
+                            }
+                        };
                         // Request.getdataUser(customData).then((data) => {
                     }
                 } catch (error) {
-                    console.log(error, 'lỗi');
+                    messageApi.open({
+                        type: 'error',
+                        className: 'messageErrorr',
+                        content: 'Lỗi',
+                    });
                 }
             };
-            getApi();
+
+            // login lần đầu từ fire base chờ set token
+            const ID_TIME = setTimeout(() => {
+                getApi();
+                clearTimeout(ID_TIME);
+            }, 1000);
         }
-    }, []);
-    useEffect(() => {
-        const boolean = window.localStorage.getItem('Authorization');
+
+        // xử lý với tài khoản được đăng ký
+        const boolean = window.localStorage.getItem('Authorization'); // get khi tài khoản được đăng ký
         if (boolean) {
             setIsCurrentUser(true);
             const getDataUser = async () => {
@@ -301,19 +349,56 @@ function DefaultLauout({ children }) {
 
                     if (id) {
                         const result = await Request.getdataUser(Number(id));
+                        await Request.getId(id).then((data) => {
+                            dispatch(addUser(data));
+                        });
                         dispatch(getinitialState(result));
                     }
                 } catch (error) {
-                    console.log(error, 'lỗi');
+                    messageApi.open({
+                        type: 'error',
+                        className: 'messageErrorr',
+                        content: 'Lỗi đăng nhập',
+                    });
                 }
             };
             getDataUser();
+        } else {
+            handlePathNameVerify('reload');
+            if (width <= 768) {
+                navigate('/');
+            }
         }
     }, []);
+
+    const handlePathNameVerify = (type) => {
+        const getPath = window.location.pathname;
+        var resultFilter = Pathname.filter((el) => el === getPath);
+
+        switch (type) {
+            case 'reload':
+                if (resultFilter.length > 0) {
+                    navigate('/');
+                }
+                break;
+            case 'verify': // phân quyền
+                if (!dataAccount?.admin) {
+                    navigate('/');
+                }
+                break;
+
+            default:
+                break;
+        }
+    };
 
     useEffect(() => {
         const handleResize = () => {
             setWidth(window.innerWidth);
+
+            if (window.innerWidth <= 768) {
+                navigate('/');
+            }
         };
         window.addEventListener('resize', handleResize);
 
@@ -367,11 +452,13 @@ function DefaultLauout({ children }) {
         handleSetItemPlayVideo,
         handleLoadAllVideo,
         setisLoading,
+        messageApi,
     };
 
     return (
         <ThemDefau.Provider value={data}>
             <div className={cx('wrapper')}>
+                {contextMessage}
                 <Loading isLoading={isLoading} />
                 <Header />
                 <div className={cx('container')}>

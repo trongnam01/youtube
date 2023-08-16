@@ -1,0 +1,21 @@
+.container-item-formManagerAccount {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: auto auto;
+}
+.wapper-item-formManagerAccount {
+    flex-direction: column;
+    display: flex;
+    .ant-checkbox-wrapper {
+        // margin-left: 10px;
+    }
+    > div {
+        display: block;
+    }
+}
+.ManageAccount-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}

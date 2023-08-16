@@ -24,7 +24,7 @@ function FormRegister({ setStatus, setIsCheckVerify, setOptCode, setDatAccount, 
             password: '',
             verify: false,
             confirmedPassword: '',
-            image: 'https://scontent.fhan2-2.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=cp0_dst-png_p56x56&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=1Rph2yqJK04AX-m8j8z&_nc_ht=scontent.fhan2-2.fna&oh=00_AT-n9X9vkZyDv847ZcME2tZ_z_-GtKio3Jfp90uSMGVOaQ&oe=63787DF8',
+            image: 'https://scontent.fhan2-5.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=dst-png_p100x100&_nc_cat=1&cb=99be929b-59f725be&ccb=1-7&_nc_sid=2b6aad&_nc_ohc=-tIpWnFaNRwAX9Zid8U&_nc_ht=scontent.fhan2-5.fna&oh=00_AfDYW-OmufrrS8Sub0a29GTmzlQGsdqNls8gN6QluavbHQ&oe=65015CF8',
             admin: false,
             token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMjAzMjAwMSIsIm5hbWUiOiJzYW9zYW9zYW8iLCJpYXQiOjE1MTYyMzkwMjJ9.1q3COK31esbj6pwFrhzZP0RK6_tJsAmClQ9usDZX7a0',
         },
@@ -33,7 +33,7 @@ function FormRegister({ setStatus, setIsCheckVerify, setOptCode, setDatAccount, 
             email: Yup.string()
                 .trim()
                 .required('Vui lòng nhap trường này')
-                .matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Trường phải là Email'),
+                .matches(/^\w+([\\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Trường phải là Email'),
             password: Yup.string().required('Vui lòng nhap trường này').min(8, 'Mật khẩu tối thiểu 8 chữ số '),
             confirmedPassword: Yup.string()
                 .required('Vui lòng nhập trường này')
@@ -57,8 +57,10 @@ function FormRegister({ setStatus, setIsCheckVerify, setOptCode, setDatAccount, 
                         content: 'Email này đã được sử dụng',
                     });
                 } else {
+                    const createDataAccount = await Request.post(values);
+
                     const datasUser = {
-                        id: values.id,
+                        id: createDataAccount.id,
                         email,
                         data: {
                             watched: [],
@@ -71,9 +73,6 @@ function FormRegister({ setStatus, setIsCheckVerify, setOptCode, setDatAccount, 
                             subscribedChanel: [],
                         },
                     };
-
-                    console.log(values, datasUser);
-                    const createDataAccount = await Request.post(values);
                     Request.postdataUser(datasUser);
 
                     if (createDataAccount) {

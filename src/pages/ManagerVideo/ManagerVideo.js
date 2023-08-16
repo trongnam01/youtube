@@ -50,14 +50,7 @@ function ManagerVideo() {
         if (field === 'image') {
             return (
                 <>
-                    <Image
-                        className={cx('imageVideo')}
-                        src={
-                            item.image ||
-                            'https://scontent.fhan2-2.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=cp0_dst-png_p56x56&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=1Rph2yqJK04AX-m8j8z&_nc_ht=scontent.fhan2-2.fna&oh=00_AT-n9X9vkZyDv847ZcME2tZ_z_-GtKio3Jfp90uSMGVOaQ&oe=63787DF8'
-                        }
-                        alt="imageVideo"
-                    />
+                    <Image className={cx('imageVideo')} src={item.image} alt="imageVideo" />
                 </>
             );
         }
@@ -70,14 +63,7 @@ function ManagerVideo() {
                         // onClick={() => handleSetItemPlayVideo(item)}
                         style={{ cursor: 'pointer' }}
                     >
-                        <Image
-                            className={cx('channeImage')}
-                            src={
-                                item.channeImage ||
-                                'https://scontent.fhan2-2.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=cp0_dst-png_p56x56&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=1Rph2yqJK04AX-m8j8z&_nc_ht=scontent.fhan2-2.fna&oh=00_AT-n9X9vkZyDv847ZcME2tZ_z_-GtKio3Jfp90uSMGVOaQ&oe=63787DF8'
-                            }
-                            alt="channeImage"
-                        />
+                        <Image className={cx('channeImage')} src={item.channeImage} alt="channeImage" />
                         {item[field]}
                     </Link>
                 </>

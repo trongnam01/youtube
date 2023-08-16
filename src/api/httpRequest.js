@@ -47,6 +47,14 @@ class HtppRequest {
         const url = `login/${id}`;
         return axiosClient.put(url, params);
     };
+    DeleteAccount = (id) => {
+        const url = `login/${id}`;
+        return axiosClient.delete(url);
+    };
+    DeleteDataAccount = (id) => {
+        const url = `users/${id}`;
+        return axiosClient.delete(url);
+    };
     getdataUser = (id) => {
         const url = `users/${id}`;
         return axiosClient.get(url);

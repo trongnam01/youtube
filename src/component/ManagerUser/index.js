@@ -1,4 +1,4 @@
-import { useContext, useState, forwardRef, useRef } from 'react';
+import { useContext, useState, forwardRef, useRef, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -28,6 +28,11 @@ function ManagerUser(props, ref) {
     const valueManager = useRef();
     const dispatch = useDispatch();
     const current = menuItems[menuItems.length - 1];
+
+    // THAY ĐỔI MENU
+    useEffect(() => {
+        setMenuItems([{ data: items }]);
+    }, [items]);
 
     const handleClick = (item) => () => {
         const { isClick, type, to } = item;
@@ -156,14 +161,14 @@ function ManagerUser(props, ref) {
                                 currentUser && (
                                     <div className={cx('header-menu')}>
                                         <button className={cx('user-avatar')} style={{ width: '40px', height: '40px' }}>
-                                            <Image
-                                                className={cx('avatar')}
-                                                src={
-                                                    props.secletor.image ||
-                                                    'https://scontent.fhan2-2.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=cp0_dst-png_p56x56&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=1Rph2yqJK04AX-m8j8z&_nc_ht=scontent.fhan2-2.fna&oh=00_AT-n9X9vkZyDv847ZcME2tZ_z_-GtKio3Jfp90uSMGVOaQ&oe=63787DF8'
-                                                }
-                                                alt="avatar"
-                                            />
+                                            {props.secletor.image && (
+                                                <Image
+                                                    src={props.secletor.image}
+                                                    alt="avatar"
+                                                    className={cx('avatar')}
+                                                />
+                                            )}
+                                            {!props.secletor.image && <Image alt="avatar" className={cx('avatar')} />}
                                         </button>
                                         <div>
                                             <span>{props.secletor.name}</span>

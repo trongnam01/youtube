@@ -43,7 +43,7 @@ axiosClient.interceptors.request.use(async (config) => {
             window.localStorage.setItem('token', JSON.stringify('succes'));
         }
     } catch (error) {
-        console.log('lỗi');
+        console.log('lỗi get firebase');
     }
     return config;
 });

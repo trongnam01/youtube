@@ -11,6 +11,7 @@ import Login from '~/pages/Login';
 import Whatched from '~/pages/Watched';
 import Channels from '~/pages/Channels';
 import ManagerVideo from '~/pages/ManagerVideo';
+import ManagerAccounts from '~/pages/ManagerAccounts';
 
 export const publicRouters = [
     { path: '/', component: Home },
@@ -26,4 +27,5 @@ export const publicRouters = [
     { path: '/channel/@:channel', component: UserChannel },
     { path: '@:channel/Yourchannel/', component: YourChannel },
     { path: '/quanTriVideo/', component: ManagerVideo },
+    { path: '/quanLyTaiKhoan/', component: ManagerAccounts },
 ];

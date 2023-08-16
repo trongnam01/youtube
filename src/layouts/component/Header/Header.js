@@ -1,7 +1,7 @@
 import Tippy from '@tippyjs/react';
 import classNames from 'classnames/bind';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import 'tippy.js/dist/tippy.css';
 import Image from '~/component/Image';
@@ -9,7 +9,6 @@ import LoginBtn from '~/component/LoginBtn';
 import ManagerUser from '~/component/ManagerUser';
 import { ThemDefau } from '~/layouts/DefaultLayout';
 import images from '../../../assets/images';
-import firebase from 'firebase/compat/app';
 import {
     CreateVideoIcon,
     EllipsisIcon,
@@ -19,19 +18,16 @@ import {
     UserIcon,
     VoiceIcon,
 } from '../../../Icons';
-import Request from '~/api/httpRequest';
 import Search from '../Search';
 import SearchMobile from '../SearchMobile';
 import styles from './Header.module.scss';
-import { addUser } from '~/redux/userSplice';
 
 const cx = classNames.bind(styles);
 
 function Header() {
     const them = useContext(ThemDefau);
-    const { currentUser, handleTongleSideBar, handleCurrentUser, width } = them;
+    const { currentUser, handleTongleSideBar, width } = them;
     const [isSearch, setIsSearchMobi] = useState(false);
-    const dispatch = useDispatch();
     const refHeader = useRef();
 
     // get thông tin đăng nhập
@@ -64,39 +60,6 @@ function Header() {
         };
     }, [width]);
 
-    useEffect(() => {
-        const id = JSON.parse(window.localStorage.getItem('id'));
-        const idTimeout = setTimeout(() => {
-            const succes = JSON.parse(window.localStorage.getItem('token'));
-            if (succes) {
-                const currentUser = firebase.auth().currentUser?.providerData[0];
-                const customData = {
-                    name: currentUser?.displayName,
-                    image: currentUser?.photoURL,
-                    email: currentUser?.email,
-                };
-
-                dispatch(addUser(customData));
-                handleCurrentUser(true);
-            }
-            clearTimeout(idTimeout);
-        }, 1000);
-
-        const fetchData = async () => {
-            if (id) {
-                try {
-                    await Request.getId(id).then((data) => {
-                        dispatch(addUser(data));
-                    });
-                } catch (error) {
-                    console.log('lỗi fetch api');
-                }
-            }
-        };
-        fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     const handleShowSearchMobi = () => {
         setIsSearchMobi(!isSearch);
     };
@@ -128,14 +91,7 @@ function Header() {
                         <SearchIcon />
                     </button>
                     {currentUser ? (
-                        <Image
-                            className={cx('avatar-mobile')}
-                            src={
-                                secletor.image ||
-                                'https://scontent.fhan2-2.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=cp0_dst-png_p56x56&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=1Rph2yqJK04AX-m8j8z&_nc_ht=scontent.fhan2-2.fna&oh=00_AT-n9X9vkZyDv847ZcME2tZ_z_-GtKio3Jfp90uSMGVOaQ&oe=63787DF8'
-                            }
-                            alt="avatar"
-                        />
+                        <Image className={cx('avatar-mobile')} src={secletor.image} alt="avatar" />
                     ) : (
                         <Link to={'/login'}>
                             <UserIcon className={cx('icon-user-mobile')} />
@@ -160,13 +116,8 @@ function Header() {
 
                             <ManagerUser secletor={secletor}>
                                 <button className={cx('user-avatar')}>
-                                    <Image
-                                        src={
-                                            secletor.image ||
-                                            'https://scontent.fhan2-2.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=cp0_dst-png_p56x56&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=1Rph2yqJK04AX-m8j8z&_nc_ht=scontent.fhan2-2.fna&oh=00_AT-n9X9vkZyDv847ZcME2tZ_z_-GtKio3Jfp90uSMGVOaQ&oe=63787DF8'
-                                        }
-                                        alt="avatar"
-                                    />
+                                    {secletor.image && <Image src={secletor.image} alt="avatar" />}
+                                    {!secletor.image && <Image alt="avatar" />}
                                 </button>
                             </ManagerUser>
                         </>
