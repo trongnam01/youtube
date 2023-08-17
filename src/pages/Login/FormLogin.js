@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import 'firebase/compat/auth';
 
 import styles from './Login.module.scss';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Request from '~/api/httpRequest';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -16,10 +16,15 @@ function FormLogin({ setStatus, setIsCheckVerify, setOptCode, setDatAccount, mes
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const emailRef = useRef();
+    const [eyePassWord, setEyePassWord] = useState(false);
 
     useEffect(() => {
         emailRef.current.focus();
     }, []);
+
+    const handleisEyePassword = () => {
+        setEyePassWord((res) => !res);
+    };
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -89,14 +94,17 @@ function FormLogin({ setStatus, setIsCheckVerify, setOptCode, setDatAccount, mes
                 <div className={cx('ground-input')}>
                     <input
                         placeholder="Mật khẩu"
-                        type="text"
                         id="password"
                         name="password"
+                        type={eyePassWord ? 'text' : 'password'}
                         value={formik.values.password}
                         onChange={(event) => {
                             formik.setFieldValue(event.target.name, event.target.value.trim());
                         }}
                     />
+                    <span className={cx('eye')} onClick={handleisEyePassword}>
+                        👁️
+                    </span>
                     {formik.errors.password && formik.touched.password && (
                         <span className={cx('errorMsg')}>{formik.errors.password}</span>
                     )}
