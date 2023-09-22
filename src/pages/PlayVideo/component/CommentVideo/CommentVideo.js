@@ -8,13 +8,14 @@ import MenuComment from '@tippyjs/react/headless';
 import Buttons from '~/component/Buttons';
 import Image from '~/component/Image';
 import { useState } from 'react';
-import ItemCommnet from '../ItemCommnet';
+import ItemComment from '../ItemComment';
 
 const cx = classNames.bind(styles);
 
-function CommentVideo() {
+function CommentVideo({ videoPlay, dataComments }) {
     const [valueInput, setValueInput] = useState('');
     const [showSubmitBtn, setShowSubmitBtn] = useState(false);
+    // console.log(dataComments, 'dataComments');
 
     function handleChangeInput(e) {
         setValueInput(e.target.value);
@@ -23,10 +24,17 @@ function CommentVideo() {
     const classSubmitBtn = cx('submit-btn', {
         classSubmit: valueInput.length > 0,
     });
+
+    const handleFormat = (number) => {
+        const customNumber = Number(number);
+
+        return customNumber.toLocaleString('vi-VN');
+    };
+
     return (
         <div className={cx('wrapper')} style={{ marginBottom: 30 }}>
             <div className={cx('hide-mobile')} style={{ display: 'flex', alignItems: 'center' }}>
-                <span className={cx('comment-qty')}>18 bình luận</span>
+                <span className={cx('comment-qty')}>{handleFormat(videoPlay?.statistics?.commentCount)} bình luận</span>
 
                 <Tippy content={'Sắp xếp bình luận'}>
                     <MenuComment
@@ -84,8 +92,8 @@ function CommentVideo() {
                 </div>
             </div>
             <div className={cx('item-comments')}>
-                <ItemCommnet></ItemCommnet>
-                <ItemCommnet></ItemCommnet>
+                {dataComments.length > 0 &&
+                    dataComments.map((element, index) => <ItemComment key={index} item={element}></ItemComment>)}
             </div>
         </div>
     );

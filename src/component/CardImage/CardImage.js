@@ -14,6 +14,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { ThemDefau } from '~/layouts/DefaultLayout';
 import Image from '../Image';
+import { formatViewCount, handleGetTimeDate, handleGetTimeVideo } from '~/Commonts';
 const cx = classNames.bind(styles);
 
 const MENUiTEM = [
@@ -56,50 +57,48 @@ const MENUiTEM = [
 
 function CrardImage({ item, className, pageNew, register, imageUser, classCustom, registerImg }) {
     const Them = useContext(ThemDefau);
-    const custumTextView = Number.parseInt(item.view);
 
     const handleClickSettting = (e) => {
         e.preventDefault();
         e.stopPropagation();
     };
-
     return (
         <Link
             className={cx('wrapper', className, classCustom)}
-            to={`/watch/@${item.video}`}
+            to={`/watch/@${item.id}`}
             onClick={() => {
                 window.scrollTo(0, 0);
                 Them.handleSetItemPlayVideo(item);
             }}
         >
             <div className={cx('wrapper-content-video')}>
-                <img className={cx('content-video')} src={item.image} alt={item.title} />
+                <img className={cx('content-video')} src={item?.snippet?.thumbnails?.standard.url} alt={item.title} />
 
-                <span className={cx('content-time')}>{item.videoTime}</span>
+                <span className={cx('content-time')}>{handleGetTimeVideo(item.contentDetails.duration)}</span>
             </div>
             <div className={cx('wrapper-content-text')}>
                 <div className={cx('content-title')}>
                     <div
                     // onClick={handleChangeUserChannel}
                     >
-                        <Image className={cx('avatar-user-mobi')} src={item.channeImage} alt={item.title} />
+                        <Image className={cx('avatar-user-mobi')} src={item.channelUrl} alt={item.title} />
                     </div>
                     <div className={cx('first')}>
-                        <p className={cx('first-title')}>{item.title}</p>
+                        <p className={cx('first-title')}>{item?.snippet.title}</p>
 
-                        <span className={cx('first-name')}>{item.userChannel}</span>
+                        <span className={cx('first-name')}>{item.snippet.channelTitle}</span>
                         {!registerImg && (
                             <p className={cx(cx('first-Information'))}>
-                                <span>{custumTextView} N</span>
+                                <span>{formatViewCount(item.statistics.viewCount)} lượt xem</span>
 
-                                <span>{item.videoPostingData}</span>
+                                <span>{handleGetTimeDate(item.snippet.publishedAt)}</span>
                             </p>
                         )}
 
                         {imageUser && (
                             <div className={cx('wrapper-userChanne')}>
-                                <img src={item.channeImage} alt="avatar" />
-                                <span>{item.userChannel}</span>
+                                <img src={item.channelUrl} alt="avatar" />
+                                <span>{item.snippet.channelTitle}</span>
                             </div>
                         )}
 
@@ -117,7 +116,7 @@ function CrardImage({ item, className, pageNew, register, imageUser, classCustom
                             </p>
                         )}
                         {registerImg && (
-                            <img src={item.channeImage} alt={'avatar'} className={cx('image-register-mobi')} />
+                            <img src={item.channelUrl} alt={'avatar'} className={cx('image-register-mobi')} />
                         )}
 
                         <div className={cx('menu-hide')} onClick={handleClickSettting}>

@@ -17,6 +17,8 @@ import { ThemDefau } from '~/layouts/DefaultLayout';
 import styles from './CardHome.module.scss';
 import Video from '~/component/Video';
 import { Link, useNavigate } from 'react-router-dom';
+import moment from 'moment';
+import { formatViewCount, handleGetTimeDate, handleGetTimeVideo } from '~/Commonts';
 
 // import YouTube from 'react-youtube';
 const cx = classNames.bind(styles);
@@ -78,12 +80,12 @@ function CardHome({ item }) {
         const custumName = item.idName;
         navigate(`/channel/@${custumName}`);
     };
-    // console.log(isMou);
     const classes = cx('content-btn', { isTongleSideBar: Them.tongleSideBar });
+
     return (
         <Link
             as={'span'}
-            to={`/watch/@${item.video}`}
+            to={`/watch/@${item.id}`}
             className={cx('wrapper')}
             onClick={() => Them.handleSetItemPlayVideo(item)}
         >
@@ -92,9 +94,14 @@ function CardHome({ item }) {
                 onMouseEnter={handleMOuWraperCrard}
                 onMouseLeave={handleOutWraperCrard}
             >
-                <img className={cx('content-video')} src={item.image} alt={item.title} />
+                <img
+                    className={cx('content-video')}
+                    src={item?.snippet?.thumbnails?.standard.url}
+                    alt={item?.snippet.title}
+                />
+
                 <span className={cx('content-notification')}>Tiếp tục di chuột để phát</span>
-                <span className={cx('content-time')}>{item.videoTime}</span>
+                <span className={cx('content-time')}>{handleGetTimeVideo(item.contentDetails.duration)}</span>
                 <div
                     className={cx('wrapper-scale')}
                     //  onMouseOver={handleMOu} onMouseOut={handleMouseOut}
@@ -105,16 +112,16 @@ function CardHome({ item }) {
                     <div className={cx('wrapper-content-text')}>
                         <div className={cx('content-title')}>
                             <div onClick={handleChangeUserChannel}>
-                                <Image src={item.channeImage} alt={'avata'} className={cx('img-user')} />
+                                <Image src={item.channelUrl} alt={'avata'} className={cx('img-user')} />
                             </div>
                             <div className={cx('first')}>
-                                <p className={cx('first-title')}>{item.title}</p>
+                                <p className={cx('first-title')}>{item?.snippet.title}</p>
 
-                                <span className={cx('first-name')}> {item.userChannel}</span>
+                                <span className={cx('first-name')}> {item.snippet.channelTitle}</span>
                                 <p className={cx('first-Information')}>
-                                    <span>{custumTextView} N</span>
+                                    <span>{formatViewCount(item.statistics.viewCount)} lượt xem</span>
 
-                                    <span>{item.videoPostingData}</span>
+                                    <span>{handleGetTimeDate(item.snippet.publishedAt)}</span>
                                 </p>
                                 <div>
                                     <button className={cx('setting')} onClick={handleClickMenu}>
@@ -134,20 +141,21 @@ function CardHome({ item }) {
                     </div>
                 </div>
             </div>
+
             <div className={cx('wrapper-content-text')}>
                 <div className={cx('content-title')}>
-                    <div onClick={handleChangeUserChannel}>
-                        <Image src={item.channeImage} alt={'avata'} className={cx('img-user')} />
+                    <div onClick={handleChangeUserChannel} className={cx('img-user-wrapper')}>
+                        <Image src={item.channelUrl} alt={' '} className={cx('img-user')} />
                     </div>
 
                     <div className={cx('first')}>
-                        <p className={cx('first-title')}>{item.title}</p>
+                        <p className={cx('first-title')}>{item?.snippet.title}</p>
 
-                        <span className={cx('first-name')}>{item.userChannel}</span>
+                        <span className={cx('first-name')}>{item.snippet.channelTitle}</span>
                         <p className={cx(cx('first-Information'))}>
-                            <span>{custumTextView} N lượt xem</span>
+                            <span>{formatViewCount(item.statistics.viewCount)} lượt xem</span>
 
-                            <span>{item.videoPostingData}</span>
+                            <span>{handleGetTimeDate(item.snippet.publishedAt)}</span>
                         </p>
 
                         <div className={cx('menu-hide')}>

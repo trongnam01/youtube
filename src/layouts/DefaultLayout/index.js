@@ -200,6 +200,7 @@ function DefaultLauout({ children }) {
     const refIndex = useRef(0);
     const [isLoading, setisLoading] = useState(false);
     const [messageApi, contextMessage] = message.useMessage();
+    const refPageToken = useRef('');
 
     const classHiden = cx({ hiden: hideItemShorts });
 
@@ -216,6 +217,7 @@ function DefaultLauout({ children }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [secletor]);
 
+    // set menu header
     useEffect(() => {
         if (iscurrentUser && dataAccount?.admin) {
             const COPPY_MENU_ITEM = [...MENU_ITEM];
@@ -252,12 +254,13 @@ function DefaultLauout({ children }) {
         }
     }, [iscurrentUser, dataAccount]);
 
+    // login tài khoản
     useEffect(() => {
         refIndex.current = refIndex.current + 1;
         if (refIndex.current === 1) {
             const getApi = async () => {
                 try {
-                    handleLoadAllVideo();
+                    // handleLoadAllVideo();
 
                     setIsPut(true);
 
@@ -371,6 +374,7 @@ function DefaultLauout({ children }) {
         }
     }, []);
 
+    // quay lại trang chủ khi out account khi đang ở page phân quyền
     const handlePathNameVerify = (type) => {
         const getPath = window.location.pathname;
         var resultFilter = Pathname.filter((el) => el === getPath);
@@ -400,7 +404,12 @@ function DefaultLauout({ children }) {
                 navigate('/');
             }
         };
+        window.scrollTo(0, 0);
         window.addEventListener('resize', handleResize);
+
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        };
 
         return () => {
             window.removeEventListener('resize', handleResize);
@@ -427,14 +436,37 @@ function DefaultLauout({ children }) {
         setItemVideoPlay(data);
     }
 
-    const handleLoadAllVideo = async function name() {
+    const handleLoadAllVideo = async function name(size = 12) {
         setisLoading(true);
-        const result = await Request.getAll().then((res) => {
+        try {
+            const getChannelIcon = async (element) => {
+                const channelUrl = await Request.getdataChannelID(element.snippet.channelId);
+                element.channelUrl = channelUrl.data.items[0].snippet.thumbnails.default.url;
+            };
+
+            // if (!refPageToken.current && DataApi.length > 0) {
+            //     // khi đã get hết video
+            //     setisLoading(false);
+            //     return;
+            // }
+
+            const result = await Request.getdataApiYoutube(refPageToken.current, size).then((res) => {
+                setisLoading(false);
+
+                refPageToken.current = res.data.nextPageToken;
+
+                res.data.items.forEach((element) => {
+                    getChannelIcon(element, element.snippet.channelId);
+                });
+                return res.data.items || [];
+            });
+
+            setDataApi((res) => [...res, ...result]);
+        } catch (error) {
             setisLoading(false);
 
-            return res;
-        });
-        setDataApi(result);
+            console.log(error, 'error');
+        }
     };
 
     const data = {
@@ -453,6 +485,8 @@ function DefaultLauout({ children }) {
         handleLoadAllVideo,
         setisLoading,
         messageApi,
+        setDataApi,
+        refPageToken,
     };
 
     return (

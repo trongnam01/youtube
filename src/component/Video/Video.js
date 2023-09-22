@@ -25,7 +25,7 @@ function Video({ className, item, opts }) {
     return (
         <div className={cx('wraper')}>
             <YouTube
-                videoId={dataVideo.video}
+                videoId={dataVideo.id}
                 opts={opts}
                 iframeClassName={classes}
                 onStateChange={handleStateChange}

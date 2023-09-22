@@ -6,10 +6,9 @@ import Tabs from '@mui/material/Tabs';
 import { Col, Row } from 'antd';
 import 'antd/dist/antd.css';
 import classNames from 'classnames/bind';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Image from '~/component/Image';
-import moment from 'moment';
 
 import { OpenCommentsIcon } from '~/Icons';
 import { ThemDefau } from '~/layouts/DefaultLayout';
@@ -20,8 +19,12 @@ import CommentVideo from './component/CommentVideo';
 import { useDispatch } from 'react-redux';
 import styles from './PlayVideo.module.scss';
 import './PlayVideo.scss';
+import { debounce } from 'lodash';
+
 import { addView } from '~/redux/dataUserSplice';
 import ActionVideo from './component/ActionVideo';
+import { formatViewCount, handleGetTimeDate } from '~/Commonts';
+import Request from '~/api/httpRequest';
 
 const cx = classNames.bind(styles);
 
@@ -43,39 +46,107 @@ const opts = {
 
 function PlayVideo() {
     const Them = useContext(ThemDefau);
-    const { itemVideoPlay, DataApi, locotion } = Them;
+    const { itemVideoPlay, DataApi, locotion, setisLoading, refPageToken, setDataApi, handleLoadAllVideo } = Them;
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [value, setValue] = useState(0);
     const [colum, setColum] = useState(false);
 
-    const [isshowContent, setIsshowContent] = useState(false);
-    const [videoPlay, setVideoPlay] = useState({});
-    const [datas, setDatas] = useState([DataApi]);
+    const [isShowContent, setIsShowContent] = useState(false);
     const [IsCommentsMobi, setIsCommentsMobi] = useState(false);
+    const [dataComments, setdataComments] = useState([]);
 
-    useEffect(() => {
-        if (!(Object.keys(videoPlay).length === 0)) {
-            dispatch(addView(videoPlay));
+    const videoDetailRef = useRef({});
+    const dataResponCommentRef = useRef({});
+    const dataRequest = useRef({
+        sizeVideo: 30,
+        sizeComment: 22,
+    });
+
+    //
+    const debounGetVideo = debounce(() => handleLoadAllVideo(dataRequest.current.sizeVideo), 300);
+
+    const debounNextPageToken = debounce(() => {
+        // check khi het comments
+        if (dataResponCommentRef.current.nextPageToken) {
+            handleGetComments(videoDetailRef.current, dataResponCommentRef.current.nextPageToken);
         }
-    }, [videoPlay]);
+    }, 300);
 
     useEffect(() => {
-        setDatas(() => {
-            const result = [...DataApi].sort(() => Math.random() - 0.5);
-            return result;
+        const handleScroll = () => {
+            const scrollY = window.scrollY || window.pageYOffset;
+            const visibleHeight = document.documentElement.clientHeight;
+            const totalHeight = document.documentElement.scrollHeight;
+
+            if (scrollY + visibleHeight >= totalHeight - 100 && Object.keys(videoDetailRef.current).length) {
+                setisLoading(true);
+
+                debounGetVideo();
+                debounNextPageToken();
+            }
+        };
+        window.scrollTo(0, 0);
+
+        window.addEventListener('scroll', handleScroll);
+        handleLoadAllVideo(dataRequest.current.sizeVideo);
+
+        // Xóa sự kiện khi unmount component
+        return () => {
+            setDataApi([]);
+            refPageToken.current = '';
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    const handleGetComments = async (element, nextPageToken = '') => {
+        const getComments = await Request.getCommentsVideoDetail(
+            element.id,
+            dataRequest.current.sizeComment,
+            nextPageToken,
+        ).then((res) => {
+            dataResponCommentRef.current = res.data;
+            const custumData = res.data.items.map((el) => el.snippet);
+            setisLoading(false);
+            return custumData;
         });
-        setVideoPlay(() => {
+        setdataComments((res) => [...res, ...getComments]);
+    };
+
+    useEffect(() => {
+        const handleGetDetail = async () => {
             const idVideo = locotion.pathname.slice(8);
-            const result =
-                DataApi.find((item) => {
-                    return item.video === idVideo;
-                }) || [];
-            return itemVideoPlay.length === 0 ? result : itemVideoPlay;
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [DataApi, itemVideoPlay]);
+
+            const getChannelIcon = async (element) => {
+                const channelUrl = await Request.getdataChannelID(element.snippet.channelId);
+                element.channelUrl = channelUrl.data.items[0].snippet.thumbnails.default.url;
+                element.subscriberCount = channelUrl.data.items[0].statistics.subscriberCount;
+            };
+
+            const res = await Request.getdataVideoDetail(idVideo).then((respon) => {
+                let result = respon.data.items[0];
+                getChannelIcon(result);
+                handleGetComments(result);
+                setisLoading(false);
+
+                // get xong lần đầu set lại size khi cuộn cho đều nhau
+                dataRequest.current = {
+                    ...dataRequest.current,
+                    sizeVideo: 20,
+                    sizeComment: 21,
+                };
+
+                return result;
+            });
+
+            videoDetailRef.current = res;
+            dispatch(addView(videoDetailRef.current));
+        };
+        setisLoading(true);
+        handleGetDetail();
+    }, []);
+
     useEffect(() => {
         const number = Them.width;
 
@@ -85,10 +156,11 @@ function PlayVideo() {
             setColum(false);
         }
     }, [Them.width]);
+
     const handleChangeUserChannel = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        const custumName = videoPlay.idName;
+        const custumName = videoDetailRef.current.idName;
         navigate(`/channel/@${custumName}`);
     };
 
@@ -109,53 +181,47 @@ function PlayVideo() {
             default:
         }
     };
-    const handleGetDate = (value) => {
-        if (value && moment(value).isValid()) {
-            console.log(value);
-            return (
-                moment(value).format('DD') +
-                ' ' +
-                'th' +
-                moment(value).format('MM') +
-                ' ' +
-                moment(value).format('YYYY')
-            );
-        }
-    };
+
     return (
         <div className={cx('wrapper', 'wrapper-PLAYVIDEO')}>
             <Row gutter={[24, 16]}>
                 <Col span={colum ? 24 : 16} className={cx('colum-mobile')}>
                     <div className={cx('wrapper-left')}>
                         <div className={cx('wrapper-video')}>
-                            <Video item={itemVideoPlay.length === 0 ? videoPlay : itemVideoPlay} opts={opts} />
+                            <Video
+                                item={itemVideoPlay.length === 0 ? videoDetailRef.current : itemVideoPlay}
+                                opts={opts}
+                            />
                             <div className={cx('wrapper-content')}>
-                                <p className={cx('super-title')}>
-                                    <a href="#">#nonstop2022</a>
-                                    <a href="#">#nhactreremix</a>
-                                    <a href="#">#nhacsanpro</a>
-                                </p>
-                                <h1 className={cx('wraper-content-title')}>{videoPlay.title}</h1>
+                                <h1 className={cx('wraper-content-title')}>{videoDetailRef.current?.snippet?.title}</h1>
                                 <div className={cx('contai-interaction')}>
                                     <p className={cx(cx('first-Information'))}>
-                                        <span>{videoPlay.view} lượt xem</span>
+                                        <span>
+                                            {formatViewCount(videoDetailRef.current?.statistics?.viewCount)} lượt xem
+                                        </span>
 
-                                        <span>{handleGetDate(videoPlay.videoPostingData)}</span>
+                                        <span>{handleGetTimeDate(videoDetailRef.current?.snippet?.publishedAt)}</span>
                                     </p>
-                                    <ActionVideo videoPlay={videoPlay} />
+                                    <ActionVideo videoPlay={videoDetailRef.current} />
                                 </div>
                             </div>
                             <div className={cx('wrapper-information')}>
                                 <div className={cx('contai-channel')}>
                                     <div onClick={handleChangeUserChannel}>
-                                        <Image className={cx('avatar-user')} src={videoPlay.channeImage} alt="avatar" />
+                                        {videoDetailRef.current?.channelUrl && (
+                                            <Image
+                                                className={cx('avatar-user')}
+                                                src={videoDetailRef.current?.channelUrl}
+                                                alt="avatar"
+                                            />
+                                        )}
                                     </div>
                                     <div className={cx('user-channel')}>
                                         <span className={cx('user-name')} onClick={handleChangeUserChannel}>
-                                            {videoPlay.userChannel}
+                                            {videoDetailRef.current?.snippet?.channelTitle}
                                         </span>
                                         <span className={cx('user-subscriber')}>
-                                            {videoPlay.registerChannel} người đăng ký
+                                            {formatViewCount(videoDetailRef.current?.subscriberCount)} người đăng ký
                                         </span>
                                     </div>
 
@@ -171,75 +237,26 @@ function PlayVideo() {
                                 </div>
                                 <div
                                     className={cx('information-content')}
-                                    style={{ height: isshowContent ? 'auto' : '60px' }}
+                                    style={{ height: isShowContent ? 'auto' : '72px' }}
                                 >
                                     <span className={cx('information-content-title')}>
-                                        {videoPlay.title}
+                                        {videoDetailRef.current?.snippet?.title}
                                         <br />
                                     </span>
-                                    <a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbU56S2tIQ1h3d2xNa1ZISGRPZlR3X28zRzlVZ3xBQ3Jtc0tsVEVwMV8tRUdFSE1GZUhNdkRCNVBTbDNKTHRfOW5XTWVEVGJmY0pOWjlSMFc2QjRtUV8tckg0YmZzOTZJdXA5cjI4bzAzVjRHVE5Rd1Fodll1bHB2aDNad25aeWVxR25OWVNETkk0NWEwOFIyTnY0UQ&amp;q=http%3A%2F%2Fbit.ly%2F2YT0dK9&amp;v=JgdXcwuggpU">
-                                        #{videoPlay.userChannel}
-                                    </a>
-                                    <a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbU56S2tIQ1h3d2xNa1ZISGRPZlR3X28zRzlVZ3xBQ3Jtc0tsVEVwMV8tRUdFSE1GZUhNdkRCNVBTbDNKTHRfOW5XTWVEVGJmY0pOWjlSMFc2QjRtUV8tckg0YmZzOTZJdXA5cjI4bzAzVjRHVE5Rd1Fodll1bHB2aDNad25aeWVxR25OWVNETkk0NWEwOFIyTnY0UQ&amp;q=http%3A%2F%2Fbit.ly%2F2YT0dK9&amp;v=JgdXcwuggpU">
-                                        #PhamMinhThanh
-                                    </a>
-                                    <a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbU56S2tIQ1h3d2xNa1ZISGRPZlR3X28zRzlVZ3xBQ3Jtc0tsVEVwMV8tRUdFSE1GZUhNdkRCNVBTbDNKTHRfOW5XTWVEVGJmY0pOWjlSMFc2QjRtUV8tckg0YmZzOTZJdXA5cjI4bzAzVjRHVE5Rd1Fodll1bHB2aDNad25aeWVxR25OWVNETkk0NWEwOFIyTnY0UQ&amp;q=http%3A%2F%2Fbit.ly%2F2YT0dK9&amp;v=JgdXcwuggpU">
-                                        #SMEVN
-                                    </a>
-                                    <br />
-                                    <span className={cx('formatted-string')}>
-                                        ------------------------- <br />
-                                        Đừng quên SUBSCRIBE và nhấn 🔔 để nhận thông báo đầu tiên và cập nhật những sản
-                                        phẩm mới nhất từ Sony Music Entertainment Vietnam nhé! <br />
-                                        🎵 Listen & Stream | Nghe audio "Miền An Nhiên" tại: <br />
-                                        NCT:
-                                    </span>
-                                    <a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbU56S2tIQ1h3d2xNa1ZISGRPZlR3X28zRzlVZ3xBQ3Jtc0tsVEVwMV8tRUdFSE1GZUhNdkRCNVBTbDNKTHRfOW5XTWVEVGJmY0pOWjlSMFc2QjRtUV8tckg0YmZzOTZJdXA5cjI4bzAzVjRHVE5Rd1Fodll1bHB2aDNad25aeWVxR25OWVNETkk0NWEwOFIyTnY0UQ&amp;q=http%3A%2F%2Fbit.ly%2F2YT0dK9&amp;v=JgdXcwuggpU">
-                                        http://bit.ly/2YT0dK9
-                                    </a>
-                                    <br />
-                                    <span>-------------------------</span>
-                                    <br />
-                                    <span>
-                                        © Bản quyền thuộc về SME <br />
-                                        © Bản Việt hóa thuộc về SMEVN <br /> © Copyright by SMEVN ☞ Do not Re-up!
-                                    </span>
-                                    <br />
-                                    <span style={{ display: 'block', marginTop: '15px' }}></span>
-                                    <span>
-                                        ►Fanpage:{' '}
-                                        <a href="https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqazQ2ZkNwUElGbXB3bC1SdkVhMkRDQkI1NGNSd3xBQ3Jtc0ttSTlMbkgwUUowa1RhMDhqdmwyaU11Y0ttTTFxdnpqamdkMi14OVM4U0dBR21BbmZHQ1pUZVBQTVh5SnFKUk1mVGVSR3QyUFpGcXJvWFVCRUFBUlIyVzZ6OWlHYWs3bnVmNU03WXgwb3E2UzZ6SktlSQ&q=https%3A%2F%2Fwww.facebook.com%2FSonyMusicEnt..&v=JgdXcwuggpU">
-                                            {' '}
-                                            https://www.facebook.com/SonyMusicEnt..
-                                        </a>
-                                    </span>{' '}
-                                    <br />
-                                    <span>
-                                        ►Instagram:
-                                        <a href="https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqazQ2ZkNwUElGbXB3bC1SdkVhMkRDQkI1NGNSd3xBQ3Jtc0ttSTlMbkgwUUowa1RhMDhqdmwyaU11Y0ttTTFxdnpqamdkMi14OVM4U0dBR21BbmZHQ1pUZVBQTVh5SnFKUk1mVGVSR3QyUFpGcXJvWFVCRUFBUlIyVzZ6OWlHYWs3bnVmNU03WXgwb3E2UzZ6SktlSQ&q=https%3A%2F%2Fwww.facebook.com%2FSonyMusicEnt..&v=JgdXcwuggpU">
-                                            {' '}
-                                            https://www.facebook.com/SonyMusicEnt..
-                                        </a>
-                                    </span>
-                                    <br />
-                                    <span>
-                                        ►YouTube:
-                                        <a href="https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqazQ2ZkNwUElGbXB3bC1SdkVhMkRDQkI1NGNSd3xBQ3Jtc0ttSTlMbkgwUUowa1RhMDhqdmwyaU11Y0ttTTFxdnpqamdkMi14OVM4U0dBR21BbmZHQ1pUZVBQTVh5SnFKUk1mVGVSR3QyUFpGcXJvWFVCRUFBUlIyVzZ6OWlHYWs3bnVmNU03WXgwb3E2UzZ6SktlSQ&q=https%3A%2F%2Fwww.facebook.com%2FSonyMusicEnt..&v=JgdXcwuggpU">
-                                            {' '}
-                                            https://www.facebook.com/SonyMusicEnt..
-                                        </a>
+                                    <span className={cx('information-content_description')}>
+                                        {videoDetailRef.current?.snippet?.description}
                                     </span>
                                 </div>
                                 <button
                                     className={cx('isShow-content-btn')}
-                                    onClick={() => setIsshowContent(!isshowContent)}
+                                    onClick={() => setIsShowContent(!isShowContent)}
                                 >
-                                    {isshowContent ? 'ẩn bới' : 'hiện thêm'}
+                                    {isShowContent ? 'ẩn bới' : 'hiện thêm'}
                                 </button>
                             </div>
 
                             <div className={cx('comment-dellTop')}>
-                                <CommentVideo />
+                                <CommentVideo videoPlay={videoDetailRef.current} dataComments={dataComments} />
                             </div>
                             {IsCommentsMobi && (
                                 <div className={cx('comment-mobile')}>
@@ -254,7 +271,10 @@ function PlayVideo() {
                                             </div>
                                         </div>
                                         <div className={cx('comments')}>
-                                            <CommentVideo />
+                                            <CommentVideo
+                                                dataComments={dataComments}
+                                                videoPlay={videoDetailRef.current}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -280,7 +300,7 @@ function PlayVideo() {
                                 </Tabs>
                             </Box>
                             <TabPanel value={value} index={0}>
-                                {datas.map((item, index) => {
+                                {DataApi.map((item, index) => {
                                     return <CardImage key={index} item={item} classCustom={cx('card-PLAYVIDEO')} />;
                                 })}
                             </TabPanel>

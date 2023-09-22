@@ -22,6 +22,7 @@ import { addLike, addNotLike, removeLike, removeNotLike } from '~/redux/dataUser
 
 import styles from '../../PlayVideo.module.scss';
 import '../../PlayVideo.scss';
+import { formatViewCount } from '~/Commonts';
 
 const cx = classNames.bind(styles);
 
@@ -74,7 +75,7 @@ function ActionVideo({ videoPlay }) {
             <Tippy content={isLike ? 'Bỏ thích' : 'Tôi thích video này'}>
                 <div className={cx('frame')} onClick={handleClickIsLike('like')}>
                     <button>{isLike ? <LikeActiveIcon /> : <LikeIcon />}</button>
-                    <span>{videoPlay.like}</span>
+                    <span>{formatViewCount(videoPlay?.statistics?.likeCount)}</span>
                 </div>
             </Tippy>
             <Tippy content={isNotLike ? 'Bỏ không thích' : 'Tôi không video này'}>

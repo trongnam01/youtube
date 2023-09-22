@@ -46,9 +46,34 @@
     .frame-icon {
         padding: 8px;
         cursor: pointer;
+        display: flex;
         button {
             cursor: pointer;
         }
+        span {
+            display: inline-block;
+            margin-right: 8px;
+            font-family: 'Roboto', 'Arial', sans-serif;
+            font-size: 1.2rem;
+            line-height: 1.8rem;
+            font-weight: 400;
+        }
+    }
+}
+.btn-itemReplyCount {
+    font-size: 14px;
+    line-height: 36px;
+    color: #065fd4;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 2px 10px;
+    &:hover {
+        background-color: #ebf2fbd4;
+        border-radius: 30px;
+    }
+
+    svg {
+        margin-right: 5px;
     }
 }
 .frame-icon:first-child {

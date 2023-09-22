@@ -9,13 +9,11 @@ import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
-        <Globalstyle>
-            <Provider store={store}>
-                <App />
-            </Provider>
-        </Globalstyle>
-    </React.StrictMode>,
+    <Globalstyle>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </Globalstyle>,
 );
 
 // If you want to start measuring performance in your app, pass a function

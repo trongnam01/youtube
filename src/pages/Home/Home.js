@@ -10,6 +10,7 @@ import { Col, Row } from 'antd';
 import 'antd/dist/antd.css';
 import './Home.scss';
 import Request from '~/api/httpRequest';
+import { debounce } from 'lodash';
 
 // import Duration from './Duration';
 const cx = classNames.bind(styles);
@@ -78,28 +79,34 @@ export function a11yProps(index: number) {
 
 function Home() {
     const Them = useContext(ThemDefau);
-    const { width, setisLoading } = Them;
+    const { width, DataApi, handleLoadAllVideo, setisLoading, setDataApi, refPageToken } = Them;
     const [value, setValue] = useState(0);
-    const [data, setData] = useState([]);
     const refTabs = useRef();
 
-    const ref = useRef(0);
+    const debouncedLoadMore = debounce(handleLoadAllVideo, 300);
 
     useEffect(() => {
-        ref.current = ref.current + 1;
+        const handleScroll = () => {
+            const scrollY = window.scrollY || window.pageYOffset;
+            const visibleHeight = document.documentElement.clientHeight;
+            const totalHeight = document.documentElement.scrollHeight;
 
-        if (ref.current === 1) {
-            const getApi = async () => {
-                try {
-                    const datas = await Request.getAll();
-                    const ressult = [...datas].sort(() => Math.random() - 0.5);
-                    setData(ressult);
-                } catch (error) {
-                    console.log(error, 'lỗi');
-                }
-            };
-            getApi();
-        }
+            if (scrollY + visibleHeight >= totalHeight - 100) {
+                setisLoading(true);
+                debouncedLoadMore();
+            }
+        };
+        window.scrollTo(0, 0);
+
+        window.addEventListener('scroll', handleScroll);
+
+        // Xóa sự kiện khi unmount component
+        return () => {
+            setDataApi([]);
+            refPageToken.current = '';
+
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, []);
 
     useEffect(() => {
@@ -126,12 +133,8 @@ function Home() {
     }, [width]);
 
     useEffect(() => {
-        setisLoading(true);
-
-        if (data.length > 0) {
-            setisLoading(false);
-        }
-    }, [data]);
+        handleLoadAllVideo();
+    }, []);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -173,7 +176,7 @@ function Home() {
                 {ItemHeaderSideBar.map((item, index) => {
                     return (
                         <TabPanel key={index} value={value} index={index} className={cx('contai-content')}>
-                            <TabsHome index={index} datas={data} />
+                            <TabsHome index={index} DataApi={DataApi} />
                         </TabPanel>
                     );
                 })}
@@ -181,7 +184,7 @@ function Home() {
         </div>
     );
 }
-function TabsHome({ index, datas }) {
+function TabsHome({ index, DataApi }) {
     const Them = useContext(ThemDefau);
     const [colum, setColum] = useState();
     useEffect(() => {
@@ -213,7 +216,7 @@ function TabsHome({ index, datas }) {
 
     switch (index) {
         case 0:
-            return <Tabs items={datas} />;
+            return <Tabs items={DataApi} />;
         case 2:
             break;
     }

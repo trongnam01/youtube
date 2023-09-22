@@ -166,7 +166,6 @@
     line-height: 1.6rem;
 }
 .information-content {
-    margin-left: 60px;
     height: 60px;
     overflow: hidden;
     a {
@@ -177,6 +176,20 @@
         // &:hover {
         //     text-decoration: revert;
         // }
+    }
+    font-family: 'Roboto', 'Arial', sans-serif;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    font-weight: 400;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.05);
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    .information-content_description {
+        padding-right: 51%;
+        display: flex;
     }
 }
 .information-content-title {
@@ -194,7 +207,6 @@
     white-space: pre-wrap;
 }
 .isShow-content-btn {
-    margin-top: 8px;
     text-transform: uppercase;
     font-family: 'Roboto', 'Arial', sans-serif;
     font-size: 1.2rem;
@@ -202,7 +214,7 @@
     font-weight: 500;
     color: #606060;
     display: flex;
-    margin-left: 60px;
+    margin-left: 10px;
     width: 80px;
     cursor: pointer;
     padding: 4px 0;
